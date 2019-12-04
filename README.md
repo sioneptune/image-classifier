@@ -1,4 +1,4 @@
-# Projet Traitement Images et Vidéos
+# Image classifier project
 
 ## Specifications
 * 1 file READ_ME
