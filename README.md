@@ -1,6 +1,6 @@
-#Projet Traitement Images et Vidéos
+# Projet Traitement Images et Vidéos
 
-##Cahier des charges
+## Cahier des charges
 * 1 file READ_ME
 Explains the method used + performance results: rate of success, quality of
 extraction, cases of failure...
@@ -8,11 +8,11 @@ extraction, cases of failure...
 drawings) from the base
 o For each snippet: 1 .png file + 1 .txt description file
 
-###Files names:
+### Files names:
 image file: iconeID\_scripterNumber\_pageNumber\_row_column.png
 description file: iconeID\_scripterNumber\_pageNumber\_row_column.txt
 
-###Contents of description file:
+### Contents of description file:
 \# free comment (group name, year...) (other comment lines allowed)
 ```label <labelName>
 form <formNumber=scripterNumberpageNumber>
@@ -23,7 +23,7 @@ column <columnNumber>
 size <small/medium/large (or nothing if size not extracted)>
 ```
 
-###Example
+### Example
 fire\_000\_02\_1\_2.png
 fire\_000\_02\_1_2.txt containing
 \# .................
@@ -36,13 +36,13 @@ column 2
 size medium
 ```
 
-###Notes
+### Notes for the project
 • Do not keep the square border of the drawings
 • Keep all information from the original drawing: snippet = sub-images extracted
 from non-modified original color images.
 
 
-##NOTES
+## NOTES
 Eliminer les images qui se finissent par "22.png"
 Se servir des mires pour repositionner l'image
 Le binaire ne sert à rien : on utilise le nom de l'image directement
