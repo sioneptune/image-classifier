@@ -1,20 +1,21 @@
 # Projet Traitement Images et Vidéos
 
-## Cahier des charges
+## Specifications
 * 1 file READ_ME
 Explains the method used + performance results: rate of success, quality of
 extraction, cases of failure...
 * 1 data directory containing the set of all snippets (mini-images of extracted
 drawings) from the base
-o For each snippet: 1 .png file + 1 .txt description file
+	* For each snippet: 1 .png file + 1 .txt description file
 
-### Files names:
-image file: iconeID\_scripterNumber\_pageNumber\_row_column.png
-description file: iconeID\_scripterNumber\_pageNumber\_row_column.txt
+### Files names
+image file: *iconeID\_scripterNumber\_pageNumber\_row_column.png*  
+description file: *iconeID\_scripterNumber\_pageNumber\_row_column.txt*
 
-### Contents of description file:
-\# free comment (group name, year...) (other comment lines allowed)
-```label <labelName>
+### Contents of description file
+```
+# free comment (group name, year...) (other comment lines allowed)
+label <labelName>
 form <formNumber=scripterNumberpageNumber>
 scripter <scripterNumber>
 page <pageNumber>
@@ -24,10 +25,11 @@ size <small/medium/large (or nothing if size not extracted)>
 ```
 
 ### Example
-fire\_000\_02\_1\_2.png
-fire\_000\_02\_1_2.txt containing
-\# .................
-```label fire
+*fire\_000\_02\_1\_2.png*  
+*fire\_000\_02\_1_2.txt containing*
+```
+# .................
+label fire
 form 00002
 scripter 000
 page 02
@@ -36,13 +38,19 @@ column 2
 size medium
 ```
 
-### Notes for the project
-• Do not keep the square border of the drawings
-• Keep all information from the original drawing: snippet = sub-images extracted
+### Notes about specifications
+* Do not keep the square border of the drawings
+* Keep all information from the original drawing: snippet = sub-images extracted
 from non-modified original color images.
 
 
-## NOTES
-Eliminer les images qui se finissent par "22.png"
-Se servir des mires pour repositionner l'image
-Le binaire ne sert à rien : on utilise le nom de l'image directement
+
+## Steps of the project
+1. Identify the cross targets
+2. Scale and rotate the images ==> they all have the main elements at the same position
+3. To be defined more precisely: identify the legends and crope the images
+4. Do something for the wrongly scanned images
+
+## Notes
+* Binary code is useless: it refers the name of the image.  
+* Images whose name finish by "*-22.png*" are useless (only text).
