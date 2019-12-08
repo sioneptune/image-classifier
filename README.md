@@ -1,5 +1,12 @@
 # Image classifier project
 
+## Good practices
+**Coding conventions in C++:**
+http://manual.gromacs.org/documentation/5.1-current/dev-manual/naming.html#id1
+
+**Commit conventions:**
+https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type
+
 ## Specifications
 * 1 file READ_ME
 Explains the method used + performance results: rate of success, quality of

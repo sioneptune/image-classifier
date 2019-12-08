@@ -11,7 +11,7 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 add_executable(Image-Classifier
         include/histogram.hpp
         src/histogram.cpp
-        src/main.cpp)
+        src/main.cpp src/square_detection.cpp include/square_detection.hpp src/tools.cpp include/tools.hpp)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})
 

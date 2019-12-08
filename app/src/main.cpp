@@ -8,12 +8,12 @@ using namespace std;
 using namespace cv;
 
 #include "histogram.hpp"
-
+#include "tools.hpp"
 
 int main(void) {
 
     //charge et affiche l'image (� MODIFIER) :
-    string imName = "../Lenna.png";
+    string imName = "../../../data/Lenna.png";
     Mat im = imread(imName); // FIXME imread opens in BGR !
     if (im.data == nullptr) {
         cerr << "Image not found: " << imName << endl;
@@ -60,8 +60,8 @@ int main(void) {
     }
 
     //ROI
-    Rect roi = Rect(240, 245, 130, 40);
-    Mat roiImg = Mat(channelThreshed, roi);
+    //Rect roi = Rect(240, 245, 130, 40);
+    Mat roiImg = regionOfInterest(channelThreshed, Point(240,245), Point(240+130, 245+40));
     imshow("roi", roiImg);
 
     //Save img
