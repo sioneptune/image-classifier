@@ -1,9 +1,9 @@
-#include "square_detection.hpp"
+#include "square_detector.hpp"
 
 int thresh = 50, N = 11;
 const char* wndname = "Square Detection Demo";
 
-static double angle( Point pt1, Point pt2, Point pt0 )
+double SquareDetector::angle( const Point& pt1, const Point& pt2, const Point& pt0 )
 {
     double dx1 = pt1.x - pt0.x;
     double dy1 = pt1.y - pt0.y;
@@ -13,7 +13,7 @@ static double angle( Point pt1, Point pt2, Point pt0 )
 }
 
 // returns sequence of squares detected on the image.
-static void findSquares( const Mat& image, vector<vector<Point> >& squares )
+void SquareDetector::findSquares( const Mat& image, vector<vector<Point>>& squares, const int thresh, const int N )
 {
     squares.clear();
 
@@ -57,11 +57,11 @@ static void findSquares( const Mat& image, vector<vector<Point> >& squares )
             vector<Point> approx;
 
             // test each contour
-            for( size_t i = 0; i < contours.size(); i++ )
+            for(const auto & contour : contours)
             {
                 // approximate contour with accuracy proportional
                 // to the contour perimeter
-                approxPolyDP(contours[i], approx, arcLength(contours[i], true)*0.02, true);
+                approxPolyDP(contour, approx, arcLength(contour, true)*0.02, true);
 
                 // square contours should have 4 vertices after approximation
                 // relatively large area (to filter out noisy contours)
@@ -95,12 +95,12 @@ static void findSquares( const Mat& image, vector<vector<Point> >& squares )
 
 
 // the function draws all the squares in the image
-static void drawSquares( Mat& image, const vector<vector<Point> >& squares )
+void SquareDetector::drawSquares( Mat& image, const vector<vector<Point>>& squares )
 {
-    for( size_t i = 0; i < squares.size(); i++ )
+    for(const auto & square : squares)
     {
-        const Point* p = &squares[i][0];
-        int n = (int)squares[i].size();
+        const Point* p = &square[0];
+        int n = (int)square.size();
         polylines(image, &p, &n, 1, true, Scalar(0,255,0), 3, LINE_AA);
     }
 
@@ -109,10 +109,10 @@ static void drawSquares( Mat& image, const vector<vector<Point> >& squares )
     imshow(wndname, image);
 }
 
-
 int _main(int argc, char** argv)
 {
-    static const char* names[] = { "../../../data/00000.png", "../../../data/00000_rotate.png",  0 };
+    static const char* names[] = { "../../../data/00000.png", "../../../data/00000_rotate.png",  nullptr };
+    SquareDetector sd;
 
     if( argc > 1)
     {
@@ -122,7 +122,7 @@ int _main(int argc, char** argv)
 
     vector<vector<Point> > squares;
 
-    for( int i = 0; names[i] != 0; i++ )
+    for( int i = 0; names[i] != nullptr; i++ )
     {
         string filename = names[i];
         Mat image = imread(filename, IMREAD_COLOR);
@@ -132,8 +132,8 @@ int _main(int argc, char** argv)
             continue;
         }
 
-        findSquares(image, squares);
-        drawSquares(image, squares);
+        sd.findSquares(image, squares);
+        sd.drawSquares(image, squares);
 
         int c = waitKey();
         if( c == 27 )
