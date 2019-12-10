@@ -11,6 +11,7 @@
 using namespace cv;
 using namespace std;
 
+// From: https://github.com/opencv/opencv/blob/master/samples/cpp/squares.cpp
 class SquareDetector {
 
     /**
@@ -21,12 +22,28 @@ class SquareDetector {
      * @param pt0 origin of the two vectors
      * @return cosine of vectors pt0->pt1 and pt0->pt2
      */
-    static double angle(const Point& pt1, const Point& pt2, const Point& pt0);
+    static double angle(const Point &pt1, const Point &pt2, const Point &pt0);
 
-    public:
-        static void findSquares(const Mat &image, vector<vector<Point>> &squares, const int thresh = 50, const int N =11);
+public:
 
-        static void drawSquares(Mat &image, const vector<vector<Point>> &squares);
+    /**
+     * Finds squares inside an image
+     *
+     * @param image in which we want to find squares
+     * @param squares: filled with vectors of Point, representing vectors of the squares found during the process
+     * @param N number of threshold levels to try in order to detect contours and squares. The bigger the more precise.
+     *        Default = 11.
+     */
+    static void findSquares(const Mat &image, vector<vector<Point>> &squares, const int N = 11);
+
+    /**
+     * Draws squares on given image, and displays this image with highlighted squares
+     *
+     * @param image containing squares (described in @param squares), on which squares will be drawn.
+     * @param squares in @param image
+     */
+    static void drawSquares(Mat &image, const vector<vector<Point>> &squares);
 
 };
+
 #endif //IMAGE_CLASSIFIER_SQUARE_DETECTOR_HPP
