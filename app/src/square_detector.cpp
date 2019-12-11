@@ -10,7 +10,7 @@ double SquareDetector::angle(const Point &pt1, const Point &pt2, const Point &pt
 }
 
 
-void SquareDetector::findSquares(const Mat &image, vector<vector<Point>> &squares, const int N) {
+void SquareDetector::findSquares(const Mat &image, vector<Square> &squares, const int N) {
     squares.clear();
 
     Mat pyr, timg, gray0(image.size(), CV_8U), gray;
@@ -40,16 +40,11 @@ void SquareDetector::findSquares(const Mat &image, vector<vector<Point>> &square
         }
 
         // find contours and store them all as a list
-        // TODO: https://stackoverflow.com/questions/37160143/how-can-i-extract-internal-contours-holes-with-python-opencv
-        // https://docs.opencv.org/3.4/d9/d8b/tutorial_py_contours_hierarchy.html
-        // https://docs.opencv.org/4.1.1/d3/dc0/group__imgproc__shape.html#ga819779b9857cc2f8601e6526a3a5bc71
-        findContours(gray, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-        for(int i = 0; i<15; i++) {
-            cout << contours[i] << endl;
-        }
+        findContours(gray, contours, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
 
         vector<Point> approx;
+
+        SquareDetector::selectContours(contours);
 
         // test each contour
         for (const auto &contour : contours) {
@@ -80,20 +75,92 @@ void SquareDetector::findSquares(const Mat &image, vector<vector<Point>> &square
     }
 }
 
+void SquareDetector::selectContours(vector<Square> &contours) {
+    contours.erase(remove_if(
+            contours.begin(), contours.end(),
+            [](const auto c) {
+                const double area = contourArea(c, false);
+                return (area > 250 * 250) || (area < 230 * 230);
+            }), contours.end());
+}
 
-void SquareDetector::drawSquares(Mat &image, const vector<vector<Point>> &squares, const string wndname) {
+
+bool SquareDetector::sortN(const Point &a, const Point &b) {
+    return atan2(a.x, b.y) < atan2(b.x, b.y);
+}
+
+bool sortInnerTopLeft(const Square &sa, const Square &sb) {
+    return sa[1].x > sb[1].x;
+}
+
+
+void SquareDetector::selectSquares(vector<Square> &squares) {
+    // keep only squares with the right width
+//    squares.erase(remove_if(
+//            squares.begin(), squares.end(),
+//            [](const auto square) {
+//                const int width = abs(square[0].x - square[2].x);
+//                return (width > 240) || (width < 230);
+//            }), squares.end());
+
+    // sort points in each square to be sure to have the same order
+    for (auto square: squares)
+        sort(square.begin(), square.end(), sortN);
+
+    // sort squares by top-left vertice
+    sort(squares.begin(), squares.end(), [](auto sa, auto sb) { return sa[1].x < sb[1].x; } );
+
+    // group squares close from each other: 5 lists of squares near each other
+    vector<vector<Square>> closeSquares = vector<vector<Square>>(5);
+    Point previousTopLeft = squares[0][1];
+    int groupCount = 0;
+
+    for(auto square : squares) {
+        // check if current square isn't near previous one
+        if (previousTopLeft.x < (square[1].x + SIZE_CHANGING_SQUARE)) {
+            closeSquares[groupCount].push_back(square);
+        } else {
+            // Current square is at more than SIZE_CHANGING_SQUARE, it means it belongs to the next group
+            groupCount++;
+        }
+    }
+
+    for(auto group : closeSquares) {
+        cout << group.size() << endl;
+    }
+
+    vector<Square> singleSquares;
+
+    for(auto group: closeSquares) {
+        sort(group.begin(), group.end(), sortInnerTopLeft);
+        singleSquares.push_back(group[0]);
+    }
+
+    squares = singleSquares;
+}
+
+
+/// Function used only to draw squares in the right order
+void sortClockwiseFromN(Square square) {
+    swap(square[2], square[3]);
+}
+
+void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, const string wndname) {
     RNG rng;
-    for (const auto &square : squares) {
+    for (auto &square : squares) {
+        sortClockwiseFromN(square);
         const Point *p = &square[0];
         int n = square.size();
         //polylines(image, &p, &n, 1, true, Scalar(0, 255, 0), 3, LINE_AA);
-        polylines(image, &p, &n, 1, true, Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255)), 3, LINE_AA);
+        polylines(image, &p, &n, 1, true, Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3,
+                  LINE_AA);
     }
 
     namedWindow(wndname, WINDOW_NORMAL);
     resizeWindow(wndname, 600, 600);
     imshow(wndname, image);
 }
+
 
 
 int main(int argc, char **argv) {
@@ -105,7 +172,7 @@ int main(int argc, char **argv) {
         names[1] = "0";
     }
 
-    vector<vector<Point> > squares;
+    vector<Square> squares;
 
     for (int i = 0; names[i] != nullptr; i++) {
         string filename = names[i];
@@ -116,8 +183,17 @@ int main(int argc, char **argv) {
         }
 
         SquareDetector::findSquares(image, squares);
-        imshow("One square", regionOfInterest(image, squares[0][0], squares[0][2]));
+        cout << squares.size() << endl;
+        SquareDetector::selectSquares(squares);
+        cout << squares.size() << endl;
+
+        //imshow("One square", regionOfInterest(image, squares[99][0], squares[99][2]));
         SquareDetector::drawSquares(image, squares);
+
+        for (int j = 0; j < squares.size(); j++) {
+            saveImg("../../../data/icons/icon" + to_string(j) + ".png",
+                    regionOfInterest(image, squares[j][0], squares[j][2]));
+        }
 
         int c = waitKey();
         if (c == 27)

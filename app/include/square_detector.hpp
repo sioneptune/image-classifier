@@ -11,6 +11,9 @@
 using namespace cv;
 using namespace std;
 
+#define SIZE_CHANGING_SQUARE 150
+typedef vector<Point> Square;
+
 // From: https://github.com/opencv/opencv/blob/master/samples/cpp/squares.cpp
 class SquareDetector {
 
@@ -23,6 +26,17 @@ class SquareDetector {
      * @return cosine of vectors pt0->pt1 and pt0->pt2
      */
     static double angle(const Point &pt1, const Point &pt2, const Point &pt0);
+
+    /**
+     * Removes some of the contours to keep only useful ones and reduce the number of operations done. Criteria based on
+     * contour's area
+     */
+    static void selectContours(vector<vector<Point>> &contours);
+
+    /**
+     * Sorting method that will sort a square in a N : [bottom-left, top-left, bottom-rigth, top-rigth]
+     */
+    static bool sortN(const Point &a, const Point &b);
 
 public:
 
@@ -46,6 +60,8 @@ public:
      * @param wndname: name given to the window that will display image with squares drawn on it. Default = "Squares Detected".
      */
     static void drawSquares(Mat &image, const vector<vector<Point>> &squares, const string wndname="Squares Detected");
+
+    static void selectSquares(vector<vector<Point>> &squares);
 
 };
 
