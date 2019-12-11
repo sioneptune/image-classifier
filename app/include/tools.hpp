@@ -3,11 +3,13 @@
 
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
+#include "opencv2/imgcodecs.hpp"
 
 using namespace cv;
-
-Mat regionOfInterest(const Mat& img, int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight);
+using namespace std;
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bottomRight);
+
+void saveImg(const string name, const Mat& img);
 
 #endif //IMAGE_CLASSIFIER_TOOLS_HPP
