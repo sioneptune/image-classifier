@@ -12,4 +12,6 @@ Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bott
 
 void saveImg(const string name, const Mat& img);
 
+Mat openImage(const String path);
+
 #endif //IMAGE_CLASSIFIER_TOOLS_HPP
