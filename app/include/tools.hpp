@@ -6,8 +6,8 @@
 
 using namespace cv;
 
-Mat regionOfInterest(const Mat img, const int xTopLeft, const int yTopLeft, const int xBottomRight, const int yBottomRight);
+Mat regionOfInterest(const Mat& img, int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight);
 
-Mat regionOfInterest(const Mat img, const Point2i topLeft, const Point2i bottomRight);
+Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bottomRight);
 
 #endif //IMAGE_CLASSIFIER_TOOLS_HPP

@@ -69,7 +69,7 @@ int main(void) {
     compression_params.push_back(IMWRITE_PNG_COMPRESSION);
     compression_params.push_back(9);
 
-    imwrite("../Lenneys.png", roiImg, compression_params);
+    imwrite("../../../data/Lenneys.png", roiImg, compression_params);
 
     //termine le programme lorsqu'une touche est frappee
     waitKey(0);
