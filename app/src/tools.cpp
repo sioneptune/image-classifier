@@ -23,6 +23,17 @@ void saveImg(const string name, const Mat& img) {
 
     imwrite(name, img);
 }
+
+void saveImgDesc(const string name, const Drawing& d) {
+    ofstream file (name);
+    if (file.is_open())
+    {
+        file << d;
+        file.close();
+    }
+    else cerr << "Unable to open file";
+}
+
 Mat openImage(const String path) {
     Mat image = imread(path);
     if (image.data == nullptr) {
