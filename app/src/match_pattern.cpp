@@ -4,24 +4,24 @@
 
 using namespace cv;
 
-Mat accident = openImage("../models/Accident.png");
-Mat bomb = openImage("../models/Bomb.png");
-Mat car = openImage("../models/Car.png");
-Mat casualty = openImage("../models/Casualty.png");
-Mat electricity = openImage("../models/Electricity.png");
-Mat fire = openImage("../models/Fire.png");
-Mat fire_brigade =  openImage("../models/Fire_brigade.png");
-Mat flood = openImage("../models/Flood.png");
-Mat gas = openImage("../models/Gas.png");
-Mat injury =  openImage("../models/Injury.png");
-Mat paramedics = openImage("../models/Paramedics.png");
-Mat person = openImage("../models/Person.png");
-Mat police  = openImage("../models/Police.png");
-Mat road_block = openImage("../models/Road_block.png");
+Mat accident = openImage("../../data/patterns/Accident.png");
+Mat bomb = openImage("../../data/patterns/Bomb.png");
+Mat car = openImage("../../data/patterns/Car.png");
+Mat casualty = openImage("../../data/patterns/Casualty.png");
+Mat electricity = openImage("../../data/patterns/Electricity.png");
+Mat fire = openImage("../../data/patterns/Fire.png");
+Mat fire_brigade =  openImage("../../data/patterns/Fire_brigade.png");
+Mat flood = openImage("../../data/patterns/Flood.png");
+Mat gas = openImage("../../data/patterns/Gas.png");
+Mat injury =  openImage("../../data/patterns/Injury.png");
+Mat paramedics = openImage("../../data/patterns/Paramedics.png");
+Mat person = openImage("../../data/patterns/Person.png");
+Mat police  = openImage("../../data/patterns/Police.png");
+Mat road_block = openImage("../../data/patterns/Road_block.png");
 
-Mat large = openImage("../models/large.png");
-Mat medium = openImage("../models/medium.png");
-Mat small = openImage("../models/small.png");
+Mat large = openImage("../../data/patterns/large.png");
+Mat medium = openImage("../../data/patterns/medium.png");
+Mat small = openImage("../../data/patterns/small.png");
 
 
 MatchPattern::MatchPattern() {
