@@ -1,3 +1,6 @@
+# EXCEPTIONS
+!data/*
+
 
 # Created by https://www.gitignore.io/api/c++,text,cmake,clion,images,opencv
 # Edit at https://www.gitignore.io/?templates=c++,text,cmake,clion,images,opencv
