@@ -1,7 +1,7 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
-#include "histogram.hpp"
+#include "histogram.h"
 
 
 void computeHistogram(const string &histTitle, const Mat &img) {

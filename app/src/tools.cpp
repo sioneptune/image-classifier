@@ -1,5 +1,5 @@
 #include <iostream>
-#include "tools.hpp"
+#include "tools.h"
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bottomRight) {
     Rect roi = Rect(topLeft, bottomRight);

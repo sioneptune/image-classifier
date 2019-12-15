@@ -1,5 +1,5 @@
-#ifndef IMAGE_CLASSIFIER_TOOLS_HPP
-#define IMAGE_CLASSIFIER_TOOLS_HPP
+#ifndef IMAGE_CLASSIFIER_TOOLS_H
+#define IMAGE_CLASSIFIER_TOOLS_H
 
 #include <fstream>
 
@@ -25,4 +25,4 @@ void saveImgDesc(const string name, const Drawing& d);
 
 Mat openImage(const String path);
 
-#endif //IMAGE_CLASSIFIER_TOOLS_HPP
+#endif //IMAGE_CLASSIFIER_TOOLS_H

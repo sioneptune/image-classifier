@@ -70,7 +70,7 @@ void Drawing::setSize(const string &size) {
 }
 
 
-#include "tools.hpp"
+#include "tools.h"
 
 int _main(int argc, char **argv) {
     Drawing d = Drawing("00102");

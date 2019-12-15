@@ -7,8 +7,8 @@ using namespace std;
 
 using namespace cv;
 
-#include "histogram.hpp"
-#include "tools.hpp"
+#include "histogram.h"
+#include "tools.h"
 
 int main(void) {
 

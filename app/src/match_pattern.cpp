@@ -1,6 +1,6 @@
 #include "match_pattern.h"
 #include "opencv2/imgproc.hpp"
-#include "tools.hpp"
+#include "tools.h"
 
 using namespace cv;
 

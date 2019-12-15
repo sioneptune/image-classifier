@@ -9,12 +9,15 @@ using namespace cv;
 using namespace std;
 
 class MatchPattern {
+
 public:
-    string findSymbol(const Mat& image) const;
-    string findSize(const Mat& image) const;
+    MatchPattern();
     int match_method;
 
-     MatchPattern();
+    string findSymbol(const Mat& image) const;
+    string findSize(const Mat& image) const;
+
+
 
 private:
         vector<Mat> listOfSymbols;

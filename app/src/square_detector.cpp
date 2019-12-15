@@ -1,5 +1,5 @@
-#include "square_detector.hpp"
-#include "tools.hpp"
+#include "square_detector.h"
+#include "tools.h"
 
 double SquareDetector::angle(const Point &pt1, const Point &pt2, const Point &pt0) {
     double dx1 = pt1.x - pt0.x;
