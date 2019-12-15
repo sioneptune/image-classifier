@@ -1,6 +1,3 @@
-# EXCEPTIONS
-!data/patterns/*
-
 
 # Created by https://www.gitignore.io/api/c++,text,cmake,clion,images,opencv
 # Edit at https://www.gitignore.io/?templates=c++,text,cmake,clion,images,opencv
@@ -217,4 +214,7 @@ _deps
 .DS_Store
 
 # End of https://www.gitignore.io/api/c++,text,cmake,clion,images,opencv
+
+# EXCEPTIONS
+!data/patterns/*
 
