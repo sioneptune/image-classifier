@@ -40,7 +40,7 @@ void SquareDetector::findSquares(const Mat &image, vector<Square> &squares, cons
         }
 
         // find contours and store them all as a list
-        findContours(gray, contours, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+        findContours(gray, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 
         vector<Point> approx;
 
@@ -80,65 +80,19 @@ void SquareDetector::selectContours(vector<Square> &contours) {
             contours.begin(), contours.end(),
             [](const auto c) {
                 const double area = contourArea(c, false);
-                return (area > 250 * 250) || (area < 230 * 230);
+                return (area > 270 * 270) || (area < 240 * 240);
             }), contours.end());
 }
 
-bool sortXSup(const Point &a, const Point &b) {
-    return a.x > b.x;
-}
-
-bool sortXInf(const Point &a, const Point &b) {
-    return a.x < b.x;
-}
-
-void SquareDetector::selectSquares(vector<Square> &squares, vector<Point> &topLefts) {
-    // TODO: decide if we keep it.
-    // keep only squares with the right width
-//    squares.erase(remove_if(
-//            squares.begin(), squares.end(),
-//            [](const auto square) {
-//                const int width = abs(square[0].x - square[2].x);
-//                return (width > 240) || (width < 230);
-//            }), squares.end());
-
-    vector<Point> allTopLefts;
-    extractTopLeftVertices(squares, allTopLefts);
-
-    // sort top-left Points by x
-    sort(allTopLefts.begin(), allTopLefts.end(), sortXInf);
-
-    // group topLefts close from each other: 5 lists of topLefts near each other
-    vector<vector<Point>> closeTL = vector<vector<Point>>(5);
-    Point previousTopLeft = allTopLefts[0];
-    int groupCount = 0;
-
-    for(Point &tl : allTopLefts) {
-        // check if current square isn't near previous one
-        if (tl.x > (previousTopLeft.x + SIZE_CHANGING_SQUARE)) {
-            // Current square is at more than SIZE_CHANGING_SQUARE, it means it belongs to the next group
-            groupCount++;
-        }
-        closeTL[groupCount].push_back(tl);
-        previousTopLeft = tl;
-    }
-
-    for(auto group: closeTL) {
-        // Keep only inner top-left point for a given square
-        sort(group.begin(), group.end(), sortXSup);
-        topLefts.push_back(group[0]);
-    }
-}
-
-void SquareDetector::extractTopLeftVertices(vector<Square> &squares, vector<Point> &tlp) {
+void SquareDetector::extractTopLeftVertices(vector<Square> &squares, vector<Point> &topLefts) {
     for(auto &square: squares) {
         // Sort by x, and then compare the 2 vertices at the far end on the left (left edge points)
         sort(square.begin(), square.end(), [](const Point &a, const Point &b) { return a.x < b.x; });
         // Add top left point: left edge but lowest y (bottom-left can have an x smaller than top-left after square detection)
         if(square[0].y < square[1].y) {
-            tlp.push_back(square[0]);
+            topLefts.push_back(square[0]);
         } else {
-            tlp.push_back(square[1]);
+            topLefts.push_back(square[1]);
         }
     }
 }
@@ -162,7 +116,7 @@ void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, cons
 
 int _main(int argc, char **argv) {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", nullptr};
-    static const char *names[] = {"../../../data/00000_row.png", nullptr};
+    static const char *names[] = {"../../../data/00707_row.png", nullptr};
 
     if (argc > 1) {
         names[0] = argv[1];
@@ -180,14 +134,14 @@ int _main(int argc, char **argv) {
         }
 
         SquareDetector::findSquares(image, squares);
-        vector<Point> topLefts;
-        SquareDetector::selectSquares(squares, topLefts);
 
-        //imshow("One square", regionOfInterest(image, squares[99][0], squares[99][2]));
-        //SquareDetector::drawSquares(image, squares);
+        SquareDetector::drawSquares(image, squares);
+
+        vector<Point> topLefts;
+        SquareDetector::extractTopLeftVertices(squares, topLefts);
 
         for (int j = 0; j < topLefts.size(); j++) {
-            saveImg("../../../data/icons/icon" + to_string(j) + ".png", regionOfInterest(image, topLefts[j], SIZE_ROI_SQUARE) );
+            saveImg("../../../data/icons/icon" + to_string(j) + ".png", regionOfInterest(image, topLefts[j], ROI_TL_OFFSET, ROI_SIZE_SQUARE) );
         }
 
         int c = waitKey();

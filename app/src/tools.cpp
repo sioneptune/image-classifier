@@ -10,6 +10,12 @@ Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int size) {
     return regionOfInterest(img, topLeft, Point(topLeft.x + size, topLeft.y + size));
 }
 
+Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int topLeftOffset, int size) {
+    const int tlox = topLeft.x + topLeftOffset;
+    const int tloy = topLeft.y + topLeftOffset;
+    return regionOfInterest(img, Point(tlox, tloy), Point(tlox + size, tloy + size));
+}
+
 void saveImg(const string name, const Mat& img) {
 //    vector<int> compression_params;
 //    compression_params.push_back(IMWRITE_PNG_COMPRESSION);

@@ -12,6 +12,8 @@ Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bott
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int size);
 
+Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int topLeftOffset, int size);
+
 void saveImg(const string name, const Mat& img);
 
 Mat openImage(const String path);

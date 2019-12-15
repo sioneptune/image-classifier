@@ -11,8 +11,8 @@
 using namespace cv;
 using namespace std;
 
-#define SIZE_CHANGING_SQUARE 150
-#define SIZE_ROI_SQUARE 220
+#define ROI_SIZE_SQUARE 245
+#define ROI_TL_OFFSET 10
 
 typedef vector<Point> Square;
 
@@ -31,11 +31,9 @@ class SquareDetector {
 
     /**
      * Removes some of the contours to keep only useful ones and reduce the number of operations done. Criteria based on
-     * contour's area
+     * contour's area.
      */
     static void selectContours(vector<Square> &contours);
-
-    static void extractTopLeftVertices(vector<Square> &squares, vector<Point> &tlp);
 
 public:
 
@@ -60,8 +58,13 @@ public:
      */
     static void drawSquares(Mat &image, const vector<Square> &squares, const string wndname="Squares Detected");
 
-    static void selectSquares(vector<Square> &squares, vector<Point> &topLefts);
-
+    /**
+     * Finds the top-left vertice in each given square
+     *
+     * @param squares in which we want to find only top-left Points
+     * @param topLefts: vector that will be filled with top-left Points
+     */
+    static void extractTopLeftVertices(vector<Square> &squares, vector<Point> &topLefts);
 };
 
 #endif //IMAGE_CLASSIFIER_SQUARE_DETECTOR_HPP
