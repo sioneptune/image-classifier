@@ -1,7 +1,3 @@
-//
-// Created by zoe on 10/12/2019.
-//
-
 #include "match_pattern.h"
 #include "opencv2/imgproc.hpp"
 #include "tools.hpp"
@@ -34,7 +30,7 @@ MatchPattern::MatchPattern() {
     match_method = CV_TM_CCOEFF;
 }
 
-String MatchPattern::findSymbol(const Mat image) const {
+string MatchPattern::findSymbol(const Mat& image) const {
     int result = findBestPattern(image, listOfSymbols);
     switch(result) {
         case 0: return "accident";
@@ -56,7 +52,7 @@ String MatchPattern::findSymbol(const Mat image) const {
 
 }
 
-String MatchPattern::findSize(const Mat image) const{
+string MatchPattern::findSize(const Mat& image) const{
     int result = findBestPattern(image, listOfSizes);
     switch(result) {
         case 0: return "small";
@@ -67,7 +63,7 @@ String MatchPattern::findSize(const Mat image) const{
 }
 
 
-int MatchPattern::findBestPattern(const Mat image, const vector<Mat> patternList) const {
+int MatchPattern::findBestPattern(const Mat& image, const vector<Mat>& patternList) const {
     int result = 0;
     double bestEval = matchPattern(image, patternList[0], match_method);
     double tmp;
@@ -89,9 +85,9 @@ int MatchPattern::findBestPattern(const Mat image, const vector<Mat> patternList
     return result;
 }
 
-double MatchPattern::matchPattern(const Mat image, const Mat pattern, const int match_method) const {
+double MatchPattern::matchPattern(const Mat& image, const Mat& pattern, const int match_method) const {
     // Initialize image of the matchTemplate result
-    /// Doc of machTemplate(): "It returns a grayscale image, where each pixel denotes how much does the neighbourhood of that pixel match with template."
+    /// Doc of matchTemplate(): "It returns a grayscale image, where each pixel denotes how much does the neighbourhood of that pixel match with template."
     Mat imMatch = Mat(Size(image.cols - pattern.cols + 1, image.rows - pattern.rows - 1), CV_32SC1);
 
     // Match pattern
