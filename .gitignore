@@ -1,5 +1,5 @@
 # EXCEPTIONS
-!data/*
+!data/patterns/*
 
 
 # Created by https://www.gitignore.io/api/c++,text,cmake,clion,images,opencv
