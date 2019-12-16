@@ -1,8 +1,7 @@
 #include "Drawing.h"
 
-Drawing::Drawing(const string &form) : form(form) {
-    scripter = form.substr(0, 3);
-    page = form.substr(3, 2);
+Drawing::Drawing(const string &scripter, const string &page) : scripter(scripter), page(page) {
+    form = scripter + page;
 }
 
 ofstream& operator<<(ofstream& ofs, const Drawing d) {

@@ -23,7 +23,7 @@ private:
     string size;
 
 public:
-    Drawing(const string &form);
+    Drawing(const string &scripter, const string &page);
 
     const Mat& getImg() const;
     void setImg(const Mat &img);
