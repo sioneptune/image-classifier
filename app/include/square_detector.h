@@ -59,7 +59,7 @@ public:
     static void drawSquares(Mat &image, const vector<Square> &squares, const string wndname="Squares Detected");
 
     /**
-     * Finds the top-left vertice in each given square
+     * Finds the top-left vertice in each given square, and sorts the vector by increasing x axis of the top-left Points
      *
      * @param squares in which we want to find only top-left Points
      * @param topLefts: vector that will be filled with top-left Points

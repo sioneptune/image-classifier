@@ -87,7 +87,7 @@ void SquareDetector::selectContours(vector<Square> &contours) {
 void SquareDetector::extractTopLeftVertices(vector<Square> &squares, vector<Point> &topLefts) {
     for(auto &square: squares) {
         // Sort by x, and then compare the 2 vertices at the far end on the left (left edge points)
-        sort(square.begin(), square.end(), [](const Point &a, const Point &b) { return a.x < b.x; });
+        sort(square.begin(), square.end(), sortByXComparator);
         // Add top left point: left edge but lowest y (bottom-left can have an x smaller than top-left after square detection)
         if(square[0].y < square[1].y) {
             topLefts.push_back(square[0]);
@@ -95,6 +95,8 @@ void SquareDetector::extractTopLeftVertices(vector<Square> &squares, vector<Poin
             topLefts.push_back(square[1]);
         }
     }
+
+    sort(topLefts.begin(), topLefts.end(), sortByXComparator);
 }
 
 void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, const string wndname) {
