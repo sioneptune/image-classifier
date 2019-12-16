@@ -215,6 +215,9 @@ _deps
 
 # End of https://www.gitignore.io/api/c++,text,cmake,clion,images,opencv
 
+# Texts (img descriptions)
+data/output/*
+
 # EXCEPTIONS
 !data/patterns/*
 
