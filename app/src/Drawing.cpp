@@ -15,6 +15,9 @@ ofstream& operator<<(ofstream& ofs, const Drawing d) {
     return ofs;
 }
 
+const string& Drawing::getName() const {
+    return label + "_" + scripter + "_" + page + "_" + to_string(row) + "_" + to_string(column);
+}
 
 const Mat& Drawing::getImg() const {
     return img;

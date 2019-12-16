@@ -25,6 +25,8 @@ private:
 public:
     Drawing(const string &scripter, const string &page);
 
+    const string& getName() const;
+
     const Mat& getImg() const;
     void setImg(const Mat &img);
 
