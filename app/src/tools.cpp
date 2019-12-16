@@ -21,6 +21,11 @@ Mat regionOfInterest(const Mat& img, const int xTopLeft, const int yTopLeft, con
 }
 
 
+bool sortByXComparator(const Point& a, const Point& b) {
+    return a.x < b.x;
+}
+
+
 void saveImg(const string name, const Mat& img) {
 //    vector<int> compression_params;
 //    compression_params.push_back(IMWRITE_PNG_COMPRESSION);

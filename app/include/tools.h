@@ -22,6 +22,8 @@ Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int topLeftOffset, 
 Mat regionOfInterest(const Mat& img, int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight);
 
 
+bool sortByXComparator(const Point& a, const Point& b);
+
 void saveImg(const string name, const Mat& img);
 
 void saveImgDesc(const string name, const Drawing& d);
