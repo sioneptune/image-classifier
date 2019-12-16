@@ -19,6 +19,9 @@ Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int size);
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int topLeftOffset, int size);
 
+Mat regionOfInterest(const Mat& img, int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight);
+
+
 void saveImg(const string name, const Mat& img);
 
 void saveImgDesc(const string name, const Drawing& d);
