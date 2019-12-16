@@ -74,7 +74,7 @@ void Drawing::setSize(const string &size) {
 
 #include "tools.h"
 
-int _main(int argc, char **argv) {
+int __main(int argc, char **argv) {
     Drawing d = Drawing("001" ,"02");
     d.setColumn(2);
     d.setRow(1);

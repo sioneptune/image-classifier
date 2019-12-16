@@ -7,72 +7,102 @@ using namespace std;
 
 using namespace cv;
 
-#include "histogram.h"
 #include "tools.h"
+#include "Drawing.h"
+#include "square_detector.h"
+#include "match_pattern.h"
 
 int main(void) {
 
-    //charge et affiche l'image (� MODIFIER) :
-    string imName = "../../../data/Lenna.png";
-    Mat im = imread(imName); // FIXME imread opens in BGR !
-    if (im.data == nullptr) {
-        cerr << "Image not found: " << imName << endl;
-        waitKey(0);
-        //system("pause");
-        exit(EXIT_FAILURE);
-    }
-    imshow("exemple1", im);
+    // Const
+    const string databasePath = "../../data/database/";
+    const string outputPath = "../../data/output/";
 
-    //applique une reduction de taille d'un facteur 5
-    //ici modifier pour ne reduire qu'a l'affichage
-    //comme demande dans l'enonce
-    int reduction = 5;
-    Size tailleReduite(im.cols / reduction, im.rows / reduction);
-    Mat imreduite = Mat(tailleReduite, CV_8UC3); //cree une image � 3 canaux de profondeur 8 bits chacuns
-    resize(im, imreduite, tailleReduite);
-    imshow("image reduite", imreduite);
+    // Vars to navigate in the pages
+    const int rowSize = 345;
 
-    computeHistogram("histogramme", im);
+    const int yRow1 = 680;
 
-    //Convert to HSV
-    Mat imHSV = Mat(Size(im.cols, im.rows), CV_8UC3);
-    cvtColor(im, imHSV, COLOR_BGR2HSV, 0);
+    const int xStartRow = 160;
+    const int xEndRow = 2350;
+    const int xPattern = 340;
 
-    imshow("HSV", imHSV);
+    MatchPattern mp;
 
-    //Split HSV channels and display them
-    int numChannels = imHSV.channels();
-    vector<Mat> channels;
-    if (numChannels == 3) split(imHSV, channels);
-    else channels.push_back(imHSV);
+    /// SCRIPTER (folder) => [0-34]
+    for (int scripter = 0; scripter<35; scripter++) {
+        string scrNb;
+        if (scripter < 10) {
+            scrNb += "0";
+        }
+        scrNb += "0" + to_string(scripter);
 
-    int i = 0;
-    Mat channelThreshed;
-    for (Mat channelHSV : channels) {
-        imshow("HSV" + std::to_string(i), channelHSV);
-        i++;
-        //Thresholding
-        if (i == 2) {
-            channelThreshed = Mat(Size(channelHSV.cols, channelHSV.rows), CV_8UC3);
-            threshold(channelHSV, channelThreshed, 180.f, 100.f, THRESH_TOZERO);
-            imshow("thresh", channelThreshed);
+        /// PAGE => [0-21]
+        for (int page = 0; page<22; page++) {
+            string pgNb;
+            if (page < 10) {
+                pgNb += "0";
+            }
+            pgNb += to_string(page);
+
+            Mat currentPage = openImage(databasePath + scrNb + pgNb + ".png");
+
+            /**** WE EXTRACT AND SAVE DRAWINGS PAGE BY PAGE ****/
+            vector<Drawing> pageDrawings;
+
+            /// ROW
+            for (int row = 0; row<7; row++) {
+                int yCurrentRow = yRow1 + row * rowSize;
+                int yNextRow = yRow1 + (row+1) * rowSize;
+                Mat rowImg = regionOfInterest(currentPage, xStartRow, yCurrentRow, xEndRow, yNextRow);
+
+                /// Pattern detection
+                Mat patternImg = regionOfInterest(rowImg, 0, 0, xPattern, rowSize);
+                // Icon size matching
+                string labelSize;
+                if (page > 1) { // Size isn't written under patterns in the first 2 pages
+                    labelSize = mp.findSize(patternImg);
+                }
+
+                // Icon matching
+                string label = mp.findSymbol(patternImg);
+
+                /// Squares extraction
+                vector<Square> squares;
+                SquareDetector::findSquares(rowImg, squares);
+
+                vector<Point> topLefts;
+                SquareDetector::extractTopLeftVertices(squares, topLefts);
+
+                /// Drawing extraction
+                for (int column = 0; column < topLefts.size(); column++) {
+                    Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], ROI_TL_OFFSET, ROI_SIZE_SQUARE);
+
+                    Drawing drawing = Drawing(scrNb, pgNb);
+                    drawing.setImg(drawedIcon);
+                    drawing.setSize(labelSize);
+                    drawing.setLabel(label);
+                    drawing.setRow(row + 1); // rows start at 1 IRL
+                    drawing.setColumn(column + 1); // columns start at 1 IRL
+
+                    pageDrawings.push_back(drawing);
+                }
+            }
+
+            /// Exporting the drawings of the current page
+            for (Drawing d: pageDrawings) {
+                // Save the image of the drawing
+                string drawingName = outputPath + d.getName();
+                saveImg(drawingName + ".png", d.getImg());
+
+                // Save the description of the drawing
+                saveImgDesc(drawingName + ".txt", d);
+            }
+
         }
     }
 
-    //ROI
-    //Rect roi = Rect(240, 245, 130, 40);
-    Mat roiImg = regionOfInterest(channelThreshed, Point(240,245), Point(240+130, 245+40));
-    imshow("roi", roiImg);
 
-    //Save img
-    vector<int> compression_params;
-    compression_params.push_back(IMWRITE_PNG_COMPRESSION);
-    compression_params.push_back(9);
 
-    imwrite("../../../data/Lenneys.png", roiImg, compression_params);
-
-    //termine le programme lorsqu'une touche est frappee
-    waitKey(0);
-    //system("pause");
     return EXIT_SUCCESS;
 }
