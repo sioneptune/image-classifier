@@ -29,6 +29,9 @@ int main(void) {
 
     MatchPattern mp;
 
+    Timer timer;
+    timer.set_start();
+
     /// SCRIPTER (folder) => [0-34]
     for (int scripter = 0; scripter<35; scripter++) {
         string scrNb;
@@ -101,6 +104,8 @@ int main(void) {
 
         }
     }
+
+    cout << "time: " << timer.set_end().time_elapsed() << endl;
 
 
 
