@@ -14,7 +14,20 @@ void Straigthener::processImage(Mat &image) {
 }
 
 void Straigthener::findTargets(Mat &image, vector<Point> &targets) {
+    Mat ro1 = regionOfInterest(image, Point(ROI_1_TL_X,ROI_1_TL_Y), Point(ROI_1_BR_X,ROI_1_BR_Y));
+    Mat ro2 = regionOfInterest(image, Point(ROI_2_TL_X,ROI_2_TL_Y), Point(ROI_2_BR_X,ROI_2_BR_Y));
+    vector<Mat> regions = {ro1,ro2};
+    for(int i = 0; i < regions.size();i++){
+        threshold(regions[i], regions[i],200,255,THRESH_BINARY_INV);
 
+        string wName = to_string(i);
+        namedWindow(wName, WINDOW_NORMAL);
+        resizeWindow(wName, 600,600);
+        imshow(wName, regions[i]);
+
+        int c = waitKey();
+
+    }
 }
 
 void Straigthener::display(Mat &image, vector<Point> &targets) {
@@ -29,21 +42,27 @@ void Straigthener::display(Mat &image, vector<Point> &targets) {
 }
 
 int main(){
-    static const string name = "../../../data/00000.png";
-    Mat image = imread(name, IMREAD_COLOR);
+    static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", nullptr};
 
-    cout << "image size " << image.size << endl;
-    if (image.empty()) {
-        cout << "Couldn't load " << name << endl;
-        exit(0);
+    Mat image;
+    vector<Point> targets = {Point(100, 100), Point(500, 500)};
+
+    for(int i=0;names[i] != nullptr;i++) {
+
+        image = imread(names[i], IMREAD_COLOR);
+        cout << "image size " << image.size << endl;
+        if (image.empty()) {
+            cout << "Couldn't load " << names[i] << endl;
+            exit(0);
+        }
+
+        Straigthener::processImage(image);
+        cout << "image size " << image.size << endl;
+
+        Straigthener::findTargets(image,targets);
+
+        Straigthener::display(image, targets);
+
+        int c = waitKey();
     }
-
-    Straigthener::processImage(image);
-
-    vector<Point> targets = {Point(100,100)};
-
-    Straigthener::display(image,targets);
-
-    int c = waitKey();
-
 }
