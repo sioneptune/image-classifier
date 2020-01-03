@@ -23,7 +23,7 @@ using namespace std;
 #define ROI_2_TL_X 0
 #define ROI_2_TL_Y 3020
 #define ROI_2_BR_X 670
-#define ROI_2_BR_Y 3450
+#define ROI_2_BR_Y 3400
 
 class Straigthener {
 
