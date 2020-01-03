@@ -5,23 +5,23 @@
 using namespace cv;
 
 const Mat accident = openImage("../../data/templates/Accident.png");
-const Mat bomb = openImage("../../data/templateToTest/Bomb.png");
-const Mat car = openImage("../../data/templateToTest/Car.png");
-const Mat casualty = openImage("../../data/templateToTest/Casualty.png");
-const Mat electricity = openImage("../../data/templateToTest/Electricity.png");
-const Mat fire = openImage("../../data/templateToTest/Fire.png");
-const Mat fire_brigade =  openImage("../../data/templateToTest/Fire_brigade.png");
-const Mat flood = openImage("../../data/templateToTest/Flood.png");
-const Mat gas = openImage("../../data/templateToTest/Gas.png");
-const Mat injury =  openImage("../../data/templateToTest/Injury.png");
-const Mat paramedics = openImage("../../data/templateToTest/Paramedics.png");
-const Mat person = openImage("../../data/templateToTest/Person.png");
-const Mat police  = openImage("../../data/templateToTest/Police.png");
-const Mat road_block = openImage("../../data/templateToTest/Road_block.png");
+const Mat bomb = openImage("../../data/templates/Bomb.png");
+const Mat car = openImage("../../data/templates/Car.png");
+const Mat casualty = openImage("../../data/templates/Casualty.png");
+const Mat electricity = openImage("../../data/templates/Electricity.png");
+const Mat fire = openImage("../../data/templates/Fire.png");
+const Mat fire_brigade =  openImage("../../data/templates/Fire_brigade.png");
+const Mat flood = openImage("../../data/templates/Flood.png");
+const Mat gas = openImage("../../data/templates/Gas.png");
+const Mat injury =  openImage("../../data/templates/Injury.png");
+const Mat paramedics = openImage("../../data/templates/Paramedics.png");
+const Mat person = openImage("../../data/templates/Person.png");
+const Mat police  = openImage("../../data/templates/Police.png");
+const Mat road_block = openImage("../../data/templates/Road_block.png");
 
-const Mat large = openImage("../../data/templateToTest/large.png");
-const Mat medium = openImage("../../data/templateToTest/medium.png");
-const Mat small = openImage("../../data/templateToTest/small.png");
+const Mat large = openImage("../../data/templates/large.png");
+const Mat medium = openImage("../../data/templates/medium.png");
+const Mat small = openImage("../../data/templates/small.png");
 
 
 MatchTemplate::MatchTemplate() {
