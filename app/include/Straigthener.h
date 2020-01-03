@@ -20,7 +20,7 @@ using namespace std;
 #define ROI_1_BR_X 2470
 #define ROI_1_BR_Y 650
 
-#define ROI_2_TL_X 0
+#define ROI_2_TL_X 50
 #define ROI_2_TL_Y 3020
 #define ROI_2_BR_X 670
 #define ROI_2_BR_Y 3400
@@ -34,6 +34,8 @@ public:
     static void findTargets(Mat &image, vector<Point> &targets);
 
     static void display(Mat &image, vector<Point> &targets);
+
+    static void straighten(Mat &image);
 
 
 };

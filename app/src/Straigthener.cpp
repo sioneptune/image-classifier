@@ -38,12 +38,9 @@ void Straigthener::findTargets(Mat &image, vector<Point> &targets) {
         findNonZero(regions[i],whitePoints);
 
         Point sum = Point(0,0);
-        cout << "bout to do a sum on ROI "<<i<<endl;
         for(int j=0; j < whitePoints.size(); j++){
             sum = sum + whitePoints[j];
-            cout<<"I did an add"<<endl;
         }
-        cout << sum << endl;
         Point average;
         if(i==0) {
             average = Point((sum.x / whitePoints.size()) + ROI_1_TL_X,
@@ -52,8 +49,6 @@ void Straigthener::findTargets(Mat &image, vector<Point> &targets) {
             average = Point((sum.x / whitePoints.size()) + ROI_2_TL_X,
                                   (sum.y / whitePoints.size()) + ROI_2_TL_Y);
         }
-
-        cout << average << endl;
 
         targets.push_back(average);
 
@@ -79,8 +74,40 @@ void Straigthener::display(Mat &image, vector<Point> &targets) {
     imshow(wName, disp);
 }
 
+void Straigthener::straighten(Mat &image) {
+
+    vector<Point> targets;
+
+    //get the two crosshair target positions
+    Straigthener::processImage(image);
+    Straigthener::findTargets(image, targets);
+
+    cout << targets << endl;
+
+    //coordinates where we want the crosshairs to end up at
+    double goal1_x = 2139;
+    double goal1_y = 541;
+    double goal2_x = 298;
+    double goal2_y = 3166;
+
+    //positions of our found targets
+    double x0 = targets[0].x;
+    double y0 = targets[0].y;
+    double x1 = targets[1].x;
+    double y1 = targets[1].y;
+
+    double wantedAngle = atan((goal2_y - goal1_y)/(goal2_x-goal1_x))*180/3.1415952535897;
+    double currentAngle = atan((y1-y0)/(x1-x0))*180/3.1415926535897;
+
+    Mat transformation = getRotationMatrix2D(Point(image.cols/2,image.rows/2),currentAngle-wantedAngle,1);
+
+    cout << transformation << endl;
+    warpAffine(image,image,transformation,image.size());
+
+}
+
 int main(){
-    static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", nullptr};
+    static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", "../../../data/00000_straightened.png", nullptr};
 
     Mat image;
     vector<Point> targets;
@@ -96,13 +123,17 @@ int main(){
             exit(0);
         }
 
-        Straigthener::processImage(image);
-        cout << "image size " << image.size << endl;
+//        Straigthener::processImage(image);
+//        cout << "image size " << image.size << endl;
+//
+//        Straigthener::findTargets(image,targets);
+//
+//        cout << targets << endl;
+//
+//        Straigthener::display(image, targets);
 
-        Straigthener::findTargets(image,targets);
-
-        Straigthener::display(image, targets);
-
+        Straigthener::straighten(image);
+        Straigthener::display(image,targets);
         int c = waitKey();
     }
 }
