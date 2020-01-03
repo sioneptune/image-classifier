@@ -12,7 +12,7 @@ using namespace std;
 
 using namespace cv;
 
-#include "Drawing.h"
+#include "Snippet.h"
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bottomRight);
 
@@ -27,7 +27,7 @@ bool sortByXComparator(const Point& a, const Point& b);
 
 void saveImg(const string name, const Mat& img);
 
-void saveImgDesc(const string name, const Drawing& d);
+void saveImgDesc(const string name, const Snippet& d);
 
 Mat openImage(const String path);
 

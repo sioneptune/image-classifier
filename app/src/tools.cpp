@@ -34,7 +34,7 @@ void saveImg(const string name, const Mat& img) {
     imwrite(name, img);
 }
 
-void saveImgDesc(const string name, const Drawing& d) {
+void saveImgDesc(const string name, const Snippet& d) {
     ofstream file (name);
     if (file.is_open())
     {

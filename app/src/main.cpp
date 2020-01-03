@@ -3,12 +3,11 @@
 using namespace std;
 
 #include "opencv2/imgproc.hpp"
-#include "opencv2/highgui.hpp"
 
 using namespace cv;
 
 #include "tools.h"
-#include "Drawing.h"
+#include "Snippet.h"
 #include "square_detector.h"
 #include "match_template.h"
 
@@ -50,8 +49,8 @@ int main(void) {
 
             Mat currentPage = openImage(databasePath + scrNb + pgNb + ".png");
 
-            /**** WE EXTRACT AND SAVE DRAWINGS PAGE BY PAGE ****/
-            vector<Drawing> pageDrawings;
+            /**** WE EXTRACT AND SAVE SNIPPETS PAGE BY PAGE ****/
+            vector<Snippet> pageSnippets;
 
             /// ROW
             for (int row = 0; row<7; row++) {
@@ -77,29 +76,29 @@ int main(void) {
                 vector<Point> topLefts;
                 SquareDetector::extractTopLeftVertices(squares, topLefts);
 
-                /// Drawing extraction
+                /// Snippet extraction
                 for (int column = 0; column < topLefts.size(); column++) {
                     Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], ROI_TL_OFFSET, ROI_SIZE_SQUARE);
 
-                    Drawing drawing = Drawing(scrNb, pgNb);
-                    drawing.setImg(drawedIcon);
-                    drawing.setSize(labelSize);
-                    drawing.setLabel(label);
-                    drawing.setRow(row + 1); // rows start at 1 IRL
-                    drawing.setColumn(column + 1); // columns start at 1 IRL
+                    Snippet snippet = Snippet(scrNb, pgNb);
+                    snippet.setImg(drawedIcon);
+                    snippet.setSize(labelSize);
+                    snippet.setLabel(label);
+                    snippet.setRow(row + 1); // rows start at 1 IRL
+                    snippet.setColumn(column + 1); // columns start at 1 IRL
 
-                    pageDrawings.push_back(drawing);
+                    pageSnippets.push_back(snippet);
                 }
             }
 
-            /// Exporting the drawings of the current page
-            for (Drawing d: pageDrawings) {
-                // Save the image of the drawing
-                string drawingName = outputPath + d.getName();
-                saveImg(drawingName + ".png", d.getImg());
+            /// Exporting the snippets of the current page
+            for (Snippet d: pageSnippets) {
+                // Save the image of the snippet
+                string snippetName = outputPath + d.getName();
+                saveImg(snippetName + ".png", d.getImg());
 
-                // Save the description of the drawing
-                saveImgDesc(drawingName + ".txt", d);
+                // Save the description of the snippet
+                saveImgDesc(snippetName + ".txt", d);
             }
 
         }
