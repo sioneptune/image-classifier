@@ -74,10 +74,11 @@ void Straigthener::display(Mat &image, vector<Point> &targets) {
     imshow(wName, disp);
 }
 
-void Straigthener::straighten(Mat &image) {
+void Straigthener::straighten(Mat &originalImage) {
 
     vector<Point> targets;
-
+    Mat image;
+    originalImage.copyTo(image);
     //get the two crosshair target positions
     Straigthener::processImage(image);
     Straigthener::findTargets(image, targets);
@@ -102,11 +103,11 @@ void Straigthener::straighten(Mat &image) {
     Mat transformation = getRotationMatrix2D(Point(image.cols/2,image.rows/2),currentAngle-wantedAngle,1);
 
     cout << transformation << endl;
-    warpAffine(image,image,transformation,image.size());
+    warpAffine(originalImage,originalImage,transformation,image.size());
 
 }
 
-int main(){
+int _smain(){
     static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", "../../../data/00000_straightened.png", nullptr};
 
     Mat image;
