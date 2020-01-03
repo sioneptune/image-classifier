@@ -14,7 +14,7 @@ add_executable(Image-Classifier
         src/square_detector.cpp include/square_detector.h
         src/tools.cpp include/tools.h
         src/Drawing.cpp include/Drawing.h
-        src/match_pattern.cpp include/match_pattern.h)
+        src/match_pattern.cpp include/match_pattern.h src/Straigthener.cpp src/Straigthener.h)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})
 
