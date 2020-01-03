@@ -25,7 +25,7 @@ using namespace std;
 #define ROI_2_BR_X 670
 #define ROI_2_BR_Y 3400
 
-class Straigthener {
+class Straightener {
 
 public:
 
