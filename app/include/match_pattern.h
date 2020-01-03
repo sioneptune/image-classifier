@@ -14,7 +14,20 @@ public:
     MatchPattern();
     int match_method;
 
+    /**
+     * Finds the symbol on the image
+     *
+     * @param image to be analysed
+     * @return a string with the name of the symbol on the image
+     */
     string findSymbol(const Mat& image) const;
+
+    /**
+     * Finds the size written on the image
+     *
+     * @param image to be analysed
+     * @return a string with the name of the size written on the image
+     */
     string findSize(const Mat& image) const;
 
 
