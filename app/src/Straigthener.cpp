@@ -14,8 +14,10 @@ void Straigthener::processImage(Mat &image) {
 }
 
 void Straigthener::findTargets(Mat &image, vector<Point> &targets) {
-    Mat ro1 = regionOfInterest(image, Point(ROI_1_TL_X,ROI_1_TL_Y), Point(ROI_1_BR_X,ROI_1_BR_Y));
-    Mat ro2 = regionOfInterest(image, Point(ROI_2_TL_X,ROI_2_TL_Y), Point(ROI_2_BR_X,ROI_2_BR_Y));
+    Mat analyze;
+    image.copyTo(analyze);
+    Mat ro1 = regionOfInterest(analyze, Point(ROI_1_TL_X,ROI_1_TL_Y), Point(ROI_1_BR_X,ROI_1_BR_Y));
+    Mat ro2 = regionOfInterest(analyze, Point(ROI_2_TL_X,ROI_2_TL_Y), Point(ROI_2_BR_X,ROI_2_BR_Y));
     vector<Mat> regions = {ro1,ro2};
     for(int i = 0; i < regions.size();i++){
         threshold(regions[i], regions[i],200,255,THRESH_BINARY_INV);
@@ -31,14 +33,16 @@ void Straigthener::findTargets(Mat &image, vector<Point> &targets) {
 }
 
 void Straigthener::display(Mat &image, vector<Point> &targets) {
+    Mat disp;
+    image.copyTo(disp);
     for(int i=0;i < targets.size();i++){
-        circle(image,targets[i],100,Scalar(0,0,255),2);
+        circle(disp,targets[i],100,Scalar(0,0,255),2);
     }
     const string wName = "Results";
 
     namedWindow(wName, WINDOW_NORMAL);
     resizeWindow(wName, 600,600);
-    imshow(wName, image);
+    imshow(wName, disp);
 }
 
 int main(){
