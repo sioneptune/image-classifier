@@ -1,155 +1,271 @@
-Page,Row,Icon,Label,Size
-0,1,Accident,No,None
-0,2,Bomb,No,None
-0,3,Car,No,None
-0,4,Casualty,No,None
-0,5,Electricity,No,None
-0,6,Fire,No,None
-0,7,Fire Brigade,No,None
-1,1,Gas,No,None
-1,2,Injury,No,None
-1,3,Paramedic,No,None
-1,4,Person,No,None
-1,5,Police,No,None
-1,6,Road Block,No,None
-1,7,Flood,No,None
-2,1,Paramedic,Yes,Small
-2,2,Electricity,Yes,Large
-2,3,Injury,Yes,Medium
-2,4,Police,Yes,Medium
-2,5,Electricity,Yes,Medium
-2,6,Person,Yes,Medium
-2,7,Casualty,Yes,Small
-3,1,Police,Yes,Small
-3,2,Fire Brigade,Yes,Small
-3,3,Fire Brigade,Yes,Small
-3,4,Fire,Yes,Medium
-3,5,Injury,Yes,Medium
-3,6,Person,Yes,Large
-3,7,Car,Yes,Medium
-4,1,Casualty,Yes,Medium
-4,2,Flood,Yes,Small
-4,3,Paramedic,Yes,Medium
-4,4,Flood,Yes,Medium
-4,5,Electricity,Yes,Medium
-4,6,Fire,Yes,Medium
-4,7,Injury,Yes,Medium
-5,1,Car,Yes,Medium
-5,2,Flood,Yes,Medium
-5,3,Electricity,Yes,Medium
-5,4,Fire Brigade,Yes,Medium
-5,5,Fire Brigade,Yes,Large
-5,6,Fire Brigade,Yes,Medium
-5,7,Car,Yes,Small
-6,1,Gas,Yes,Medium
-6,2,Paramedic,Yes,Medium
-6,3,Electricity,Yes,Medium
-6,4,Car,Yes,Large
-6,5,Flood,Yes,Small
-6,6,Flood,Yes,Large
-6,7,Accident,Yes,Medium
-7,1,Electricity,Yes,Medium
-7,2,Person,Yes,Small
-7,3,Casualty,Yes,Medium
-7,4,Bomb,Yes,Medium
-7,5,Car,Yes,Large
-7,6,Person,Yes,Medium
-7,7,Injury,Yes,Large
-8,1,Police,Yes,Medium
-8,2,Gas,Yes,Large
-8,3,Police,Yes,Medium
-8,4,Accident,Yes,Large
-8,5,Fire Brigade,Yes,Medium
-8,6,Gas,Yes,Small
-8,7,Accident,Yes,Small
-9,1,Police,Yes,Large
-9,2,Road Block,Yes,Small
-9,3,Paramedic,Yes,Small
-9,4,Flood,Yes,Large
-9,5,Road Block,Yes,Medium
-9,6,Flood,Yes,Medium
-9,7,Fire,Yes,Medium
-10,1,Casualty,Yes,Medium
-10,2,Fire,Yes,Large
-10,3,Injury,Yes,Medium
-10,4,Police,Yes,Medium
-10,5,Bomb,Yes,Large
-10,6,Road Block,Yes,Medium
-10,7,Accident,Yes,Medium
-11,1,Bomb,Yes,Medium
-11,2,Road Block,Yes,Large
-11,3,Bomb,Yes,Medium
-11,4,Fire,Yes,Medium
-11,5,Injury,Yes,Large
-11,6,Fire,Yes,Large
-11,7,Gas,Yes,Large
-12,1,Police,Yes,Small
-12,2,Bomb,Yes,Medium
-12,3,Bomb,Yes,Large
-12,4,Injury,Yes,Medium
-12,5,Paramedic,Yes,Medium
-12,6,Road Block,Yes,Medium
-12,7,Paramedic,Yes,Medium
-13,1,Bomb,Yes,Medium
-13,2,Fire,Yes,Small
-13,3,Person,Yes,Medium
-13,4,Road Block,Yes,Medium
-13,5,Casualty,Yes,Medium
-13,6,Fire,Yes,Medium
-13,7,Police,Yes,Medium
-14,1,Car,Yes,Medium
-14,2,Electricity,Yes,Medium
-14,3,Casualty,Yes,Medium
-14,4,Fire Brigade,Yes,Medium
-14,5,Police,Yes,Medium
-14,6,Road Block,Yes,Medium
-14,7,Casualty,Yes,Large
-15,1,Flood,Yes,Medium
-15,2,Person,Yes,Medium
-15,3,Fire,Yes,Small
-15,4,Accident,Yes,Small
-15,5,Person,Yes,Large
-15,6,Gas,Yes,Medium
-15,7,Fire Brigade,Yes,Large
-16,1,Fire,Yes,Medium
-16,2,Road Block,Yes,Medium
-16,3,Flood,Yes,Medium
-16,4,Car,Yes,Medium
-16,5,Accident,Yes,Medium
-16,6,Bomb,Yes,Small
-16,7,Police,Yes,Large
-17,1,Paramedic,Yes,Large
-17,2,Accident,Yes,Large
-17,3,Gas,Yes,Medium
-17,4,Person,Yes,Small
-17,5,Fire Brigade,Yes,Medium
-17,6,Casualty,Yes,Large
-17,7,Paramedic,Yes,Medium
-18,1,Paramedic,Yes,Medium
-18,2,Injury,Yes,Small
-18,3,Gas,Yes,Medium
-18,4,Road Block,Yes,Large
-18,5,Bomb,Yes,Small
-18,6,Flood,Yes,Medium
-18,7,Electricity,Yes,Small
-19,1,Road Block,Yes,Small
-19,2,Paramedic,Yes,Large
-19,3,Gas,Yes,Small
-19,4,Person,Yes,Medium
-19,5,Gas,Yes,Medium
-19,6,Accident,Yes,Medium
-19,7,Person,Yes,Medium
-20,1,Casualty,Yes,Small
-20,2,Electricity,Yes,Large
-20,3,Car,Yes,Small
-20,4,Injury,Yes,Medium
-20,5,Electricity,Yes,Small
-20,6,Car,Yes,Medium
-20,7,Bomb,Yes,Medium
-21,1,Gas,Yes,Medium
-21,2,Casualty,Yes,Medium
-21,3,Accident,Yes,Medium
-21,4,Car,Yes,Medium
-21,5,Fire Brigade,Yes,Medium
-21,6,Injury,Yes,Small
-21,7,Accident,Yes,Medium
+Scripter,Page,Row,Icon,Label,Size
+0,16,5,Flood,Yes,Large
+1,0,6,Fire,No,
+1,2,6,Police,Yes,Medium
+1,3,5,Casualty,Yes,Small
+1,4,3,Road Block,Yes,Medium
+1,8,2,Road Block,Yes,Medium
+1,10,7,Electricity,Yes,Medium
+1,12,5,Fire,Yes,Medium
+1,14,1,Person,Yes,Medium
+1,16,1,Electricity,Yes,Large
+1,16,3,Gas,Yes,Medium
+1,18,6,Fire,Yes,Medium
+1,19,3,Casualty,Yes,Medium
+1,20,5,Car,Yes,Medium
+2,0,1,Accident,No,
+2,2,7,Casualty,Yes,Large
+2,4,2,Person,Yes,Medium
+2,5,3,Gas,Yes,Medium
+2,5,4,Bomb,Yes,Medium
+2,5,5,Bomb,Yes,Small
+2,5,6,Fire,Yes,Medium
+2,6,7,Electricity,Yes,Medium
+2,11,4,Paramedics,Yes,Medium
+2,13,6,Person,Yes,Small
+2,14,3,Accident,Yes,Medium
+2,20,1,Road Block,Yes,Small
+3,3,3,Injury,Yes,Medium
+3,3,6,Fire,Yes,Medium
+3,5,6,Road Block,Yes,Small
+3,6,2,Gas,Yes,Small
+3,7,6,Injury,Yes,Small
+3,10,6,Flood,Yes,Large
+3,14,3,Paramedics,Yes,Large
+3,14,6,Car,Yes,Large
+3,21,3,Road Block,Yes,Medium
+4,10,4,Bomb,Yes,Small
+4,13,2,Bomb,Yes,Large
+4,13,5,Road Block,Yes,Medium
+4,16,4,Person,Yes,Medium
+4,17,2,Gas,Yes,Medium
+4,19,1,Police,Yes,Medium
+5,4,6,Paramedics,Yes,Large
+5,6,6,Electricity,Yes,Medium
+5,7,5,Accident,Yes,Medium
+5,9,1,Accident,Yes,Medium
+5,10,3,Bomb,Yes,Large
+5,12,4,Police,Yes,Large
+5,12,5,Accident,Yes,Medium
+5,12,6,Injury,Yes,Medium
+5,14,6,Car,Yes,Medium
+5,21,5,Injury,Yes,Large
+6,0,1,Accident,No,
+6,0,7,Fire Brigade,No,
+6,4,3,Fire,Yes,Medium
+6,4,6,Police,Yes,Medium
+6,21,4,Fire,Yes,Medium
+7,1,6,Road Block,No,
+7,4,3,Accident,Yes,Large
+7,6,2,Fire,Yes,Medium
+7,7,1,Bomb,Yes,Medium
+7,8,1,Injury,Yes,Medium
+7,8,3,Flood,Yes,Small
+7,8,7,Accident,Yes,Small
+7,13,3,Road Block,Yes,Large
+7,14,2,Casualty,Yes,Medium
+7,14,7,Accident,Yes,Medium
+7,21,4,Paramedics,Yes,Small
+8,4,1,Road Block,Yes,Medium
+8,6,6,Accident,Yes,Small
+8,15,4,Bomb,Yes,Medium
+8,16,4,Accident,Yes,Small
+8,19,6,Flood,Yes,Medium
+9,3,4,Car,Yes,Small
+9,3,5,Bomb,Yes,Large
+9,6,7,Police,Yes,Large
+9,7,6,Flood,Yes,Small
+9,12,2,Accident,Yes,Medium
+9,14,6,Police,Yes,Medium
+9,20,2,Flood,Yes,Large
+10,5,7,Accident,Yes,Small
+10,10,4,Electricity,Yes,Medium
+10,18,3,Bomb,Yes,Medium
+11,4,2,Fire Brigade,Yes,Medium
+11,5,7,Electricity,Yes,Small
+11,7,3,Electricity,Yes,Medium
+11,8,6,Injury,Yes,Large
+11,15,5,Police,Yes,Medium
+11,17,5,Road Block,Yes,Medium
+11,19,1,Electricity,Yes,Large
+12,0,7,Fire Brigade,No,
+12,2,7,Gas,Yes,Medium
+12,5,2,Bomb,Yes,Medium
+12,13,3,Fire,Yes,Medium
+12,13,7,Fire Brigade,Yes,Medium
+12,15,4,Electricity,Yes,Small
+12,17,4,Road Block,Yes,Medium
+12,19,3,Car,Yes,Small
+12,19,6,Flood,Yes,Medium
+13,13,3,Road Block,Yes,Medium
+13,19,2,Car,Yes,Large
+13,21,3,Gas,Yes,Medium
+14,0,7,Fire Brigade,No,
+14,5,1,Fire Brigade,Yes,Large
+14,16,3,Flood,Yes,Large
+14,17,6,Paramedics,Yes,Medium
+14,20,4,Paramedics,Yes,Medium
+15,6,1,Bomb,Yes,Small
+15,6,2,Paramedics,Yes,Medium
+15,13,7,Fire Brigade,Yes,Medium
+15,14,7,Paramedics,Yes,Medium
+15,17,2,Flood,Yes,Medium
+15,18,4,Bomb,Yes,Medium
+15,19,5,Casualty,Yes,Large
+16,1,5,Police,No,
+16,3,1,Gas,Yes,Medium
+16,9,5,Accident,Yes,Large
+16,12,5,Paramedics,Yes,Small
+16,12,6,Casualty,Yes,Large
+16,16,4,Gas,Yes,Medium
+16,16,5,Flood,Yes,Medium
+16,21,1,Police,Yes,Medium
+17,3,3,Casualty,Yes,Small
+17,11,3,Police,Yes,Medium
+17,15,3,Bomb,Yes,Medium
+17,16,5,Bomb,Yes,Small
+17,16,7,Fire Brigade,Yes,Large
+17,18,4,Paramedics,Yes,Large
+17,21,6,Gas,Yes,Medium
+18,7,1,Fire Brigade,Yes,Medium
+18,7,5,Car,Yes,Large
+18,10,1,Electricity,Yes,Medium
+18,13,2,Fire Brigade,Yes,Large
+18,14,3,Gas,Yes,Medium
+18,15,3,Road Block,Yes,Small
+18,15,5,Fire,Yes,Medium
+18,20,7,Paramedics,Yes,Medium
+19,1,5,Police,No,
+19,1,6,Road Block,No,
+19,3,7,Accident,Yes,Large
+19,8,3,Fire,Yes,Small
+19,15,3,Car,Yes,Large
+19,17,6,Road Block,Yes,Medium
+19,18,2,Electricity,Yes,Large
+19,21,2,Injury,Yes,Medium
+20,0,3,Car,No,
+20,1,5,Police,No,
+20,5,4,Electricity,Yes,Medium
+20,5,6,Bomb,Yes,Small
+20,6,1,Gas,Yes,Medium
+20,8,3,Accident,Yes,Medium
+20,11,3,Road Block,Yes,Medium
+20,11,4,Person,Yes,Large
+20,13,3,Bomb,Yes,Large
+20,13,4,Accident,Yes,Large
+20,19,1,Flood,Yes,Small
+20,21,3,Car,Yes,Medium
+21,0,6,Fire,No,
+21,6,7,Police,Yes,Medium
+21,7,5,Accident,Yes,Small
+21,8,5,Fire,Yes,Medium
+21,16,1,Accident,Yes,Medium
+21,16,3,Police,Yes,Large
+21,16,5,Electricity,Yes,Medium
+21,17,7,Police,Yes,Large
+21,20,2,Fire,Yes,Large
+21,21,4,Car,Yes,Medium
+22,8,5,Casualty,Yes,Medium
+22,9,1,Fire Brigade,Yes,Medium
+22,11,1,Road Block,Yes,Small
+22,13,6,Fire Brigade,Yes,Small
+22,14,4,Car,Yes,Large
+22,15,4,Bomb,Yes,Medium
+22,16,2,Fire Brigade,Yes,Medium
+22,16,6,Electricity,Yes,Medium
+22,20,4,Electricity,Yes,Medium
+22,21,7,Person,Yes,Medium
+23,8,3,Fire Brigade,Yes,Small
+23,9,1,Accident,Yes,Medium
+23,13,4,Bomb,Yes,Medium
+23,20,2,Gas,Yes,Medium
+23,20,5,Flood,Yes,Medium
+24,6,3,Electricity,Yes,Medium
+24,7,1,Electricity,Yes,Medium
+24,7,3,Casualty,Yes,Medium
+24,10,1,Casualty,Yes,Medium
+24,14,3,Casualty,Yes,Medium
+24,17,5,Fire Brigade,Yes,Medium
+24,19,1,Road Block,Yes,Small
+24,19,6,Accident,Yes,Medium
+25,0,7,Fire Brigade,No,
+25,1,4,Person,No,
+25,2,3,Car,Yes,Medium
+25,3,1,Flood,Yes,Medium
+25,9,2,Bomb,Yes,Medium
+25,9,5,Person,Yes,Small
+25,10,2,Flood,Yes,Medium
+25,11,4,Fire Brigade,Yes,Small
+25,12,7,Paramedics,Yes,Medium
+25,15,4,Bomb,Yes,Medium
+25,16,3,Flood,Yes,Medium
+26,0,4,Casualty,No,
+26,2,3,Fire,Yes,Medium
+26,2,7,Flood,Yes,Medium
+26,3,7,Fire Brigade,Yes,Small
+26,9,5,Paramedics,Yes,Medium
+26,11,1,Fire Brigade,Yes,Medium
+26,13,4,Gas,Yes,Medium
+26,19,2,Person,Yes,Medium
+26,21,1,Fire,Yes,Medium
+26,21,7,Road Block,Yes,Medium
+27,3,1,Flood,Yes,Medium
+27,7,1,Injury,Yes,Small
+27,8,7,Fire,Yes,Medium
+27,14,1,Flood,Yes,Medium
+27,15,7,Person,Yes,Medium
+27,16,2,Flood,Yes,Small
+27,17,7,Fire Brigade,Yes,Large
+28,1,3,Paramedics,No,
+28,10,4,Fire Brigade,Yes,Medium
+28,12,5,Person,Yes,Medium
+28,18,2,Gas,Yes,Medium
+29,0,7,Fire Brigade,No,
+29,5,4,Road Block,Yes,Large
+29,6,3,Casualty,Yes,Small
+29,13,1,Accident,Yes,Large
+29,14,3,Police,Yes,Medium
+29,14,6,Gas,Yes,Small
+29,15,3,Person,Yes,Small
+29,15,7,Fire Brigade,Yes,Medium
+29,18,6,Paramedics,Yes,Medium
+30,2,1,Paramedics,Yes,Medium
+30,8,3,Person,Yes,Medium
+30,9,6,Flood,Yes,Large
+30,18,6,Flood,Yes,Medium
+30,20,6,Accident,Yes,Medium
+31,1,7,Flood,No,
+31,4,1,Car,Yes,Small
+31,5,2,Paramedics,Yes,Small
+31,6,3,Paramedics,Yes,Large
+31,7,3,Paramedics,Yes,Medium
+31,10,3,Electricity,Yes,Medium
+31,14,1,Gas,Yes,Large
+31,16,3,Gas,Yes,Small
+31,17,1,Fire Brigade,Yes,Medium
+31,19,2,Fire Brigade,Yes,Medium
+32,10,5,Gas,Yes,Large
+32,13,5,Car,Yes,Medium
+32,17,5,Injury,Yes,Small
+32,19,1,Accident,Yes,Medium
+32,19,7,Gas,Yes,Medium
+33,0,3,Car,No,
+33,0,4,Casualty,No,
+33,2,2,Person,Yes,Small
+33,5,1,Bomb,Yes,Large
+33,6,5,Car,Yes,Medium
+33,10,7,Injury,Yes,Large
+33,13,6,Gas,Yes,Small
+33,20,6,Injury,Yes,Small
+33,21,5,Electricity,Yes,Small
+34,2,6,Gas,Yes,Small
+34,3,3,Paramedics,Yes,Small
+34,4,1,Casualty,Yes,Medium
+34,4,4,Electricity,Yes,Large
+34,5,7,Gas,Yes,Large
+34,11,3,Accident,Yes,Medium
+34,13,1,Gas,Yes,Large
+34,16,4,Paramedics,Yes,Small
+34,18,6,Injury,Yes,Medium
+34,19,3,Flood,Yes,Medium
+34,21,7,Injury,Yes,Small

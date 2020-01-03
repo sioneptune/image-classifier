@@ -1,8 +1,0 @@
-# This is another interesting comment, heyo !
-label person
-form 01520
-scripter 015
-page 20
-row 3
-column 5
-size small

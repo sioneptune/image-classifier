@@ -34,20 +34,20 @@ void saveImg(const string name, const Mat& img) {
     imwrite(name, img);
 }
 
-void saveImgDesc(const string name, const Drawing& d) {
+void saveImgDesc(const string name, const Snippet& d) {
     ofstream file (name);
     if (file.is_open())
     {
         file << d;
         file.close();
     }
-    else cerr << "Unable to open file";
+    else cerr << "Unable to open file: " << name << endl;
 }
 
 Mat openImage(const String path) {
     Mat image = imread(path);
     if (image.data == nullptr) {
-        std::cerr << "Image not found: " << path << std::endl;
+        cerr << "Image not found: " << path << endl;
         waitKey(0);
         //system("pause");
         exit(EXIT_FAILURE);

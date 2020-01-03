@@ -1,8 +1,0 @@
-# This is a very interesting comment, look at me
-label flood
-form 00809
-scripter 008
-page 09
-row 4
-column 2
-size large

@@ -219,5 +219,5 @@ _deps
 data/output/*
 
 # EXCEPTIONS
-!data/patterns/*
+!data/templates/*
 

@@ -1,5 +1,5 @@
-#ifndef IMAGE_CLASSIFIER_DRAWING_H
-#define IMAGE_CLASSIFIER_DRAWING_H
+#ifndef IMAGE_CLASSIFIER_SNIPPET_H
+#define IMAGE_CLASSIFIER_SNIPPET_H
 
 #include <string>
 #include <fstream>
@@ -10,7 +10,7 @@ using namespace std;
 
 using namespace cv;
 
-class Drawing {
+class Snippet {
 
 private:
     Mat img;
@@ -23,7 +23,7 @@ private:
     string size;
 
 public:
-    Drawing(const string &scripter, const string &page);
+    Snippet(const string &scripter, const string &page);
 
     const string getName() const;
 
@@ -50,7 +50,7 @@ public:
 
 };
 
-ofstream& operator<<(ofstream& ofs, const Drawing d);
+ofstream& operator<<(ofstream& ofs, const Snippet d);
 
 
-#endif //IMAGE_CLASSIFIER_DRAWING_H
+#endif //IMAGE_CLASSIFIER_SNIPPET_H
