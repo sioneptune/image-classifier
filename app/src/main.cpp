@@ -10,7 +10,7 @@ using namespace cv;
 #include "tools.h"
 #include "Drawing.h"
 #include "square_detector.h"
-#include "match_pattern.h"
+#include "match_template.h"
 
 int main(void) {
 
@@ -27,7 +27,7 @@ int main(void) {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchPattern mp;
+    MatchTemplate mp;
 
     Timer timer;
     timer.set_start();

@@ -1,5 +1,5 @@
-#ifndef IMAGE_CLASSIFIER_MATCH_PATTERN_H
-#define IMAGE_CLASSIFIER_MATCH_PATTERN_H
+#ifndef IMAGE_CLASSIFIER_MATCH_TEMPLATE_H
+#define IMAGE_CLASSIFIER_MATCH_TEMPLATE_H
 
 #include <iostream>
 #include "opencv2/imgproc.hpp"
@@ -8,10 +8,10 @@
 using namespace cv;
 using namespace std;
 
-class MatchPattern {
+class MatchTemplate {
 
 public:
-    MatchPattern();
+    MatchTemplate();
     int match_method;
 
     /**
@@ -37,25 +37,25 @@ private:
         vector<Mat> listOfSizes;
 
         /**
-        * Finds the more likely pattern to be present on the image among a list of patterns
+        * Finds the most likely template to be present on the image among a list of templates
         *
-        * @param image scanned to find patterns in it
-        * @param patternList list of the patterns to be tested
-        * @return the index in the list of the best pattern found
+        * @param image scanned to find templates on it
+        * @param templateList list of the templates to be tested
+        * @return the index in the list of the best template found
         */
-        int findBestPattern(const Mat& image, const vector<Mat>& patternList) const;
+        int findBestTemplate(const Mat& image, const vector<Mat>& templateList) const;
 
 
         /**
-         * Returns the score of the match of the pattern on the image
+         * Returns the score of the match of the template on the image
          *
          * @param image scanned
-         * @param pattern to be evaluated
+         * @param templateToTest template to be evaluated
          * @param match_method method used in matchTemplate (see openCV doc for details)
-         * @return the score of the match between the image and the pattern
+         * @return the score of the match between the image and the template
          */
-        double matchPattern(const Mat& image, const Mat& pattern) const;
+        double evaluateTemplate(const Mat& image, const Mat& templateToTest) const;
 
 };
 
-#endif //IMAGE_CLASSIFIER_MATCH_PATTERN_H
+#endif //IMAGE_CLASSIFIER_MATCH_TEMPLATE_H

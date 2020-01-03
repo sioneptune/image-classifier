@@ -1,37 +1,37 @@
-#include "match_pattern.h"
+#include "match_template.h"
 #include "opencv2/imgproc.hpp"
 #include "tools.h"
 
 using namespace cv;
 
-const Mat accident = openImage("../../data/patterns/Accident.png");
-const Mat bomb = openImage("../../data/patterns/Bomb.png");
-const Mat car = openImage("../../data/patterns/Car.png");
-const Mat casualty = openImage("../../data/patterns/Casualty.png");
-const Mat electricity = openImage("../../data/patterns/Electricity.png");
-const Mat fire = openImage("../../data/patterns/Fire.png");
-const Mat fire_brigade =  openImage("../../data/patterns/Fire_brigade.png");
-const Mat flood = openImage("../../data/patterns/Flood.png");
-const Mat gas = openImage("../../data/patterns/Gas.png");
-const Mat injury =  openImage("../../data/patterns/Injury.png");
-const Mat paramedics = openImage("../../data/patterns/Paramedics.png");
-const Mat person = openImage("../../data/patterns/Person.png");
-const Mat police  = openImage("../../data/patterns/Police.png");
-const Mat road_block = openImage("../../data/patterns/Road_block.png");
+const Mat accident = openImage("../../data/templates/Accident.png");
+const Mat bomb = openImage("../../data/templateToTest/Bomb.png");
+const Mat car = openImage("../../data/templateToTest/Car.png");
+const Mat casualty = openImage("../../data/templateToTest/Casualty.png");
+const Mat electricity = openImage("../../data/templateToTest/Electricity.png");
+const Mat fire = openImage("../../data/templateToTest/Fire.png");
+const Mat fire_brigade =  openImage("../../data/templateToTest/Fire_brigade.png");
+const Mat flood = openImage("../../data/templateToTest/Flood.png");
+const Mat gas = openImage("../../data/templateToTest/Gas.png");
+const Mat injury =  openImage("../../data/templateToTest/Injury.png");
+const Mat paramedics = openImage("../../data/templateToTest/Paramedics.png");
+const Mat person = openImage("../../data/templateToTest/Person.png");
+const Mat police  = openImage("../../data/templateToTest/Police.png");
+const Mat road_block = openImage("../../data/templateToTest/Road_block.png");
 
-const Mat large = openImage("../../data/patterns/large.png");
-const Mat medium = openImage("../../data/patterns/medium.png");
-const Mat small = openImage("../../data/patterns/small.png");
+const Mat large = openImage("../../data/templateToTest/large.png");
+const Mat medium = openImage("../../data/templateToTest/medium.png");
+const Mat small = openImage("../../data/templateToTest/small.png");
 
 
-MatchPattern::MatchPattern() {
+MatchTemplate::MatchTemplate() {
     listOfSymbols = {accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block};
     listOfSizes = {small, medium, large};
     match_method = CV_TM_CCOEFF;
 }
 
-string MatchPattern::findSymbol(const Mat& image) const {
-    int result = findBestPattern(image, listOfSymbols);
+string MatchTemplate::findSymbol(const Mat& image) const {
+    int result = findBestTemplate(image, listOfSymbols);
     switch(result) {
         case 0: return "accident";
         case 1: return "bomb";
@@ -52,8 +52,8 @@ string MatchPattern::findSymbol(const Mat& image) const {
 
 }
 
-string MatchPattern::findSize(const Mat& image) const{
-    int result = findBestPattern(image, listOfSizes);
+string MatchTemplate::findSize(const Mat& image) const{
+    int result = findBestTemplate(image, listOfSizes);
     switch(result) {
         case 0: return "small";
         case 1: return "medium";
@@ -63,13 +63,13 @@ string MatchPattern::findSize(const Mat& image) const{
 }
 
 
-int MatchPattern::findBestPattern(const Mat& image, const vector<Mat>& patternList) const {
+int MatchTemplate::findBestTemplate(const Mat& image, const vector<Mat>& templateList) const {
     int result = 0;
-    double bestEval = matchPattern(image, patternList[0]);
+    double bestEval = evaluateTemplate(image, templateList[0]);
     double tmp;
 
-    for (int i = 1; i < patternList.size() ; i++) {
-        tmp = matchPattern(image, patternList[i]);
+    for (int i = 1; i < templateList.size() ; i++) {
+        tmp = evaluateTemplate(image, templateList[i]);
         if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED) {
             if (tmp < bestEval) {
                 bestEval = tmp;
@@ -85,13 +85,13 @@ int MatchPattern::findBestPattern(const Mat& image, const vector<Mat>& patternLi
     return result;
 }
 
-double MatchPattern::matchPattern(const Mat& image, const Mat& pattern) const {
+double MatchTemplate::evaluateTemplate(const Mat& image, const Mat& templateToTest) const {
     // Initialize image of the matchTemplate result
     /// Doc of matchTemplate(): "It returns a grayscale image, where each pixel denotes how much does the neighbourhood of that pixel match with template."
-    Mat imMatch = Mat(Size(image.cols - pattern.cols + 1, image.rows - pattern.rows - 1), CV_32SC1);
+    Mat imMatch = Mat(Size(image.cols - templateToTest.cols + 1, image.rows - templateToTest.rows - 1), CV_32SC1);
 
-    // Match pattern
-    matchTemplate(image, pattern, imMatch, match_method);
+    // Match templateToTest
+    matchTemplate(image, templateToTest, imMatch, match_method);
     //normalize( imMatch, imMatch, 0, 1, NORM_MINMAX, -1, Mat() );
 
     // Localize the best match with minMaxLoc
