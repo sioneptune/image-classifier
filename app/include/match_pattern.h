@@ -54,7 +54,7 @@ private:
          * @param match_method method used in matchTemplate (see openCV doc for details)
          * @return the score of the match between the image and the pattern
          */
-        double matchPattern(const Mat& image, const Mat& pattern, int match_method) const;
+        double matchPattern(const Mat& image, const Mat& pattern) const;
 
 };
 

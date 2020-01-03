@@ -65,11 +65,11 @@ string MatchPattern::findSize(const Mat& image) const{
 
 int MatchPattern::findBestPattern(const Mat& image, const vector<Mat>& patternList) const {
     int result = 0;
-    double bestEval = matchPattern(image, patternList[0], match_method);
+    double bestEval = matchPattern(image, patternList[0]);
     double tmp;
 
     for (int i = 1; i < patternList.size() ; i++) {
-        tmp = matchPattern(image, patternList[i], match_method);
+        tmp = matchPattern(image, patternList[i]);
         if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED) {
             if (tmp < bestEval) {
                 bestEval = tmp;
@@ -85,7 +85,7 @@ int MatchPattern::findBestPattern(const Mat& image, const vector<Mat>& patternLi
     return result;
 }
 
-double MatchPattern::matchPattern(const Mat& image, const Mat& pattern, const int match_method) const {
+double MatchPattern::matchPattern(const Mat& image, const Mat& pattern) const {
     // Initialize image of the matchTemplate result
     /// Doc of matchTemplate(): "It returns a grayscale image, where each pixel denotes how much does the neighbourhood of that pixel match with template."
     Mat imMatch = Mat(Size(image.cols - pattern.cols + 1, image.rows - pattern.rows - 1), CV_32SC1);
