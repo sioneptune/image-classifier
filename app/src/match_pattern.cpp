@@ -4,24 +4,24 @@
 
 using namespace cv;
 
-Mat accident = openImage("../../data/patterns/Accident.png");
-Mat bomb = openImage("../../data/patterns/Bomb.png");
-Mat car = openImage("../../data/patterns/Car.png");
-Mat casualty = openImage("../../data/patterns/Casualty.png");
-Mat electricity = openImage("../../data/patterns/Electricity.png");
-Mat fire = openImage("../../data/patterns/Fire.png");
-Mat fire_brigade =  openImage("../../data/patterns/Fire_brigade.png");
-Mat flood = openImage("../../data/patterns/Flood.png");
-Mat gas = openImage("../../data/patterns/Gas.png");
-Mat injury =  openImage("../../data/patterns/Injury.png");
-Mat paramedics = openImage("../../data/patterns/Paramedics.png");
-Mat person = openImage("../../data/patterns/Person.png");
-Mat police  = openImage("../../data/patterns/Police.png");
-Mat road_block = openImage("../../data/patterns/Road_block.png");
+const Mat accident = openImage("../../data/patterns/Accident.png");
+const Mat bomb = openImage("../../data/patterns/Bomb.png");
+const Mat car = openImage("../../data/patterns/Car.png");
+const Mat casualty = openImage("../../data/patterns/Casualty.png");
+const Mat electricity = openImage("../../data/patterns/Electricity.png");
+const Mat fire = openImage("../../data/patterns/Fire.png");
+const Mat fire_brigade =  openImage("../../data/patterns/Fire_brigade.png");
+const Mat flood = openImage("../../data/patterns/Flood.png");
+const Mat gas = openImage("../../data/patterns/Gas.png");
+const Mat injury =  openImage("../../data/patterns/Injury.png");
+const Mat paramedics = openImage("../../data/patterns/Paramedics.png");
+const Mat person = openImage("../../data/patterns/Person.png");
+const Mat police  = openImage("../../data/patterns/Police.png");
+const Mat road_block = openImage("../../data/patterns/Road_block.png");
 
-Mat large = openImage("../../data/patterns/large.png");
-Mat medium = openImage("../../data/patterns/medium.png");
-Mat small = openImage("../../data/patterns/small.png");
+const Mat large = openImage("../../data/patterns/large.png");
+const Mat medium = openImage("../../data/patterns/medium.png");
+const Mat small = openImage("../../data/patterns/small.png");
 
 
 MatchPattern::MatchPattern() {
@@ -111,17 +111,6 @@ double MatchPattern::matchPattern(const Mat& image, const Mat& pattern, const in
         eval = maxVal;
         matchLoc = maxLoc;
     }
-
-//
-//    // Draw rectangle where best pattern is detected
-//    Mat result;
-//    image.copyTo(result);
-//    rectangle(result, matchLoc, Point(matchLoc.x + pattern.cols , matchLoc.y + pattern.rows ), Scalar::all(0), 2, 8, 0 );
-//
-//    // Show image
-//    namedWindow("Original",WINDOW_NORMAL);
-//    resizeWindow("Original", 600,600);
-//    imshow( "Original", result);
 
     return eval;
 }
