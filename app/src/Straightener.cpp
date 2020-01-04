@@ -63,7 +63,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
                             (sum.y / whitePoints.size()) + ROI_2_TL_Y);
         }
 
-        targets.push_back(average);
+        if(whitePoints.size() != 0) targets.push_back(average);
 
         //display the ROI (to use only for debug)
 //        imshow(wName, regions[i]);
@@ -96,26 +96,27 @@ void Straightener::straighten(Mat &originalImage) {
     Straightener::findTargets(image, targets);
 
     // cout << targets << endl;
+    if (targets.size() == 2) {      //if we've found two targets. Else we do nothing.
+        //positions of our found targets
+        double x0 = targets[0].x;
+        double y0 = targets[0].y;
+        double x1 = targets[1].x;
+        double y1 = targets[1].y;
 
-    //positions of our found targets
-    double x0 = targets[0].x;
-    double y0 = targets[0].y;
-    double x1 = targets[1].x;
-    double y1 = targets[1].y;
+        double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
+        double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
 
-    double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
-    double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
-
-    Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, 1);
-    //cout << transformation << endl;
-    warpAffine(originalImage, originalImage, transformation, image.size());
+        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, 1);
+        //cout << transformation << endl;
+        warpAffine(originalImage, originalImage, transformation, image.size());
+    }
 }
 
 int __main() {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
                                  // "../../../data/00000_straightened.png", nullptr};
     static const char *names[] = {"../../data/database/00000.png",//"../../data/database/00001.png","../../data/database/00002.png","../../data/database/00003.png","../../data/database/00004.png",nullptr};
-                                  "../../data/database/00715.png", nullptr};
+                                  "../../data/database/01316.png", nullptr};
     Mat image;
     vector<Point> targets;
 
