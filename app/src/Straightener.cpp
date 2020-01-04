@@ -54,16 +54,22 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
         for (int j = 0; j < whitePoints.size(); j++) {
             sum = sum + whitePoints[j];
         }
-        Point average;
-        if (i == 0) {
-            average = Point((sum.x / whitePoints.size()) + ROI_1_TL_X,
-                            (sum.y / whitePoints.size()) + ROI_1_TL_Y);
-        } else {
-            average = Point((sum.x / whitePoints.size()) + ROI_2_TL_X,
-                            (sum.y / whitePoints.size()) + ROI_2_TL_Y);
-        }
 
-        if(whitePoints.size() != 0) targets.push_back(average);
+        //cout << "found " << whitePoints.size() << " white points" << endl;
+
+        if(whitePoints.size() != 0) {
+            Point average;
+            if (i == 0) {
+                average = Point((sum.x / whitePoints.size()) + ROI_1_TL_X,
+                                (sum.y / whitePoints.size()) + ROI_1_TL_Y);
+            } else {
+                average = Point((sum.x / whitePoints.size()) + ROI_2_TL_X,
+                                (sum.y / whitePoints.size()) + ROI_2_TL_Y);
+            }
+
+
+            targets.push_back(average);
+        }
 
         //display the ROI (to use only for debug)
 //        imshow(wName, regions[i]);
@@ -116,7 +122,8 @@ int __main() {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
                                  // "../../../data/00000_straightened.png", nullptr};
     static const char *names[] = {"../../data/database/00000.png",//"../../data/database/00001.png","../../data/database/00002.png","../../data/database/00003.png","../../data/database/00004.png",nullptr};
-                                  "../../data/database/01316.png", nullptr};
+                                  "../../data/database/01316.png",
+                                  "../../data/database/01317.png", nullptr};
     Mat image;
     vector<Point> targets;
 
