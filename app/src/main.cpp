@@ -8,6 +8,7 @@ using namespace cv;
 
 #include "tools.h"
 #include "Snippet.h"
+#include "Straightener.h"
 #include "square_detector.h"
 #include "match_template.h"
 
@@ -32,7 +33,9 @@ int main(void) {
     timer.set_start();
 
     /// SCRIPTER (folder) => [0-34]
-    for (int scripter = 0; scripter<35; scripter++) {
+    for (int scripter = 0; scripter<1; scripter++) {
+        cout << "--- SCRIPTER: " << scripter << " ---" << endl;
+
         string scrNb;
         if (scripter < 10) {
             scrNb += "0";
@@ -41,6 +44,8 @@ int main(void) {
 
         /// PAGE => [0-21]
         for (int page = 0; page<22; page++) {
+            cout << "page: " << page << endl;
+
             string pgNb;
             if (page < 10) {
                 pgNb += "0";
@@ -48,6 +53,9 @@ int main(void) {
             pgNb += to_string(page);
 
             Mat currentPage = openImage(databasePath + scrNb + pgNb + ".png");
+
+            /// Rotation of the page to straighten it
+            Straightener::straighten(currentPage);
 
             /**** WE EXTRACT AND SAVE SNIPPETS PAGE BY PAGE ****/
             vector<Snippet> pageSnippets;
