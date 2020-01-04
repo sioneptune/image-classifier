@@ -18,12 +18,17 @@ using namespace std;
 #define ROI_1_TL_X 1800
 #define ROI_1_TL_Y 220
 #define ROI_1_BR_X 2470
-#define ROI_1_BR_Y 650
+#define ROI_1_BR_Y 580
 
 #define ROI_2_TL_X 50
-#define ROI_2_TL_Y 3020
+#define ROI_2_TL_Y 3070
 #define ROI_2_BR_X 670
 #define ROI_2_BR_Y 3400
+
+#define CROSS1X 2139
+#define CROSS1Y 541
+#define CROSS2X 298
+#define CROSS2Y 3166
 
 class Straightener {
 

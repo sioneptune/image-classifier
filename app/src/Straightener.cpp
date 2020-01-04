@@ -24,14 +24,27 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
         threshold(regions[i], regions[i], 200, 255, THRESH_BINARY_INV);
         string wName = to_string(i);
 
+        //display the ROI (to use only for debug)
+//        namedWindow(wName, WINDOW_NORMAL);
+//        resizeWindow(wName, 600,600);
+//        imshow(wName, regions[i]);
+//        int c = waitKey();
 
         // Eroding through a 4x4 cross, which will make the center bulky and the bars super thin
         Mat cross = getStructuringElement(MORPH_CROSS, Size(4, 4));
         erode(regions[i], regions[i], cross);
 
+        //display the ROI (to use only for debug)
+//        imshow(wName, regions[i]);
+//        c = waitKey();
+
         // Eroding through a circle leaves only the round center
         Mat circle = getStructuringElement(MORPH_ELLIPSE, Size(3, 3));
         erode(regions[i], regions[i], circle);
+
+        //display the ROI (to use only for debug)
+//        imshow(wName, regions[i]);
+//        c = waitKey();
 
         //finds all the white points (aka the center of the cross) and take their average
         vector<Point> whitePoints;
@@ -53,10 +66,8 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
         targets.push_back(average);
 
         //display the ROI (to use only for debug)
-//        namedWindow(wName, WINDOW_NORMAL);
-//        resizeWindow(wName, 600,600);
 //        imshow(wName, regions[i]);
-//        int c = waitKey();
+//        c = waitKey();
 
     }
 }
@@ -81,15 +92,10 @@ void Straightener::straighten(Mat &originalImage) {
     originalImage.copyTo(image);
     //get the two crosshair target positions
     Straightener::processImage(image);
+
     Straightener::findTargets(image, targets);
 
-    cout << targets << endl;
-
-    //coordinates where we want the crosshairs to end up at
-    double goal1_x = 2139;
-    double goal1_y = 541;
-    double goal2_x = 298;
-    double goal2_y = 3166;
+    // cout << targets << endl;
 
     //positions of our found targets
     double x0 = targets[0].x;
@@ -97,20 +103,19 @@ void Straightener::straighten(Mat &originalImage) {
     double x1 = targets[1].x;
     double y1 = targets[1].y;
 
-    double wantedAngle = atan((goal2_y - goal1_y) / (goal2_x - goal1_x)) * 180 / 3.1415952535897;
-    double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / 3.1415926535897;
+    double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
+    double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
 
     Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, 1);
-
-    cout << transformation << endl;
+    //cout << transformation << endl;
     warpAffine(originalImage, originalImage, transformation, image.size());
-
 }
 
-int _smain() {
-    static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
-                                  "../../../data/00000_straightened.png", nullptr};
-
+int __main() {
+    //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
+                                 // "../../../data/00000_straightened.png", nullptr};
+    static const char *names[] = {"../../data/database/00000.png",//"../../data/database/00001.png","../../data/database/00002.png","../../data/database/00003.png","../../data/database/00004.png",nullptr};
+                                  "../../data/database/00715.png", nullptr};
     Mat image;
     vector<Point> targets;
 
@@ -120,6 +125,7 @@ int _smain() {
 
         image = imread(names[i], IMREAD_COLOR);
         cout << "image size " << image.size << endl;
+        Straightener::display(image,targets);
         if (image.empty()) {
             cout << "Couldn't load " << names[i] << endl;
             exit(0);
