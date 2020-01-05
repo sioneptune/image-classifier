@@ -31,7 +31,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
 //        int c = waitKey();
 
         // Eroding through a 4x4 cross, which will make the center bulky and the bars super thin
-        Mat cross = getStructuringElement(MORPH_CROSS, Size(4, 4));
+        Mat cross = getStructuringElement(MORPH_CROSS, Size(5, 5));
         erode(regions[i], regions[i], cross);
 
         //display the ROI (to use only for debug)
