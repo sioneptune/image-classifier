@@ -18,7 +18,7 @@ using namespace std;
 #define ROI_1_TL_X 1800
 #define ROI_1_TL_Y 220
 #define ROI_1_BR_X 2470
-#define ROI_1_BR_Y 580
+#define ROI_1_BR_Y 560
 
 #define ROI_2_TL_X 50
 #define ROI_2_TL_Y 3100
@@ -30,7 +30,7 @@ using namespace std;
 #define CROSS2X 298.0
 #define CROSS2Y 3166.0
 
-#define ROT_THRESHOLD 0.1
+#define ROT_THRESHOLD 0.075
 
 class Straightener {
 
