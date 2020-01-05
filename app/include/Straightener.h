@@ -47,5 +47,12 @@ public:
 
 };
 
+struct CrossNotDetected : public std::exception
+{
+    const char * what () const throw ()
+    {
+        return "Less than two crosses were detected.";
+    }
+};
 
 #endif //IMAGE_CLASSIFIER_STRAIGTHENER_H

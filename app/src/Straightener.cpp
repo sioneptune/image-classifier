@@ -5,14 +5,6 @@
 #include "Straightener.h"
 #include "tools.h"
 
-struct CrossNotDetected : public std::exception
-{
-    const char * what () const throw ()
-    {
-        return "Less than two crosses were detected";
-    }
-}
-
 void Straightener::processImage(Mat &image) {
     Mat tiny, clean;
 

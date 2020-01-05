@@ -55,7 +55,12 @@ int main(void) {
             Mat currentPage = openImage(databasePath + scrNb + pgNb + ".png");
 
             /// Rotation of the page to straighten it
-            Straightener::straighten(currentPage);
+            try {
+                Straightener::straighten(currentPage);
+            } catch (CrossNotDetected & cnd) {
+                cerr << cnd.what() << ". Page " << scrNb << pgNb << endl;
+                continue;
+            }
 
             /**** WE EXTRACT AND SAVE SNIPPETS PAGE BY PAGE ****/
             vector<Snippet> pageSnippets;
