@@ -5,6 +5,14 @@
 #include "Straightener.h"
 #include "tools.h"
 
+struct CrossNotDetected : public std::exception
+{
+    const char * what () const throw ()
+    {
+        return "Less than two crosses were detected";
+    }
+}
+
 void Straightener::processImage(Mat &image) {
     Mat tiny, clean;
 
@@ -55,7 +63,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
             sum = sum + whitePoints[j];
         }
 
-        //cout << "found " << whitePoints.size() << " white points" << endl;
+//        cout << "found " << whitePoints.size() << " white points" << endl;
 
         if (whitePoints.size() != 0) {
             Point average;
@@ -101,29 +109,30 @@ void Straightener::straighten(Mat &originalImage) {
 
     Straightener::findTargets(image, targets);
 
-    // cout << targets << endl;
-    if (targets.size() == 2) {      //if we've found two targets. Else we do nothing.
-        //positions of our found targets
-        double x0 = targets[0].x;
-        double y0 = targets[0].y;
-        double x1 = targets[1].x;
-        double y1 = targets[1].y;
+//    cout << targets << endl;
+    if(targets.size() != 2) throw CrossNotDetected();
 
-        double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
-        double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
-        //cout << abs(wantedAngle - currentAngle) << " degrees of difference" << endl;
+    //positions of our found targets
+    double x0 = targets[0].x;
+    double y0 = targets[0].y;
+    double x1 = targets[1].x;
+    double y1 = targets[1].y;
 
-        if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
-            Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle,
-                                                     1);
+    double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
+    double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
+    // cout << abs(wantedAngle - currentAngle) << " degrees of difference" << endl;
 
-            //cout << transformation << endl;
-            warpAffine(originalImage, originalImage, transformation, image.size());
-        }
+    if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
+        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle,
+                                                 1);
+
+        //cout << transformation << endl;
+        warpAffine(originalImage, originalImage, transformation, image.size());
+
     }
 }
 
-int main() {
+int _main() {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
     // "../../../data/00000_straightened.png", nullptr};
     static const char *names[] = {
