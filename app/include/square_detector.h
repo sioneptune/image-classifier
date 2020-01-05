@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-#define ROI_SIZE_SQUARE 250
+#define ROI_SIZE_SQUARE 248
 #define ROI_TL_OFFSET 7
 
 typedef vector<Point> Square;
