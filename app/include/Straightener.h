@@ -21,7 +21,7 @@ using namespace std;
 #define ROI_1_BR_Y 580
 
 #define ROI_2_TL_X 50
-#define ROI_2_TL_Y 3070
+#define ROI_2_TL_Y 3100
 #define ROI_2_BR_X 670
 #define ROI_2_BR_Y 3400
 
