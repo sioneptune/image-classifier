@@ -26,7 +26,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
 
         //display the ROI (to use only for debug)
 //        namedWindow(wName, WINDOW_NORMAL);
-//        resizeWindow(wName, 600,600);
+//        resizeWindow(wName, 600, 600);
 //        imshow(wName, regions[i]);
 //        int c = waitKey();
 
@@ -57,7 +57,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
 
         //cout << "found " << whitePoints.size() << " white points" << endl;
 
-        if(whitePoints.size() != 0) {
+        if (whitePoints.size() != 0) {
             Point average;
             if (i == 0) {
                 average = Point((sum.x / whitePoints.size()) + ROI_1_TL_X,
@@ -111,19 +111,34 @@ void Straightener::straighten(Mat &originalImage) {
 
         double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
         double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
+        //cout << abs(wantedAngle - currentAngle) << " degrees of difference" << endl;
 
-        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, 1);
-        //cout << transformation << endl;
-        warpAffine(originalImage, originalImage, transformation, image.size());
+        if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
+            Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle,
+                                                     1);
+
+            //cout << transformation << endl;
+            warpAffine(originalImage, originalImage, transformation, image.size());
+        }
     }
 }
 
-int __main() {
+int main() {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
-                                 // "../../../data/00000_straightened.png", nullptr};
-    static const char *names[] = {"../../data/database/00000.png",//"../../data/database/00001.png","../../data/database/00002.png","../../data/database/00003.png","../../data/database/00004.png",nullptr};
-                                  "../../data/database/01316.png",
-                                  "../../data/database/01317.png", nullptr};
+    // "../../../data/00000_straightened.png", nullptr};
+    static const char *names[] = {
+            "../../data/database/00000.png",//"../../data/database/00001.png","../../data/database/00002.png","../../data/database/00003.png","../../data/database/00004.png",nullptr};
+            "../../data/database/00715.png",
+            "../../data/database/01316.png",
+            "../../data/database/01712.png",
+            "../../data/database/02608.png",
+            "../../data/database/03200.png",
+            "../../data/database/03205.png",
+            "../../data/database/03311.png",
+            "../../data/database/03317.png",
+            "../../data/database/03318.png",
+            "../../data/database/03421.png",
+            nullptr};
     Mat image;
     vector<Point> targets;
 
@@ -132,8 +147,8 @@ int __main() {
         targets = {};
 
         image = imread(names[i], IMREAD_COLOR);
-        cout << "image size " << image.size << endl;
-        Straightener::display(image,targets);
+        cout << names[i] << endl;
+        Straightener::display(image, targets);
         if (image.empty()) {
             cout << "Couldn't load " << names[i] << endl;
             exit(0);
