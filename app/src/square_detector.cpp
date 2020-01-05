@@ -80,7 +80,7 @@ void SquareDetector::selectContours(vector<Square> &contours) {
             contours.begin(), contours.end(),
             [](const auto c) {
                 const double area = contourArea(c, false);
-                return (area > 270 * 270) || (area < 240 * 240);
+                return (area > 270 * 270) || (area < 250 * 250);
             }), contours.end());
 }
 
@@ -112,6 +112,7 @@ void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, cons
     namedWindow(wndname, WINDOW_NORMAL);
     resizeWindow(wndname, 600, 600);
     imshow(wndname, image);
+    waitKey();
 }
 
 

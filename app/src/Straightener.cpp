@@ -132,7 +132,7 @@ void Straightener::straighten(Mat &originalImage) {
     }
 }
 
-int _main() {
+int eemain() {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png",
     // "../../../data/00000_straightened.png", nullptr};
     static const char *names[] = {
