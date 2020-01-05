@@ -58,7 +58,7 @@ int main(void) {
             try {
                 Straightener::straighten(currentPage);
             } catch (CrossNotDetected & cnd) {
-                cerr << cnd.what() << ". Page " << scrNb << pgNb << endl;
+                cerr << cnd.what() << " Page " << scrNb << pgNb << " isn't treated." << endl;
                 continue;
             }
 
