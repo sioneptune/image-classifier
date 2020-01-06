@@ -88,7 +88,7 @@ void Straightener::straighten(Mat &originalImage) {
     Straightener::findTargets(image, targets);
 
     // If one of the crosses has not been detected we stop what we're doing and throw an exception
-    if(targets.size() != 2) throw CrossNotDetected();
+    if (targets.size() != 2) throw CrossNotDetected();
 
     // Positions of our found targets
     double x0 = targets[0].x;
@@ -97,11 +97,13 @@ void Straightener::straighten(Mat &originalImage) {
     double y1 = targets[1].y;
 
     double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
+    double wantedLength = sqrt((CROSS2X - CROSS1X) * (CROSS2X - CROSS1X) + (CROSS2Y - CROSS1Y) * (CROSS2Y - CROSS1Y));
     double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
+    double currentLength = sqrt((y1 - y0) * (y1 - y0) + (x1 - x0) * (x1 - x0));
 
     // Only rotate if the angle difference is above our threshold, to optimize the process
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
-        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle,1);
+        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, wantedLength/currentLength);
         warpAffine(originalImage, originalImage, transformation, image.size());
     }
 }
