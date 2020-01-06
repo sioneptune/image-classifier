@@ -129,5 +129,22 @@ For each line, we extract the zone where the icon and its eventual size are.
 All the templates are tested on the zone, and the best matching one is associated with the current line and its snippets.
 
 ### Results of the pre-processing
+**Global results:**
+The ground-truth was established for the two databases. For the training database, 270/1350 lines (5.01%) were annotated. For the test database, all the 84 lines (100%) were annotated.
 
+On each database, 100% of the annotated icons and sizes were correctly detected by our application.
 
+On each database, no outlines are visible on the annotated Snippets (constituing the ground-truth).
+
+**Results on training database:**
+Over the 26950 snippets that it's possible to extract, our pre-processing successfully extracted 26728. We haven't got any Snippet extracted twice (concluded from tests made during debug in the pre-processing process, when processing the whole training database). 
+
+99,18% of the training database was correctly extracted, which is pretty satisfying. We could extract more Snippets without the shifting of the page, that induces somes fails in the squares detection. Nevertheless, shifting the page improves the robustness of our application, and is a reasonable reason to lose a few Snippets in our opinion.
+
+From empirical observations, we have been able to see that at least 3 lines weren't associated with the right icon (we didn't see other errors just by watching the images). 
+These lines are:
+- line 4, page 02, scripter 13,
+- line 4, page 02, scripter 28,
+- line 3, page 01, scripter 34.
+
+The theoritical icons are 'Car' but 'Paramedics' was matched instead. Since it represents only 15 Snippets over the 26728 extracted, we didn't change our icon detection method. It would have taken us too much time to change it, with risks to overfit the detection to the training dataset.
