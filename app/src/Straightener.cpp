@@ -2,14 +2,19 @@
 #include "tools.h"
 
 void Straightener::processImage(Mat &image) {
+
     Mat tiny, clean;
 
+    // Scale the image down then up to de-noise it
     pyrDown(image, tiny, Size(image.cols / 2, image.rows / 2));
     pyrUp(tiny, clean, image.size());
+
+    // Convert to grayscale, as color data is irrelevant for what we want to do
     cvtColor(clean, image, COLOR_BGR2GRAY);
 }
 
 void Straightener::findTargets(Mat &image, vector<Point> &targets) {
+
     Mat analyze;
     image.copyTo(analyze);
     Mat ro1 = regionOfInterest(analyze, Point(ROI_1_TL_X, ROI_1_TL_Y), Point(ROI_1_BR_X, ROI_1_BR_Y));
@@ -17,8 +22,8 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
     vector<Mat> regions = {ro1, ro2};
 
     for (int i = 0; i < regions.size(); i++) {
+        // Threshold and invert the image to have a white cross on a black background
         threshold(regions[i], regions[i], 200, 255, THRESH_BINARY_INV);
-        string wName = to_string(i);
 
         // Eroding through a 4x4 cross, which will make the center bulky and the bars super thin
         Mat cross = getStructuringElement(MORPH_CROSS, Size(5, 5));
@@ -37,7 +42,8 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
             sum = sum + whitePoints[j];
         }
 
-        if (whitePoints.size() != 0) {
+        // Only adds the detected target to the vector if we found white pixels, else it means the detection failed
+        if (!whitePoints.empty()) {
             Point average;
             if (i == 0) {
                 average = Point((sum.x / whitePoints.size()) + ROI_1_TL_X,
@@ -53,13 +59,19 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
 }
 
 void Straightener::display(Mat &image, vector<Point> &targets) {
+
     Mat disp;
+
+    // Work on a copy of the image, as we're supposed to keep the original as intact as possible
     image.copyTo(disp);
+
+    // Draw a circle around the center of each target
     for (int i = 0; i < targets.size(); i++) {
         circle(disp, targets[i], 100, Scalar(0, 0, 255), 2);
     }
     const string wName = "Results";
 
+    // Display the modified image
     namedWindow(wName, WINDOW_NORMAL);
     resizeWindow(wName, 600, 600);
     imshow(wName, disp);
@@ -69,12 +81,13 @@ void Straightener::straighten(Mat &originalImage) {
 
     vector<Point> targets;
     Mat image;
+    // We work on a copy of the image, as we are supposed to keep the original intact
     originalImage.copyTo(image);
     // Get the two crosshair target positions
     Straightener::processImage(image);
-
     Straightener::findTargets(image, targets);
 
+    // If one of the crosses has not been detected we stop what we're doing and throw an exception
     if(targets.size() != 2) throw CrossNotDetected();
 
     // Positions of our found targets
@@ -86,6 +99,7 @@ void Straightener::straighten(Mat &originalImage) {
     double wantedAngle = atan((CROSS2Y - CROSS1Y) / (CROSS2X - CROSS1X)) * 180 / CV_PI;
     double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
 
+    // Only rotate if the angle difference is above our threshold, to optimize the process
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
         Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle,1);
         warpAffine(originalImage, originalImage, transformation, image.size());
