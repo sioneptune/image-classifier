@@ -17,6 +17,8 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
 
     Mat analyze;
     image.copyTo(analyze);
+    Straightener::processImage(analyze);
+
     Mat ro1 = regionOfInterest(analyze, Point(ROI_1_TL_X, ROI_1_TL_Y), Point(ROI_1_BR_X, ROI_1_BR_Y));
     Mat ro2 = regionOfInterest(analyze, Point(ROI_2_TL_X, ROI_2_TL_Y), Point(ROI_2_BR_X, ROI_2_BR_Y));
     vector<Mat> regions = {ro1, ro2};
@@ -75,6 +77,7 @@ void Straightener::display(Mat &image, vector<Point> &targets) {
     namedWindow(wName, WINDOW_NORMAL);
     resizeWindow(wName, 600, 600);
     imshow(wName, disp);
+    int c = waitKey();
 }
 
 void Straightener::straighten(Mat &originalImage) {
@@ -84,7 +87,6 @@ void Straightener::straighten(Mat &originalImage) {
     // We work on a copy of the image, as we are supposed to keep the original intact
     originalImage.copyTo(image);
     // Get the two crosshair target positions
-    Straightener::processImage(image);
     Straightener::findTargets(image, targets);
 
     // If one of the crosses has not been detected we stop what we're doing and throw an exception
@@ -104,6 +106,8 @@ void Straightener::straighten(Mat &originalImage) {
     double angle = 0;
     double scale = 1;
     bool needRotation = false;
+    Mat transformation;
+
     // Only rotate if the angle difference is above our threshold, to optimize the process
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
         angle = currentAngle - wantedAngle;
@@ -114,7 +118,17 @@ void Straightener::straighten(Mat &originalImage) {
         needRotation = true;
     }
     if (needRotation) {
-        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), angle, scale);
-        warpAffine(originalImage, originalImage, transformation, image.size());
+        transformation = getRotationMatrix2D(Point(originalImage.cols / 2, originalImage.rows / 2), angle, scale);
+        warpAffine(originalImage, originalImage, transformation, originalImage.size());
     }
+
+    // Finds the new location of the targets to shift the sheet back into position
+    vector<Point> newTargets = {};
+    Straightener::findTargets(originalImage, newTargets);
+    double newX0 = targets[0].x;
+    double newY0 = targets[0].y;
+
+    Matx23d shift(0, 0, CROSS1X - newX0, 0, 0, CROSS1Y - newY0);
+    if(abs(shift.val[2] > 5) || abs(shift.val[5] > 5)) warpAffine(originalImage,originalImage,shift,originalImage.size());
+
 }
