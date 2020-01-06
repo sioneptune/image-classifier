@@ -8,7 +8,7 @@ using namespace cv;
 
 #include "tools.h"
 #include "Snippet.h"
-#include "Straightener.h"
+#include "Rectificator.h"
 #include "SquareDetector.h"
 #include "MatchTemplate.h"
 
@@ -53,7 +53,7 @@ int main() {
 
             /// Rotation of the page to straighten it
             try {
-                Straightener::straighten(currentPage);
+                Rectificator::rectify(currentPage);
             } catch (CrossNotDetected & cnd) {
                 cerr << cnd.what() << " Page " << scrNb << pgNb << " isn't treated." << endl;
                 continue;

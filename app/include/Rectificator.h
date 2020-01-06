@@ -1,9 +1,5 @@
-//
-// Created by theotime on 03/01/2020.
-//
-
-#ifndef IMAGE_CLASSIFIER_STRAIGTHENER_H
-#define IMAGE_CLASSIFIER_STRAIGTHENER_H
+#ifndef IMAGE_CLASSIFIER_RECTIFICATOR_H
+#define IMAGE_CLASSIFIER_RECTIFICATOR_H
 
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
@@ -34,12 +30,13 @@ using namespace std;
 #define SCALE_THRESHOLD 25
 #define SHIFT_THRESHOLD 5
 
-class Straightener {
+class Rectificator {
 
 public:
 
     /**
      * Pre-processing function that denoises and image and converts it to grayscale
+     *
      * @param image the image matrix we want to process
      */
     static void processImage(Mat &image);
@@ -54,6 +51,7 @@ public:
 
     /**
      * Debug function. Displays the image with circles around where the targets have been detected
+     *
      * @param image to display
      * @param targets we want to show on the image
      */
@@ -61,10 +59,11 @@ public:
 
     /**
      * Takes an image, detects the crosses, and rotates it so the image is straight and scaled correctly, then shifts
-     * it into place if required
-     * @param image to straighten
+     * it into correct place if required
+     *
+     * @param image to rectify
      */
-    static void straighten(Mat &image);
+    static void rectify(Mat &originalImage);
 
 
 };
@@ -80,4 +79,4 @@ struct CrossNotDetected : public std::exception
     }
 };
 
-#endif //IMAGE_CLASSIFIER_STRAIGTHENER_H
+#endif //IMAGE_CLASSIFIER_RECTIFICATOR_H

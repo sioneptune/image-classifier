@@ -1,7 +1,7 @@
 #include <string>
 #include <MatchTemplate.h>
 #include <tools.h>
-#include <Straightener.h>
+#include <Rectificator.h>
 #include <SquareDetector.h>
 
 using namespace std;
@@ -39,7 +39,7 @@ int _main() {
 
             /// Rotation of the page to straighten it
             try {
-                Straightener::straighten(currentPage);
+                Rectificator::rectify(currentPage);
             } catch (CrossNotDetected & cnd) {
                 cerr << cnd.what() << " Page " << scrNb << pgNb << " isn't treated." << endl;
                 continue;
