@@ -129,7 +129,9 @@ void Rectificator::rectify(Mat &originalImage) {
     double newY0 = targets[0].y;
 
     // Shift the image back into place if necessary
-    Matx23d shift(0, 0, CROSS1X - newX0, 0, 0, CROSS1Y - newY0);
-    if(abs(shift.val[2] > SHIFT_THRESHOLD) || abs(shift.val[5] > SHIFT_THRESHOLD)) warpAffine(originalImage,originalImage,shift,originalImage.size());
+    Matx23d shift(1, 0, CROSS1X - newX0, 0, 1, CROSS1Y - newY0);
+    if (abs(shift.val[2] > SHIFT_THRESHOLD) || abs(shift.val[5] > SHIFT_THRESHOLD)) {
+        warpAffine(originalImage, originalImage, shift, originalImage.size());
+    }
 
 }
