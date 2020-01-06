@@ -107,7 +107,7 @@ void Straightener::straighten(Mat &originalImage) {
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
         angle = currentAngle - wantedAngle;
     }
-    if (abs(wantedLength - currentLength > SCALE_THRESHOLD)) {
+    if (abs(wantedLength - currentLength) > SCALE_THRESHOLD) {
         scale = wantedLength / currentLength;
     }
     Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), angle, scale);
