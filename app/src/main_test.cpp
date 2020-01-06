@@ -7,7 +7,7 @@
 using namespace std;
 
 
-int main() {
+int _main() {
     // Const
     const string databasePath = "../../data/database_test/";
     const string outputPath = "../../data/output_test/";
@@ -21,7 +21,7 @@ int main() {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchTemplate mp;
+    MatchTemplate mp("../../data/templates_r/");
 
     /// SCRIPTER (folder) => [1-6]
     for (int scripter = 1; scripter<=6; scripter++) {
@@ -58,9 +58,11 @@ int main() {
                 Mat patternImg = regionOfInterest(rowImg, 0, 0, xPattern, rowSize);
                 // Icon size matching
                 string labelSize;
-                if (page > 1) { // Size isn't written under patterns in the first 2 pages
-                    labelSize = mp.findSize(patternImg);
-                }
+
+                // Removed because there isn't any size in test database images
+//                if (page > 2) { // Size isn't written under patterns in the first 2 pages
+//                    labelSize = mp.findSize(patternImg);
+//                }
 
                 // Icon matching
                 string label = mp.findSymbol(patternImg);
@@ -74,7 +76,7 @@ int main() {
 
                 /// Snippet extraction
                 for (int column = 0; column < topLefts.size(); column++) {
-                    Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], 6, 238);
+                    Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], 7, 248);
 
                     Snippet snippet = Snippet(scrNb, pgNb);
                     snippet.setImg(drawedIcon);
@@ -91,12 +93,12 @@ int main() {
             for (Snippet d: pageSnippets) {
                 // Save the image of the snippet
                 string snippetName = outputPath + d.getName();
+
                 saveImg(snippetName + ".png", d.getImg());
 
                 // Save the description of the snippet
                 saveImgDesc(snippetName + ".txt", d);
             }
-
         }
     }
 

@@ -10,8 +10,11 @@ using namespace std;
 
 class MatchTemplate {
 
+    Mat accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block;
+    Mat large, medium, small;
+
 public:
-    MatchTemplate();
+    MatchTemplate(const string templatePath);
     int match_method;
 
     /**

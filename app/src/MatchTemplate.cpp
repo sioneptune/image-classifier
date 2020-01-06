@@ -4,27 +4,26 @@
 
 using namespace cv;
 
-const Mat accident = openImage("../../data/templates/Accident.png");
-const Mat bomb = openImage("../../data/templates/Bomb.png");
-const Mat car = openImage("../../data/templates/Car.png");
-const Mat casualty = openImage("../../data/templates/Casualty.png");
-const Mat electricity = openImage("../../data/templates/Electricity.png");
-const Mat fire = openImage("../../data/templates/Fire.png");
-const Mat fire_brigade =  openImage("../../data/templates/Fire_brigade.png");
-const Mat flood = openImage("../../data/templates/Flood.png");
-const Mat gas = openImage("../../data/templates/Gas.png");
-const Mat injury =  openImage("../../data/templates/Injury.png");
-const Mat paramedics = openImage("../../data/templates/Paramedics.png");
-const Mat person = openImage("../../data/templates/Person.png");
-const Mat police  = openImage("../../data/templates/Police.png");
-const Mat road_block = openImage("../../data/templates/Road_block.png");
 
-const Mat large = openImage("../../data/templates/large.png");
-const Mat medium = openImage("../../data/templates/medium.png");
-const Mat small = openImage("../../data/templates/small.png");
+MatchTemplate::MatchTemplate(const string templatePath) {
+    accident = openImage(templatePath + "Accident.png");
+    bomb = openImage(templatePath + "Bomb.png");
+    car = openImage(templatePath + "Car.png");
+    casualty = openImage(templatePath + "Casualty.png");
+    electricity = openImage(templatePath + "Electricity.png");
+    fire = openImage(templatePath + "Fire.png");
+    fire_brigade =  openImage(templatePath + "Fire_brigade.png");
+    flood = openImage(templatePath + "Flood.png");
+    gas = openImage(templatePath + "Gas.png");
+    injury =  openImage(templatePath + "Injury.png");
+    paramedics = openImage(templatePath + "Paramedics.png");
+    person = openImage(templatePath + "Person.png");
+    police  = openImage(templatePath + "Police.png");
+    road_block = openImage(templatePath + "Road_block.png");
 
-
-MatchTemplate::MatchTemplate() {
+    large = openImage(templatePath + "large.png");
+    medium = openImage(templatePath + "medium.png");
+    small = openImage(templatePath + "small.png");
     listOfSymbols = {accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block};
     listOfSizes = {small, medium, large};
     match_method = TM_CCOEFF;
