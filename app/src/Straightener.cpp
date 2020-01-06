@@ -101,9 +101,15 @@ void Straightener::straighten(Mat &originalImage) {
     double currentAngle = atan((y1 - y0) / (x1 - x0)) * 180 / CV_PI;
     double currentLength = sqrt((y1 - y0) * (y1 - y0) + (x1 - x0) * (x1 - x0));
 
+    double angle = 0;
+    double scale = 1;
     // Only rotate if the angle difference is above our threshold, to optimize the process
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
-        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), currentAngle - wantedAngle, wantedLength/currentLength);
-        warpAffine(originalImage, originalImage, transformation, image.size());
+        angle = currentAngle - wantedAngle;
     }
+    if (abs(wantedLength - currentLength > SCALE_THRESHOLD)) {
+        scale = wantedLength / currentLength;
+    }
+    Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), angle, scale);
+    warpAffine(originalImage, originalImage, transformation, image.size());
 }
