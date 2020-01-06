@@ -25,10 +25,10 @@ using namespace std;
 #define ROI_2_BR_X 670
 #define ROI_2_BR_Y 3400
 
-#define CROSS1X 2139.0
-#define CROSS1Y 541.0
-#define CROSS2X 298.0
-#define CROSS2Y 3166.0
+#define CROSS1X 2205.0
+#define CROSS1Y 472.0
+#define CROSS2X 255.0
+#define CROSS2Y 3235.0
 
 #define ROT_THRESHOLD 0.075
 #define SCALE_THRESHOLD 25

@@ -12,7 +12,7 @@ using namespace cv;
 #include "SquareDetector.h"
 #include "MatchTemplate.h"
 
-int main() {
+int _main() {
 
     // Const
     const string databasePath = "../../data/database/";
@@ -27,10 +27,10 @@ int main() {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchTemplate mp("../../data/templates_m/");
+    MatchTemplate mp("../../data/templates/");
 
     /// SCRIPTER (folder) => [0-34]
-    for (int scripter = 0; scripter<1; scripter++) {
+    for (int scripter = 0; scripter<35; scripter++) {
         cout << "--- SCRIPTER: " << scripter << " ---" << endl;
 
         string scrNb;

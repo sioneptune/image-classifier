@@ -7,7 +7,7 @@
 using namespace std;
 
 
-int _main() {
+int main() {
     // Const
     const string databasePath = "../../data/database_test/";
     const string outputPath = "../../data/output_test/";
@@ -21,7 +21,7 @@ int _main() {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchTemplate mp("../../data/templates_r/");
+    MatchTemplate mp("../../data/templates/");
 
     /// SCRIPTER (folder) => [1-6]
     for (int scripter = 1; scripter<=6; scripter++) {
@@ -39,7 +39,14 @@ int _main() {
 
             /// Rotation of the page to straighten it
             try {
+                namedWindow("image",WINDOW_NORMAL);
+                resizeWindow("image", 600,600);
+                namedWindow("image2",WINDOW_NORMAL);
+                resizeWindow("image2", 600,600);
+                imshow("image", currentPage);
                 Straightener::straighten(currentPage);
+                imshow("image2", currentPage);
+                waitKey(0);
             } catch (CrossNotDetected & cnd) {
                 cerr << cnd.what() << " Page " << scrNb << pgNb << " isn't treated." << endl;
                 continue;
