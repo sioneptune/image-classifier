@@ -1,7 +1,7 @@
-#include "Straightener.h"
+#include "Rectificator.h"
 #include "tools.h"
 
-void Straightener::processImage(Mat &image) {
+void Rectificator::processImage(Mat &image) {
 
     Mat tiny, clean;
 
@@ -13,11 +13,11 @@ void Straightener::processImage(Mat &image) {
     cvtColor(clean, image, COLOR_BGR2GRAY);
 }
 
-void Straightener::findTargets(Mat &image, vector<Point> &targets) {
+void Rectificator::findTargets(Mat &image, vector<Point> &targets) {
 
     Mat analyze;
     image.copyTo(analyze);
-    Straightener::processImage(analyze);
+    Rectificator::processImage(analyze);
 
     Mat ro1 = regionOfInterest(analyze, Point(ROI_1_TL_X, ROI_1_TL_Y), Point(ROI_1_BR_X, ROI_1_BR_Y));
     Mat ro2 = regionOfInterest(analyze, Point(ROI_2_TL_X, ROI_2_TL_Y), Point(ROI_2_BR_X, ROI_2_BR_Y));
@@ -60,7 +60,7 @@ void Straightener::findTargets(Mat &image, vector<Point> &targets) {
     }
 }
 
-void Straightener::display(Mat &image, vector<Point> &targets) {
+void Rectificator::display(Mat &image, vector<Point> &targets) {
 
     Mat disp;
 
@@ -80,14 +80,14 @@ void Straightener::display(Mat &image, vector<Point> &targets) {
     int c = waitKey();
 }
 
-void Straightener::straighten(Mat &originalImage) {
+void Rectificator::rectify(Mat &originalImage) {
 
     vector<Point> targets;
     Mat image;
     // We work on a copy of the image, as we are supposed to keep the original intact
     originalImage.copyTo(image);
     // Get the two crosshair target positions
-    Straightener::findTargets(image, targets);
+    Rectificator::findTargets(image, targets);
 
     // If one of the crosses has not been detected we stop what we're doing and throw an exception
     if (targets.size() != 2) throw CrossNotDetected();
@@ -124,7 +124,7 @@ void Straightener::straighten(Mat &originalImage) {
 
     // Finds the new location of the targets to shift the sheet back into position
     vector<Point> newTargets = {};
-    Straightener::findTargets(originalImage, newTargets);
+    Rectificator::findTargets(originalImage, newTargets);
     double newX0 = targets[0].x;
     double newY0 = targets[0].y;
 

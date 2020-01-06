@@ -13,7 +13,7 @@ add_executable(Image-Classifier
         src/SquareDetector.cpp include/SquareDetector.h
         src/tools.cpp include/tools.h
         src/Snippet.cpp include/Snippet.h
-        src/Straightener.cpp include/Straightener.h
+        src/Rectificator.cpp include/Rectificator.h
         src/MatchTemplate.cpp include/MatchTemplate.h
         src/main_test.cpp)
 
