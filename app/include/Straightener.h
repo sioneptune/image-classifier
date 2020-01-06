@@ -32,6 +32,7 @@ using namespace std;
 
 #define ROT_THRESHOLD 0.075
 #define SCALE_THRESHOLD 25
+#define SHIFT_THRESHOLD 5
 
 class Straightener {
 
@@ -59,7 +60,8 @@ public:
     static void display(Mat &image, vector<Point> &targets);
 
     /**
-     * Takes an image, detects the crosses, and rotates it so the image is straight
+     * Takes an image, detects the crosses, and rotates it so the image is straight and scaled correctly, then shifts
+     * it into place if required
      * @param image to straighten
      */
     static void straighten(Mat &image);
