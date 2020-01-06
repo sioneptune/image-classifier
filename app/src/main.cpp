@@ -9,10 +9,10 @@ using namespace cv;
 #include "tools.h"
 #include "Snippet.h"
 #include "Straightener.h"
-#include "square_detector.h"
-#include "match_template.h"
+#include "SquareDetector.h"
+#include "MatchTemplate.h"
 
-int _main(void) {
+int _main() {
 
     // Const
     const string databasePath = "../../data/database/";
@@ -28,9 +28,6 @@ int _main(void) {
     const int xPattern = 340;
 
     MatchTemplate mp;
-
-    Timer timer;
-    timer.set_start();
 
     /// SCRIPTER (folder) => [0-34]
     for (int scripter = 0; scripter<35; scripter++) {
@@ -113,13 +110,8 @@ int _main(void) {
                 // Save the description of the snippet
                 saveImgDesc(snippetName + ".txt", d);
             }
-
         }
     }
-
-    cout << "time: " << timer.set_end().time_elapsed() << endl;
-
-
 
     return EXIT_SUCCESS;
 }
