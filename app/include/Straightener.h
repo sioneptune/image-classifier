@@ -31,6 +31,7 @@ using namespace std;
 #define CROSS2Y 3166.0
 
 #define ROT_THRESHOLD 0.075
+#define SCALE_THRESHOLD 25
 
 class Straightener {
 
