@@ -103,13 +103,18 @@ void Straightener::straighten(Mat &originalImage) {
 
     double angle = 0;
     double scale = 1;
+    bool needRotation = false;
     // Only rotate if the angle difference is above our threshold, to optimize the process
     if (abs(wantedAngle - currentAngle) > ROT_THRESHOLD) {
         angle = currentAngle - wantedAngle;
+        needRotation = true;
     }
     if (abs(wantedLength - currentLength) > SCALE_THRESHOLD) {
         scale = wantedLength / currentLength;
+        needRotation = true;
     }
-    Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), angle, scale);
-    warpAffine(originalImage, originalImage, transformation, image.size());
+    if (needRotation) {
+        Mat transformation = getRotationMatrix2D(Point(image.cols / 2, image.rows / 2), angle, scale);
+        warpAffine(originalImage, originalImage, transformation, image.size());
+    }
 }
