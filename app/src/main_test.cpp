@@ -7,7 +7,7 @@
 using namespace std;
 
 
-int main() {
+int _main() {
     // Const
     const string databasePath = "../../data/database_test/";
     const string outputPath = "../../data/output_test/";
@@ -56,13 +56,14 @@ int main() {
 
                 /// Pattern detection
                 Mat patternImg = regionOfInterest(rowImg, 0, 0, xPattern, rowSize);
+                Mat sizeImg = regionOfInterest(patternImg, 0, 230, patternImg.cols, patternImg.rows);
+
                 // Icon size matching
                 string labelSize;
 
-                // Removed because there isn't any size in test database images
-//                if (page > 2) { // Size isn't written under patterns in the first 2 pages
-//                    labelSize = mp.findSize(patternImg);
-//                }
+                if (mp.hasSizeLabel(sizeImg)) {
+                    labelSize = mp.findSize(patternImg);
+                }
 
                 // Icon matching
                 string label = mp.findSymbol(patternImg);

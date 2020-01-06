@@ -12,7 +12,7 @@ using namespace cv;
 #include "SquareDetector.h"
 #include "MatchTemplate.h"
 
-int _main() {
+int main() {
 
     // Const
     const string databasePath = "../../data/database/";
@@ -30,7 +30,7 @@ int _main() {
     MatchTemplate mp("../../data/templates/");
 
     /// SCRIPTER (folder) => [0-34]
-    for (int scripter = 0; scripter<35; scripter++) {
+    for (int scripter = 0; scripter<1; scripter++) {
         cout << "--- SCRIPTER: " << scripter << " ---" << endl;
 
         string scrNb;
@@ -70,9 +70,11 @@ int _main() {
 
                 /// Pattern detection
                 Mat patternImg = regionOfInterest(rowImg, 0, 0, xPattern, rowSize);
+                Mat sizeImg = regionOfInterest(patternImg, 0, 230, patternImg.cols, patternImg.rows);
+
                 // Icon size matching
                 string labelSize;
-                if (page > 1) { // Size isn't written under patterns in the first 2 pages
+                if (mp.hasSizeLabel(sizeImg)) {
                     labelSize = mp.findSize(patternImg);
                 }
 
