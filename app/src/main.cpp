@@ -27,7 +27,7 @@ int main() {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchTemplate mp("../../data/templates/");
+    MatchTemplate mt("../../data/templates/");
 
     /// SCRIPTER (folder) => [0-34]
     for (int scripter = 0; scripter<1; scripter++) {
@@ -74,12 +74,12 @@ int main() {
 
                 // Icon size matching
                 string labelSize;
-                if (mp.hasSizeLabel(sizeImg)) {
-                    labelSize = mp.findSize(patternImg);
+                if (mt.hasSizeLabel(sizeImg)) {
+                    labelSize = mt.findSize(patternImg);
                 }
 
                 // Icon matching
-                string label = mp.findSymbol(patternImg);
+                string label = mt.findSymbol(patternImg);
 
                 /// Squares extraction
                 vector<Square> squares;
