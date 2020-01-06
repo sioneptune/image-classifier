@@ -66,6 +66,14 @@ Prerequisites:
 
 Run `main_test.cpp`
 
+### Evaluating the results
+
+Navigate to app/eval. The evaluation script (written in Python) can be run in one of two ways:
+* To evaluate the training dataset: ```python3 Score.py path_to_csv path_to_output_folder```. With our current file structure that command works out to: `python3 Score.py ./Theoric_Dataset.csv ../../data/output`
+* To evaluate both the training set and the dataset: Run the same command, but add the paths to the test csv and test output folder. For us: `python3 Score.py ./Theoric_Dataset.csv ../../data/output Theoric_Dataset_Test.csv ../../data/output_test`
+
+If you enter the wrong number of arguments, the script should helpfully notify you of your mistake.
+
 ## Pre-processing
 **Specifications:**
 * Do not keep the square frame of the drawings
@@ -76,10 +84,10 @@ from non-modified original color images.
 **Observation:**
 The 22nd page of each scripter is not relevant for our project because it only consist in a full page of handwritten text.
 
-#### Step 1) Identify the cross targets and straighten the picture
+#### Step 1) Identify the cross targets and rectify the picture
 We detect the 2 crosses located in the upper right and lower left of each page, and use them to check if the page has been rotated.
 
-We want the page to be straight: to ensure this we compute the angle between the horizontal axis and the line between the 2 crosses, and rotate the image the appropriate amount to straighten it.
+We want the page to be straight and appropriately scaled: to ensure this we compute the angle between the horizontal axis and the line between the 2 crosses, and rotate the image the appropriate amount to straighten it, as well as scaling it the relevant amount. Once the image has been straightened in this way, we detect a cross again and use it to shift the image into position. In this way, every image is straight, properly scaled and properly positioned.
 
 Method used to detect the crosses:
 1. Select regions where we expect the crosses to be, even for heavily rotated images.
