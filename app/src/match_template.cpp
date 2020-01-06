@@ -27,7 +27,7 @@ const Mat small = openImage("../../data/templates/small.png");
 MatchTemplate::MatchTemplate() {
     listOfSymbols = {accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block};
     listOfSizes = {small, medium, large};
-    match_method = CV_TM_CCOEFF;
+    match_method = TM_CCOEFF;
 }
 
 string MatchTemplate::findSymbol(const Mat& image) const {
@@ -70,7 +70,7 @@ int MatchTemplate::findBestTemplate(const Mat& image, const vector<Mat>& templat
 
     for (int i = 1; i < templateList.size() ; i++) {
         tmp = evaluateTemplate(image, templateList[i]);
-        if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED) {
+        if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
             if (tmp < bestEval) {
                 bestEval = tmp;
                 result = i;
@@ -104,7 +104,7 @@ double MatchTemplate::evaluateTemplate(const Mat& image, const Mat& templateToTe
 
     // Return the best evaluation of the match
     double eval;
-    if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED) {
+    if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
         eval = minVal;
         matchLoc = minLoc;
     } else {
