@@ -1,5 +1,5 @@
-#ifndef IMAGE_CLASSIFIER_SQUARE_DETECTOR_H
-#define IMAGE_CLASSIFIER_SQUARE_DETECTOR_H
+#ifndef IMAGE_CLASSIFIER_SQUAREDETECTOR_H
+#define IMAGE_CLASSIFIER_SQUAREDETECTOR_H
 
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
@@ -63,4 +63,4 @@ public:
     static void extractTopLeftVertices(vector<Square> &squares, vector<Point> &topLefts);
 };
 
-#endif //IMAGE_CLASSIFIER_SQUARE_DETECTOR_H
+#endif //IMAGE_CLASSIFIER_SQUAREDETECTOR_H

@@ -1,4 +1,4 @@
-#include "square_detector.h"
+#include "SquareDetector.h"
 #include "tools.h"
 
 double SquareDetector::angle(const Point &pt1, const Point &pt2, const Point &pt0) {
@@ -104,7 +104,6 @@ void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, cons
     for (auto &square : squares) {
         const Point *p = &square[0];
         int n = square.size();
-        //polylines(image, &p, &n, 1, true, Scalar(0, 255, 0), 3, LINE_AA);
         polylines(image, &p, &n, 1, true, Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3,
                   LINE_AA);
     }
@@ -113,43 +112,4 @@ void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, cons
     resizeWindow(wndname, 600, 600);
     imshow(wndname, image);
     waitKey();
-}
-
-
-
-int mmain(int argc, char **argv) {
-    //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", nullptr};
-    static const char *names[] = {"../../data/database_test/s01_0002.png", nullptr};
-
-    if (argc > 1) {
-        names[0] = argv[1];
-        names[1] = "0";
-    }
-
-    vector<Square> squares;
-    for (int i = 0; names[i] != nullptr; i++) {
-        string filename = names[i];
-        Mat image = imread(filename, IMREAD_COLOR);
-        if (image.empty()) {
-            cout << "Couldn't load " << filename << endl;
-            continue;
-        }
-
-        SquareDetector::findSquares(image, squares);
-
-        SquareDetector::drawSquares(image, squares);
-
-        vector<Point> topLefts;
-        SquareDetector::extractTopLeftVertices(squares, topLefts);
-
-        for (int j = 0; j < topLefts.size(); j++) {
-            saveImg("../../../data/icons/icon" + to_string(j) + ".png", regionOfInterest(image, topLefts[j], 42, 7) );
-        }
-
-        int c = waitKey();
-        if (c == 27)
-            break;
-    }
-
-    return 0;
 }

@@ -1,4 +1,4 @@
-#include "match_template.h"
+#include "MatchTemplate.h"
 #include "opencv2/imgproc.hpp"
 #include "tools.h"
 
