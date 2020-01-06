@@ -48,6 +48,24 @@ column 2
 size medium
 ```
 
+## Launch
+Two `main` are written in the project because the training database and the test one don't have the same name format. Be sure to have only one `main` by changing the name of the one you don't want to run.
+
+
+### Training database
+Prerequisites:
+* Put images of the training database in the folder *image-classifier/data/database*
+* Create a folder *output* in *image-classifier/data/*
+
+Run `main.cpp`
+
+### Test database
+Prerequisites:
+* Put images of the training database in the folder *image-classifier/data/database_test*
+* Create a folder *output_test* in *image-classifier/data/*
+
+Run `main_test.cpp`
+
 ## Pre-processing
 **Specifications:**
 * Do not keep the square frame of the drawings
