@@ -30,7 +30,7 @@ int main() {
     MatchTemplate mt("../../data/templates/");
 
     /// SCRIPTER (folder) => [0-34]
-    for (int scripter = 0; scripter<1; scripter++) {
+    for (int scripter = 0; scripter<35; scripter++) {
         cout << "--- SCRIPTER: " << scripter << " ---" << endl;
 
         string scrNb;
