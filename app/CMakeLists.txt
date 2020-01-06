@@ -15,7 +15,8 @@ add_executable(Image-Classifier
         src/tools.cpp include/tools.h
         src/Snippet.cpp include/Snippet.h
         src/Straightener.cpp include/Straightener.h
-        src/match_template.cpp include/match_template.h)
+        src/match_template.cpp include/match_template.h
+        src/main_test.cpp)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})
 

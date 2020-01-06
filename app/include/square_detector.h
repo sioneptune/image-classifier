@@ -11,9 +11,6 @@
 using namespace cv;
 using namespace std;
 
-#define ROI_SIZE_SQUARE 248
-#define ROI_TL_OFFSET 7
-
 typedef vector<Point> Square;
 
 // From: https://github.com/opencv/opencv/blob/master/samples/cpp/squares.cpp
@@ -36,7 +33,6 @@ class SquareDetector {
     static void selectContours(vector<Square> &contours);
 
 public:
-
     /**
      * Finds squares inside an image
      *

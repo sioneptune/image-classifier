@@ -117,9 +117,9 @@ void SquareDetector::drawSquares(Mat &image, const vector<Square> &squares, cons
 
 
 
-int _main(int argc, char **argv) {
+int mmain(int argc, char **argv) {
     //static const char *names[] = {"../../../data/00000.png", "../../../data/00000_rotate.png", nullptr};
-    static const char *names[] = {"../../../data/00707_row.png", nullptr};
+    static const char *names[] = {"../../data/database_test/s01_0002.png", nullptr};
 
     if (argc > 1) {
         names[0] = argv[1];
@@ -127,7 +127,6 @@ int _main(int argc, char **argv) {
     }
 
     vector<Square> squares;
-
     for (int i = 0; names[i] != nullptr; i++) {
         string filename = names[i];
         Mat image = imread(filename, IMREAD_COLOR);
@@ -144,7 +143,7 @@ int _main(int argc, char **argv) {
         SquareDetector::extractTopLeftVertices(squares, topLefts);
 
         for (int j = 0; j < topLefts.size(); j++) {
-            saveImg("../../../data/icons/icon" + to_string(j) + ".png", regionOfInterest(image, topLefts[j], ROI_TL_OFFSET, ROI_SIZE_SQUARE) );
+            saveImg("../../../data/icons/icon" + to_string(j) + ".png", regionOfInterest(image, topLefts[j], 42, 7) );
         }
 
         int c = waitKey();

@@ -1,22 +1,16 @@
-#include <iostream>
+#include <string>
+#include <match_template.h>
+#include <tools.h>
+#include <Straightener.h>
+#include <square_detector.h>
 
 using namespace std;
 
-#include "opencv2/imgproc.hpp"
 
-using namespace cv;
-
-#include "tools.h"
-#include "Snippet.h"
-#include "Straightener.h"
-#include "square_detector.h"
-#include "match_template.h"
-
-int _main(void) {
-
+int main() {
     // Const
-    const string databasePath = "../../data/database/";
-    const string outputPath = "../../data/output/";
+    const string databasePath = "../../data/database_test/";
+    const string outputPath = "../../data/output_test/";
 
     // Vars to navigate in the pages
     const int rowSize = 345;
@@ -29,30 +23,19 @@ int _main(void) {
 
     MatchTemplate mp;
 
-    Timer timer;
-    timer.set_start();
-
-    /// SCRIPTER (folder) => [0-34]
-    for (int scripter = 0; scripter<35; scripter++) {
+    /// SCRIPTER (folder) => [1-6]
+    for (int scripter = 1; scripter<=6; scripter++) {
         cout << "--- SCRIPTER: " << scripter << " ---" << endl;
 
-        string scrNb;
-        if (scripter < 10) {
-            scrNb += "0";
-        }
-        scrNb += "0" + to_string(scripter);
+        string scrNb = "s0" + to_string(scripter);
 
-        /// PAGE => [0-21]
-        for (int page = 0; page<22; page++) {
+        /// PAGE => [1-2]
+        for (int page = 1; page<=2; page++) {
             cout << "page: " << page << endl;
 
-            string pgNb;
-            if (page < 10) {
-                pgNb += "0";
-            }
-            pgNb += to_string(page);
+            string pgNb = "000" + to_string(page);
 
-            Mat currentPage = openImage(databasePath + scrNb + pgNb + ".png");
+            Mat currentPage = openImage(databasePath + scrNb + "_" + pgNb + ".png");
 
             /// Rotation of the page to straighten it
             try {
@@ -91,7 +74,7 @@ int _main(void) {
 
                 /// Snippet extraction
                 for (int column = 0; column < topLefts.size(); column++) {
-                    Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], 7, 248);
+                    Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], 6, 238);
 
                     Snippet snippet = Snippet(scrNb, pgNb);
                     snippet.setImg(drawedIcon);
@@ -117,9 +100,7 @@ int _main(void) {
         }
     }
 
-    cout << "time: " << timer.set_end().time_elapsed() << endl;
-
-
-
     return EXIT_SUCCESS;
+
 }
+
