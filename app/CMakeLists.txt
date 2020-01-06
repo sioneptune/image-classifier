@@ -10,12 +10,11 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 
 add_executable(Image-Classifier
         src/main.cpp
-        src/histogram.cpp include/histogram.h
-        src/square_detector.cpp include/square_detector.h
+        src/SquareDetector.cpp include/SquareDetector.h
         src/tools.cpp include/tools.h
         src/Snippet.cpp include/Snippet.h
         src/Straightener.cpp include/Straightener.h
-        src/match_template.cpp include/match_template.h
+        src/MatchTemplate.cpp include/MatchTemplate.h
         src/main_test.cpp)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})

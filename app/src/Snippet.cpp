@@ -70,15 +70,3 @@ const string& Snippet::getSize() const {
 void Snippet::setSize(const string &size) {
     Snippet::size = size;
 }
-
-
-#include "tools.h"
-
-int __main(int argc, char **argv) {
-    Snippet d = Snippet("001" , "02");
-    d.setColumn(2);
-    d.setRow(1);
-    d.setLabel("fire");
-    d.setSize("small");
-    saveImgDesc("../../../data/imgdesc.txt", d);
-}

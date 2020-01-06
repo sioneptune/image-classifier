@@ -1,8 +1,8 @@
 #include <string>
-#include <match_template.h>
+#include <MatchTemplate.h>
 #include <tools.h>
 #include <Straightener.h>
-#include <square_detector.h>
+#include <SquareDetector.h>
 
 using namespace std;
 
