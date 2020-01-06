@@ -125,8 +125,8 @@ void Rectificator::rectify(Mat &originalImage) {
     // Finds the new location of the targets to shift the sheet back into position
     vector<Point> newTargets = {};
     Rectificator::findTargets(originalImage, newTargets);
-    double newX0 = targets[0].x;
-    double newY0 = targets[0].y;
+    double newX0 = newTargets[0].x;
+    double newY0 = newTargets[0].y;
 
     // Shift the image back into place if necessary
     Matx23d shift(1, 0, CROSS1X - newX0, 0, 1, CROSS1Y - newY0);
