@@ -29,6 +29,18 @@ MatchTemplate::MatchTemplate(const string templatePath) {
     match_method = TM_CCOEFF;
 }
 
+bool MatchTemplate::hasSizeLabel(const Mat& image) const {
+    Mat binaryImage;
+    threshold(image, binaryImage, 120, 255, THRESH_BINARY);
+    cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
+
+    vector<Point> whitePoints;
+    findNonZero(binaryImage, whitePoints);
+
+    double whiteRate = (1.0  * whitePoints.size()) / (binaryImage.cols * binaryImage.rows);
+    return whiteRate < 0.99;
+}
+
 string MatchTemplate::findSymbol(const Mat& image) const {
     int result = findBestTemplate(image, listOfSymbols);
     switch(result) {

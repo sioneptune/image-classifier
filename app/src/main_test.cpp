@@ -7,7 +7,7 @@
 using namespace std;
 
 
-int main() {
+int _main() {
     // Const
     const string databasePath = "../../data/database_test/";
     const string outputPath = "../../data/output_test/";
@@ -21,7 +21,7 @@ int main() {
     const int xEndRow = 2350;
     const int xPattern = 340;
 
-    MatchTemplate mp("../../data/templates/");
+    MatchTemplate mt("../../data/templates/");
 
     /// SCRIPTER (folder) => [1-6]
     for (int scripter = 1; scripter<=6; scripter++) {
@@ -56,16 +56,17 @@ int main() {
 
                 /// Pattern detection
                 Mat patternImg = regionOfInterest(rowImg, 0, 0, xPattern, rowSize);
+                Mat sizeImg = regionOfInterest(patternImg, 0, 230, patternImg.cols, patternImg.rows);
+
                 // Icon size matching
                 string labelSize;
 
-                // Removed because there isn't any size in test database images
-//                if (page > 2) { // Size isn't written under patterns in the first 2 pages
-//                    labelSize = mp.findSize(patternImg);
-//                }
+                if (mt.hasSizeLabel(sizeImg)) {
+                    labelSize = mt.findSize(patternImg);
+                }
 
                 // Icon matching
-                string label = mp.findSymbol(patternImg);
+                string label = mt.findSymbol(patternImg);
 
                 /// Squares extraction
                 vector<Square> squares;

@@ -10,9 +10,6 @@
 using namespace std;
 using namespace cv;
 
-typedef cv::Point3_<uint8_t> Pixel;
-
-
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, const Point2i& bottomRight);
 
 Mat regionOfInterest(const Mat& img, const Point2i& topLeft, int topLeftOffset, int size);

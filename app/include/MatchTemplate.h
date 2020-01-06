@@ -8,6 +8,8 @@
 using namespace cv;
 using namespace std;
 
+typedef cv::Point3_<uint8_t> Pixel;
+
 class MatchTemplate {
 
     Mat accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block;
@@ -16,6 +18,8 @@ class MatchTemplate {
 public:
     MatchTemplate(const string templatePath);
     int match_method;
+
+    bool hasSizeLabel(const Mat& image) const;
 
     /**
      * Finds the symbol on the image
