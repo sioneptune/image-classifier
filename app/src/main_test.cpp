@@ -78,7 +78,22 @@ int _main() {
                 for (int column = 0; column < topLefts.size(); column++) {
                     Mat drawedIcon = regionOfInterest(rowImg, topLefts[column], 7, 248);
 
-                    Snippet snippet = Snippet(scrNb, pgNb);
+                    string scrNbExport;
+                    if ( scripter < 10 )
+                        scrNbExport = "00" + to_string(scripter);
+                    else if (scripter < 100)
+                        scrNbExport = "0" + to_string(scripter);
+                    else
+                        scrNbExport = to_string(scripter);
+
+                    string pgNbExport;
+                    if (page < 10 )
+                        pgNbExport = "0" + to_string(page);
+                    else
+                        pgNbExport = to_string(page);
+
+
+                    Snippet snippet = Snippet(scrNbExport, pgNbExport);
                     snippet.setImg(drawedIcon);
                     snippet.setSize(labelSize);
                     snippet.setLabel(label);
