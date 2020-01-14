@@ -1,4 +1,4 @@
-#include "preprocessing/MatchTemplate.h"
+#include "pre-processing/MatchTemplate.h"
 #include "opencv2/imgproc.hpp"
 #include "tools.h"
 

@@ -5,7 +5,7 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
-#include "preprocessing/Snippet.h"
+#include "pre-processing/Snippet.h"
 
 using namespace std;
 using namespace cv;

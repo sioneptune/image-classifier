@@ -1,4 +1,4 @@
-#include "preprocessing/Rectificator.h"
+#include "pre-processing/Rectificator.h"
 #include "tools.h"
 
 void Rectificator::processImage(Mat &image) {
