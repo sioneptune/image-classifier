@@ -1,4 +1,4 @@
-#include "SquareDetector.h"
+#include "preprocessing/SquareDetector.h"
 #include "tools.h"
 
 double SquareDetector::angle(const Point &pt1, const Point &pt2, const Point &pt0) {

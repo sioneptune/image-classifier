@@ -1,4 +1,4 @@
-#include "Snippet.h"
+#include "preprocessing/Snippet.h"
 
 Snippet::Snippet(const string &scripter, const string &page) : scripter(scripter), page(page) {
     form = scripter + page;

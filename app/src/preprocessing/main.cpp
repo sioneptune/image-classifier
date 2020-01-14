@@ -7,10 +7,10 @@ using namespace std;
 using namespace cv;
 
 #include "tools.h"
-#include "Snippet.h"
-#include "Rectificator.h"
-#include "SquareDetector.h"
-#include "MatchTemplate.h"
+#include "preprocessing/Snippet.h"
+#include "preprocessing/Rectificator.h"
+#include "preprocessing/SquareDetector.h"
+#include "preprocessing/MatchTemplate.h"
 
 int main() {
 

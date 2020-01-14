@@ -1,8 +1,8 @@
 #include <string>
-#include <MatchTemplate.h>
+#include <preprocessing/MatchTemplate.h>
 #include <tools.h>
-#include <Rectificator.h>
-#include <SquareDetector.h>
+#include <preprocessing/Rectificator.h>
+#include <preprocessing/SquareDetector.h>
 
 using namespace std;
 
