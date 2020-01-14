@@ -217,6 +217,7 @@ _deps
 
 # Texts (img descriptions)
 data/output/*
+data/output_test/*
 
 # EXCEPTIONS
 !data/templates/*
