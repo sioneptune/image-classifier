@@ -155,6 +155,7 @@ The theoritical icons are 'Car' but 'Paramedics' was matched instead. Since it r
 * Height
 * Width
 * Median point (ie center of the bounding box)
+* Percentage of pixels
 * Mean point (average of all the non-white pixels)
 * Number of edges
 * Number of curves
