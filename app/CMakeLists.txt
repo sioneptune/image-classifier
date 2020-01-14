@@ -9,13 +9,13 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 
 
 add_executable(Image-Classifier
-        src/preprocessing/main.cpp
-        src/preprocessing/SquareDetector.cpp include/preprocessing/SquareDetector.h
+        src/pre-processing/main.cpp
+        src/pre-processing/SquareDetector.cpp include/pre-processing/SquareDetector.h
         src/tools.cpp include/tools.h
-        src/preprocessing/Snippet.cpp include/preprocessing/Snippet.h
-        src/preprocessing/Rectificator.cpp include/preprocessing/Rectificator.h
-        src/preprocessing/MatchTemplate.cpp include/preprocessing/MatchTemplate.h
-        src/preprocessing/main_test.cpp src/feature-extraction/FeatureExtractor.cpp include/feature-extraction/FeatureExtractor.h)
+        src/pre-processing/Snippet.cpp include/pre-processing/Snippet.h
+        src/pre-processing/Rectificator.cpp include/pre-processing/Rectificator.h
+        src/pre-processing/MatchTemplate.cpp include/pre-processing/MatchTemplate.h
+        src/pre-processing/main_test.cpp src/feature-extraction/FeatureExtractor.cpp include/feature-extraction/FeatureExtractor.h)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})
 
