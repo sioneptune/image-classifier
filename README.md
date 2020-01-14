@@ -148,3 +148,16 @@ These lines are:
 - line 3, page 01, scripter 34.
 
 The theoritical icons are 'Car' but 'Paramedics' was matched instead. Since it represents only 15 Snippets over the 26728 extracted, we didn't change our icon detection method. It would have taken us too much time to change it, with risks to overfit the detection to the training dataset.
+
+## Feature extraction
+
+### Features to extract:
+* Height
+* Width
+* Median point (ie center of the bounding box)
+* Percentage of pixels
+* Mean point (average of all the non-white pixels)
+* Number of edges
+* Number of curves
+* Number of distinct elements
+* Inclusion of one element into the other
