@@ -15,7 +15,7 @@ add_executable(Image-Classifier
         src/preprocessing/Snippet.cpp include/preprocessing/Snippet.h
         src/preprocessing/Rectificator.cpp include/preprocessing/Rectificator.h
         src/preprocessing/MatchTemplate.cpp include/preprocessing/MatchTemplate.h
-        src/preprocessing/main_test.cpp)
+        src/preprocessing/main_test.cpp src/feature-extraction/FeatureExtractor.cpp include/feature-extraction/FeatureExtractor.h)
 
 target_link_libraries(Image-Classifier ${OpenCV_LIBS})
 
