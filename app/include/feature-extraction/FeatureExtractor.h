@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <utility>
+#include <fstream>
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
+#include "tools.h"
 
 using namespace cv;
 using namespace std;
@@ -32,11 +34,11 @@ private:
     vector<Feature*> results;
 public:
     FeatureExtractor();
-    Feature* functionBool();
-    Feature* functionString();
-    Feature* functionInt();
-    Feature* functionDouble();
-    void exportARFF(const vector<FeatureFunction>& list, string path);
+    Feature* functionBool(Mat& img);
+    Feature* functionString(Mat& img);
+    Feature* functionInt(Mat& img);
+    Feature* functionDouble(Mat& img);
+    void exportARFF(const vector<FeatureFunction>& list, string inputPath, string outputPath);
 };
 
 // Inherited Features
