@@ -5,11 +5,12 @@
 #include <utility>
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
+#include "tools.h"
 
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE };
+enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE , BARYCENTER_X, BARYCENTER_Y};
 
 class Feature {
 public:
@@ -36,6 +37,7 @@ public:
     Feature* functionString();
     Feature* functionInt();
     Feature* functionDouble();
+    vector<Feature*> barycentre(Mat& image);
     void exportARFF(const vector<FeatureFunction>& list, string path);
 };
 
