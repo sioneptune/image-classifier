@@ -80,14 +80,13 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
 
     Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
     Point center = Point((right + left) / 2, (top + bottom) / 2);
-    Point barycenter = Point(average.x - center.x, average.y - center.y);
-    cout << average << endl;
-    cout << center << endl;
-    FeatureInt baryX = FeatureInt(BARYCENTER_X, barycenter.x);
-    FeatureInt baryY = FeatureInt(BARYCENTER_Y, barycenter.y);
+    double baryx = (double)(average.x - center.x)/((double)(left - right));
+    double baryy = (double)(average.y - center.y)/((double)(top - bottom));
+
+    FeatureDouble baryX = FeatureDouble(BARYCENTER_X, baryx);
+    FeatureDouble baryY = FeatureDouble(BARYCENTER_Y, baryy);
 
     vector<Feature*> res = {&baryX, &baryY};
-
     return res;
 }
 
