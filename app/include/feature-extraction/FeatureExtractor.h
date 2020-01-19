@@ -6,10 +6,12 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
+#include "tools.h"
+
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE };
+enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE, NB_CIRCLES };
 
 class Feature {
 public:
@@ -23,6 +25,7 @@ public:
             case FUNCTION_STRING: return "function_something";
             case FUNCTION_INT: return "function_that_happened_to_be_useful";
             case FUNCTION_DOUBLE: return "function_double_trouble";
+            case NB_CIRCLES: return "nb_of_circles";
         }
     }
 };
@@ -30,6 +33,9 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
+
+
+
 public:
     FeatureExtractor();
     Feature* functionBool();
@@ -37,6 +43,10 @@ public:
     Feature* functionInt();
     Feature* functionDouble();
     void exportARFF(const vector<FeatureFunction>& list, string path);
+
+
+    // A PASSER EN PRIVATE
+    Feature* nbCircles(const Mat& img);
 };
 
 // Inherited Features

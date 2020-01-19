@@ -20,6 +20,20 @@ Feature* FeatureExtractor::functionDouble() {
     return new FeatureDouble(FUNCTION_DOUBLE, -34.56);
 }
 
+Feature* FeatureExtractor::nbCircles(const Mat& img) {
+    Mat modif;
+    cvtColor(img, modif, COLOR_BGR2GRAY);
+    morphologyEx(modif, modif, MORPH_ERODE, getStructuringElement(MORPH_ELLIPSE, Size(5,5)));
+//    GaussianBlur(modif, modif, Size(9, 9), 2, 2);
+
+    imshow("modif", modif);
+
+    vector<Vec3f> circles;
+    HoughCircles(modif, circles,HOUGH_GRADIENT,2, modif.rows/4,100,100);
+
+    return new FeatureInt(NB_CIRCLES, circles.size());
+}
+
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, string path) {
     Feature *feat = nullptr;
     cout << "Exportation to " + path << endl;
@@ -53,7 +67,11 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, string pa
     cout << tinyRes << endl;
 }
 
-int a_main(){
+int main(){
     FeatureExtractor feat = FeatureExtractor();
-    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "a/path");
+    Mat i = openImage("../../data/output/bomb/bomb_000_18_2_4.png");
+    feat.nbCircles(i);
+    i = openImage("../../data/output/bomb/bomb_002_12_1_3.png");
+    feat.nbCircles(i);
+//    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "a/path");
 }
