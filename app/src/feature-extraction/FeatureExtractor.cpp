@@ -29,7 +29,7 @@ Feature* FeatureExtractor::nbCircles(const Mat& img) {
     imshow("modif", modif);
 
     vector<Vec3f> circles;
-    HoughCircles(modif, circles,HOUGH_GRADIENT,2, modif.rows/4,100,100);
+    HoughCircles(modif, circles,HOUGH_GRADIENT,2, modif.rows/4,100,100); //40 with small circle
 
     return new FeatureInt(NB_CIRCLES, circles.size());
 }
@@ -90,10 +90,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, string in
 
 int main(){
     FeatureExtractor feat = FeatureExtractor();
-    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "../../data/output/", "../../data/");
+//    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "../../data/output/", "../../data/");
     Mat i = openImage("../../data/output/bomb/bomb_000_18_2_4.png");
-    feat.nbCircles(i);
+    cout << feat.nbCircles(i)->getValue() << endl;
     i = openImage("../../data/output/bomb/bomb_002_12_1_3.png");
-    feat.nbCircles(i);
-//    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "a/path");
+    cout << feat.nbCircles(i)->getValue() << endl;
 }
