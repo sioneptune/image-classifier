@@ -21,15 +21,18 @@ Feature* FeatureExtractor::functionDouble(Mat& img) {
 }
 
 Feature* FeatureExtractor::nbCircles(const Mat& img) {
+    const int ARBITRARY_THRESH_HOUGH = 10;
+
     Mat modif;
     cvtColor(img, modif, COLOR_BGR2GRAY);
     morphologyEx(modif, modif, MORPH_ERODE, getStructuringElement(MORPH_ELLIPSE, Size(5,5)));
 //    GaussianBlur(modif, modif, Size(9, 9), 2, 2);
 
-    imshow("modif", modif);
+    vector<Point> bb = boundingBox(img);
+    const int width = abs(bb[0].x - bb[1].x);
 
     vector<Vec3f> circles;
-    HoughCircles(modif, circles,HOUGH_GRADIENT,2, modif.rows/4,100,100); //40 with small circle
+    HoughCircles(modif, circles,HOUGH_GRADIENT,2, modif.rows/4,100,width + ARBITRARY_THRESH_HOUGH); //40 with small circle
 
     return new FeatureInt(NB_CIRCLES, circles.size());
 }
@@ -94,5 +97,7 @@ int main(){
     Mat i = openImage("../../data/output/bomb/bomb_000_18_2_4.png");
     cout << feat.nbCircles(i)->getValue() << endl;
     i = openImage("../../data/output/bomb/bomb_002_12_1_3.png");
+    cout << feat.nbCircles(i)->getValue() << endl;
+    i = openImage("../../data/output/bomb/bomb_034_09_5_3.png");
     cout << feat.nbCircles(i)->getValue() << endl;
 }
