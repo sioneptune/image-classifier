@@ -24,4 +24,11 @@ void saveImgDesc(const string name, const Snippet& d);
 
 Mat openImage(const String path);
 
+/**
+ * Gives back two points that define the bounding box around the drawing
+ * @param image
+ * @return two points, the top left (smallest x, biggest y) and the bottom right (biggest x, smallest y)
+ */
+vector<Point> boundingBox(const Mat image);
+
 #endif //IMAGE_CLASSIFIER_TOOLS_H
