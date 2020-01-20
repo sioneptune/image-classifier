@@ -32,13 +32,19 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
+    Mat image;
+    Point upLeftCorner;
+    Point downRightCorner;
+
 public:
-    FeatureExtractor();
-    Feature* functionBool(Mat& img);
-    Feature* functionString(Mat& img);
-    Feature* functionInt(Mat& img);
-    Feature* functionDouble(Mat& img);
-    void exportARFF(const vector<FeatureFunction>& list, string inputPath, string outputPath);
+    ~FeatureExtractor();
+    void setImage(const Mat& img);
+
+    Feature* functionBool() const;
+    Feature* functionString() const;
+    Feature* functionInt() const;
+    Feature* functionDouble() const;
+    void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 
 // Inherited Features
