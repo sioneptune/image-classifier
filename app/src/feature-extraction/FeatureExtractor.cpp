@@ -27,11 +27,6 @@ Feature* FeatureExtractor::functionDouble() const {
 }
 
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
-    // initialization of bouding box attributes
-    vector<Point> imgBoundingBox = boundingBox(image);
-    upLeftCorner = imgBoundingBox[0];
-    downRightCorner = imgBoundingBox[1];
-
     Feature *feat = nullptr;
     string iname;
     string name = outputPath + "extracted_images.arff";
@@ -54,6 +49,11 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
                 // initialization of image attribute
                 setImage(img);
+
+                // initialization of bouding box attributes
+                vector<Point> imgBoundingBox = boundingBox(image);
+                upLeftCorner = imgBoundingBox[0];
+                downRightCorner = imgBoundingBox[1];
 
                 // Extraction
                 for (FeatureFunction f : list) {
