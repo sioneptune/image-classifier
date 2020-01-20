@@ -24,4 +24,13 @@ void saveImgDesc(const string name, const Snippet& d);
 
 Mat openImage(const String path);
 
+// Transforms background "white" pixels into real white pixels
+Mat whitenImage(const Mat& image);
+
+// Computes the average color (BGR) without taking into account the white pixels ; the input image must be in BGR (or RGB and result will be in RGB too)
+Scalar getAverageColor(const Mat& image);
+
+// Whiten all pixels which are not similar to the average color
+Mat removeNoise(const Mat& image);
+
 #endif //IMAGE_CLASSIFIER_TOOLS_H
