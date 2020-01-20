@@ -50,9 +50,8 @@ Mat openImage(const String path) {
 }
 
 vector<Point> boundingBox(const Mat image) {
+    Mat binim = removeNoise(image);
     vector<Point> nonzero;
-    Mat binim;
-    cvtColor(image, binim, COLOR_BGR2GRAY);
     threshold(binim, binim, 200, 255, THRESH_BINARY_INV);
     findNonZero(binim, nonzero);
     int top = 0;

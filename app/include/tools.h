@@ -31,13 +31,25 @@ Mat openImage(const String path);
  */
 vector<Point> boundingBox(const Mat image);
 
-// Transforms background "white" pixels into real white pixels
+/**
+ * Transforms background "white" pixels into real white pixels on the image
+ * @param image
+ * @return the final transformed image
+ */
 Mat whitenImage(const Mat& image);
 
-// Computes the average color (BGR) without taking into account the white pixels ; the input image must be in BGR (or RGB and result will be in RGB too)
+/**
+ * Computes the image average color without taking into account white pixels
+ * @param image in BRG mode (or RGB mode)
+ * @return a 3-component scalar, each representing the average of a channel (B ; G ; R or R ; G ; B depending on the image mode)
+ */
 Scalar getAverageColor(const Mat& image);
 
-// Whiten all pixels which are not similar to the average color
+/**
+ * Whitens all pixels which are not similar to the average color (see getAverageColor)
+ * @param image
+ * @return the final transformed image
+ */
 Mat removeNoise(const Mat& image);
 
 #endif //IMAGE_CLASSIFIER_TOOLS_H
