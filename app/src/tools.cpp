@@ -49,6 +49,28 @@ Mat openImage(const String path) {
     return image;
 }
 
+vector<Point> boundingBox(const Mat image) {
+    vector<Point> nonzero;
+    Mat binim;
+    cvtColor(image, binim, COLOR_BGR2GRAY);
+    threshold(binim, binim, 200, 255, THRESH_BINARY_INV);
+    findNonZero(binim, nonzero);
+    int top = 0;
+    int bottom = INT_MAX;
+    int left = INT_MAX;
+    int right = 0;
+
+    for (Point p : nonzero) {
+        if (p.x > right) right = p.x;
+        if (p.x < left) left = p.x;
+        if (p.y > top) top = p.y;
+        if (p.y < bottom) bottom = p.y;
+
+    }
+
+    return {Point(left, top), Point(right, bottom)};
+}
+
 Mat whitenImage(const Mat& image) {
     Mat copy;
     image.copyTo(copy);

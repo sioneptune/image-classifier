@@ -12,7 +12,7 @@ using namespace cv;
 #include "pre-processing/SquareDetector.h"
 #include "pre-processing/MatchTemplate.h"
 
-int main() {
+int a_main() {
 
     // Const
     const string databasePath = "../../data/database/";
