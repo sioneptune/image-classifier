@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE };
+enum FeatureFunction { HEIGHT_WIDTH_RATIO };
 
 class Feature {
 public:
@@ -21,10 +21,7 @@ public:
     virtual string getValue() = 0;
     string getName() {
         switch (name) {
-            case FUNCTION_BOOL: return "function_bool_or_any_name";
-            case FUNCTION_STRING: return "function_something";
-            case FUNCTION_INT: return "function_that_happened_to_be_useful";
-            case FUNCTION_DOUBLE: return "function_double_trouble";
+            case HEIGHT_WIDTH_RATIO: return "height_width_radio";
         }
     }
 };
@@ -40,10 +37,7 @@ public:
     ~FeatureExtractor();
     void setImage(const Mat& img);
 
-    Feature* functionBool() const;
-    Feature* functionString() const;
-    Feature* functionInt() const;
-    Feature* functionDouble() const;
+    Feature* heightWidthRatio() const;
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 

@@ -10,28 +10,13 @@ void FeatureExtractor::setImage(const Mat& img){
     image = img;
 }
 
-Feature* FeatureExtractor::functionBool() const {
-    return new FeatureBool(FUNCTION_BOOL, false);
-}
-
-Feature* FeatureExtractor::functionString() const {
-    return new FeatureString(FUNCTION_STRING, "{pelican, pingouin, cockatiel}", "cockatiel");
-}
-
-Feature* FeatureExtractor::functionInt() const {
-    return new FeatureInt(FUNCTION_INT, 124);
-}
-
-Feature* FeatureExtractor::functionDouble() const {
-    return new FeatureDouble(FUNCTION_DOUBLE, -34.56);
+Feature* FeatureExtractor::heightWidthRatio() const {
+    int height = downRightCorner.y - upLeftCorner. y;
+    int width = downRightCorner.x - upLeftCorner.x;
+    return new FeatureDouble(HEIGHT_WIDTH_RATIO,1.0 * height / width );
 }
 
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
-    // initialization of bouding box attributes
-    vector<Point> imgBoundingBox = boundingBox(image);
-    upLeftCorner = imgBoundingBox[0];
-    downRightCorner = imgBoundingBox[1];
-
     Feature *feat = nullptr;
     string iname;
     string name = outputPath + "extracted_images.arff";
@@ -55,16 +40,15 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 // initialization of image attribute
                 setImage(img);
 
+                // initialization of bouding box attributes
+                vector<Point> imgBoundingBox = boundingBox(image);
+                upLeftCorner = imgBoundingBox[0];
+                downRightCorner = imgBoundingBox[1];
+
                 // Extraction
                 for (FeatureFunction f : list) {
                     switch (f) {
-                        case FUNCTION_BOOL:     feat = functionBool();
-                            break;
-                        case FUNCTION_STRING:   feat = functionString();
-                            break;
-                        case FUNCTION_INT:      feat = functionInt();
-                            break;
-                        case FUNCTION_DOUBLE:   feat = functionDouble();
+                        case HEIGHT_WIDTH_RATIO:     feat = heightWidthRatio();
                             break;
                     }
                     results.push_back(feat);
@@ -90,5 +74,5 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "../../data/output/", "../../data/");
+    feat.exportARFF({ HEIGHT_WIDTH_RATIO}, "../../data/output_extract/", "../../data/output_extract/");
 }
