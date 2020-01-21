@@ -62,8 +62,8 @@ vector<Point> boundingBox(const Mat image) {
     for (Point p : nonzero) {
         if (p.x > right) right = p.x;
         if (p.x < left) left = p.x;
-        if (p.y > top) top = p.y;
-        if (p.y < bottom) bottom = p.y;
+        if (p.y < top) top = p.y;
+        if (p.y > bottom) bottom = p.y;
 
     }
 
