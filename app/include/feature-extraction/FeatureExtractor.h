@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <utility>
+#include <fstream>
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 #include "tools.h"
@@ -31,14 +32,19 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
+    Mat image;
+    Point upLeftCorner;
+    Point downRightCorner;
+
 public:
-    FeatureExtractor();
-    Feature* functionBool();
-    Feature* functionString();
-    Feature* functionInt();
-    Feature* functionDouble();
-    vector<Feature*> barycentre(Mat& image);
-    void exportARFF(const vector<FeatureFunction>& list, string path);
+    ~FeatureExtractor();
+    void setImage(const Mat& img);
+
+    Feature* functionBool() const;
+    Feature* functionString() const;
+    Feature* functionInt() const;
+    Feature* functionDouble() const;
+    void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 
 // Inherited Features
