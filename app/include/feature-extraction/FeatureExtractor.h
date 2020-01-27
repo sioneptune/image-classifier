@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO };
 
 class Feature {
     const string name;
@@ -37,6 +37,8 @@ private:
     void setBBImage(const Mat& img) { bbImage = img; }
 
     vector<Feature *> barycenter() const;
+    Feature* heightWidthRatio() const;
+
 
 public:
     ~FeatureExtractor() {
@@ -44,8 +46,6 @@ public:
             delete f;
         }
     }
-
-    Feature* heightWidthRatio() const;
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 

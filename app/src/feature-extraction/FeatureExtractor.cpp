@@ -40,11 +40,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             featureVect = barycenter();
                             results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
                             break ;
-                            /** exemple avec un case qui ne rend qu'une feature :
-                             * case ___ :
-                             *      feat= fonction();
-                             *      results.push_back(feat);
-                            **/
+                        case HEIGHT_WIDTH_RATIO:
+                            feat = heightWidthRatio();
+                            results.push_back(feat);
+                            break;
                     }
                 }
 
@@ -101,7 +100,13 @@ vector<Feature *> FeatureExtractor::barycenter() const {
     return res;
 }
 
+Feature* FeatureExtractor::heightWidthRatio() const {
+    int height = downRightCorner.y - upLeftCorner. y;
+    int width = downRightCorner.x - upLeftCorner.x;
+    return new FeatureDouble("height_width_ratio",1.0 * height / width );
+}
+
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({BARYCENTER}, "../../data/output/", "../../data/");
+    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO}, "../../data/output/", "../../data/");
 }
