@@ -1,21 +1,7 @@
 #include "feature-extraction/FeatureExtractor.h"
-
-FeatureExtractor::~FeatureExtractor() {
-    for(auto f: results) {
-        delete f;
-    }
-}
-
-void FeatureExtractor::setImage(const Mat& img){
-    image = img;
-}
-
-void FeatureExtractor::setBBImage(const Mat& img){
-    bbImage = img;
-}
-
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
     Feature *feat = nullptr;
+    vector<Feature *> featureVect;
     string iname;
     string name = outputPath + "extracted_images.arff";
     Mat img;
@@ -49,8 +35,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 // Extraction
                 for (FeatureFunction f : list) {
                     switch (f) {
+                        case BARYCENTER_X :
+                        case BARYCENTER_Y : featureVect = barycenter(); results.insert(results.end(), featureVect.begin(), featureVect.end()) ; break ;
                     }
-                    results.push_back(feat);
                 }
             }
             // Export Header
@@ -71,7 +58,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open file: " << name << endl;
 }
 
-vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
+vector<Feature *> FeatureExtractor::barycenter() const {
     vector<Point> nonzero;
     Mat binim;
     cvtColor(image,binim,COLOR_BGR2GRAY);

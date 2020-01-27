@@ -21,6 +21,8 @@ public:
     virtual string getValue() = 0;
     string getName() {
         switch (name) {
+            case BARYCENTER_Y: return "barycenter_y";
+            case BARYCENTER_X: return "barycenter_x";
         }
     }
 };
@@ -35,12 +37,15 @@ private:
     Point downRightCorner;
 
 public:
-    ~FeatureExtractor();
-    void setImage(const Mat& img);
-    void setBBImage(const Mat& img);
+    ~FeatureExtractor() {
+        for(auto f: results) {
+            delete f;
+        }
+    }
+    void setImage(const Mat& img) { image = img; }
+    void setBBImage(const Mat& img) { bbImage = img; }
     
-    vector<Feature *> barycentre(Mat &image);
-
+    vector<Feature *> barycenter() const;
 
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
