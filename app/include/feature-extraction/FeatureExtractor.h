@@ -11,19 +11,16 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER_X, BARYCENTER_Y};
+enum FeatureFunction { BARYCENTER };
 
 class Feature {
+    const string name;
 public:
-    const FeatureFunction name;
-    explicit Feature(FeatureFunction f): name(f) {};
+    explicit Feature(string n): name(std::move(n)) {};
     virtual string getDescriptor() = 0;
     virtual string getValue() = 0;
     string getName() {
-        switch (name) {
-            case BARYCENTER_Y: return "barycenter_y";
-            case BARYCENTER_X: return "barycenter_x";
-        }
+        return name;
     }
 };
 
@@ -36,16 +33,17 @@ private:
     Point upLeftCorner;
     Point downRightCorner;
 
+    void setImage(const Mat& img) { image = img; }
+    void setBBImage(const Mat& img) { bbImage = img; }
+
+    vector<Feature *> barycenter() const;
+
 public:
     ~FeatureExtractor() {
         for(auto f: results) {
             delete f;
         }
     }
-    void setImage(const Mat& img) { image = img; }
-    void setBBImage(const Mat& img) { bbImage = img; }
-    
-    vector<Feature *> barycenter() const;
 
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
@@ -54,36 +52,40 @@ public:
 
 // Inherited Features
 class FeatureBool : public Feature {
-public:
+private:
     const string nominalValues = "{true, false}";
     bool value;
-    FeatureBool(FeatureFunction f, bool val): Feature(f), value(val) {};
+public:
+    FeatureBool(string name, bool val): Feature(name), value(val) {};
     string getDescriptor() override {   return "@ATTRIBUTE "+ getName() + " " + nominalValues;    }
     string getValue() override {    return to_string(value);    }
 };
 
 class FeatureString : public Feature {
-public:
+private:
     const string nominalValues; // Should be in the format "{val_1, val_2, etc.}"
     string value;
-    FeatureString(FeatureFunction f, string nominalVal, string val = ""): Feature(f), nominalValues(std::move(nominalVal)), value(std::move(val)) {};
+public:
+    FeatureString(string name, string nominalVal, string val = ""): Feature(name), nominalValues(std::move(nominalVal)), value(std::move(val)) {};
     string getDescriptor() override {   return "@ATTRIBUTE "+ getName() + " " + nominalValues;    }
     string getValue() override {    return value;    }
 };
 
 class FeatureInt : public Feature {
-public:
+private:
     int value;
-    FeatureInt(FeatureFunction f, int val): Feature(f), value(val) {};
+public:
+    FeatureInt(string name, int val): Feature(name), value(val) {};
     string getDescriptor() override {   return "@ATTRIBUTE "+ getName() + " NUMERIC";    }
     string getValue() override {    return to_string(value);    }
 };
 
 class FeatureDouble : public Feature {
-public:
+private:
     double value;
-    FeatureDouble(FeatureFunction f, double val): Feature(f), value(val) {};
-    string getDescriptor() override {   return "@ATTRIBUTE "+ getName()+ " NUMERIC";    }
+public:
+    FeatureDouble(string name, double val): Feature(name), value(val) {};
+    string getDescriptor() override {   return "@ATTRIBUTE "+ getName() + " NUMERIC";    }
     string getValue() override {    return to_string(value);    }
 };
 

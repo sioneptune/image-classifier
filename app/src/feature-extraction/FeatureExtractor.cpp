@@ -2,6 +2,7 @@
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
     Feature *feat = nullptr;
     vector<Feature *> featureVect;
+    int nbOfImages=0;
     string iname;
     string name = outputPath + "extracted_images.arff";
     Mat img;
@@ -35,19 +36,28 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 // Extraction
                 for (FeatureFunction f : list) {
                     switch (f) {
-                        case BARYCENTER_X :
-                        case BARYCENTER_Y : featureVect = barycenter(); results.insert(results.end(), featureVect.begin(), featureVect.end()) ; break ;
+                        case BARYCENTER:
+                            featureVect = barycenter();
+                            results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
+                            break ;
+                            /** exemple avec un case qui ne rend qu'une feature :
+                             * case ___ :
+                             *      feat= fonction();
+                             *      results.push_back(feat);
+                            **/
                     }
                 }
+
+                nbOfImages ++;
             }
             // Export Header
-            for(int i = 0; i<list.size(); i++){ file << results[i]->getDescriptor() << endl; }
+            for(int i = 0; i<(results.size() / nbOfImages); i++){ file << results[i]->getDescriptor() << endl; }
 
             // Export Values
             file << "\n@DATA" << endl;
             for(int i = 1; i<= results.size(); i++){
                 file << results[i-1]->getValue();
-                if(i % list.size() == 0)    file << endl;   //End of line
+                if(i % (results.size() / nbOfImages) == 0)    file << endl;   //End of line
                 else    file << ',';                        //Separate values of the same image
             }
             file.close();
@@ -84,8 +94,8 @@ vector<Feature *> FeatureExtractor::barycenter() const {
     double baryx = (double)(average.x - center.x)/((double)(left - right));
     double baryy = (double)(average.y - center.y)/((double)(top - bottom));
 
-    FeatureDouble* baryX = new FeatureDouble(BARYCENTER_X, baryx);
-    FeatureDouble* baryY = new FeatureDouble(BARYCENTER_Y, baryy);
+    FeatureDouble* baryX = new FeatureDouble("barycenter_x", baryx);
+    FeatureDouble* baryY = new FeatureDouble("barycenter_y", baryy);
 
     vector<Feature*> res = {baryX, baryY};
     return res;
@@ -93,5 +103,5 @@ vector<Feature *> FeatureExtractor::barycenter() const {
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({}, "../../data/output/", "../../data/");
+    feat.exportARFF({BARYCENTER}, "../../data/output/", "../../data/");
 }
