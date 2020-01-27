@@ -121,13 +121,6 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
     return res;
 }
 
-
-int main() {
-    FeatureExtractor feat = FeatureExtractor();
-    feat.exportARFF({FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE}, "a/path");
-    Mat img = openImage("../../data/output/accident/accident_000_00_1_1.png");
-    vector<Feature * > f = feat.barycentre(img);
-
 int main(){
     FeatureExtractor feat;
     feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "../../data/output/", "../../data/");

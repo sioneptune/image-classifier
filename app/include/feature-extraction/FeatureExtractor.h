@@ -44,6 +44,7 @@ public:
     Feature* functionString() const;
     Feature* functionInt() const;
     Feature* functionDouble() const;
+    vector<Feature *> barycentre(Mat &image);
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 
