@@ -1,22 +1,22 @@
 #include "feature-extraction/FeatureExtractor.h"
 
 FeatureExtractor::FeatureExtractor() {
-    results = vector<Feature*>();
+    results = vector<Feature *>();
 }
 
-Feature* FeatureExtractor::functionBool() {
+Feature *FeatureExtractor::functionBool() {
     return new FeatureBool(FUNCTION_BOOL, false);
 }
 
-Feature* FeatureExtractor::functionString() {
+Feature *FeatureExtractor::functionString() {
     return new FeatureString(FUNCTION_STRING, "{pelican, pingouin, cockatiel}", "cockatiel");
 }
 
-Feature* FeatureExtractor::functionInt() {
+Feature *FeatureExtractor::functionInt() {
     return new FeatureInt(FUNCTION_INT, 124);
 }
 
-Feature* FeatureExtractor::functionDouble() {
+Feature *FeatureExtractor::functionDouble() {
     return new FeatureDouble(FUNCTION_DOUBLE, -34.56);
 }
 
@@ -27,15 +27,19 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, string pa
     cout << "@RELATION EXTRACTED_IMAGES\n" << endl;
 
     // Extraction
-    for(FeatureFunction f : list) {
+    for (FeatureFunction f : list) {
         switch (f) {
-            case FUNCTION_BOOL: feat = functionBool();
+            case FUNCTION_BOOL:
+                feat = functionBool();
                 break;
-            case FUNCTION_STRING: feat = functionString();
+            case FUNCTION_STRING:
+                feat = functionString();
                 break;
-            case FUNCTION_INT: feat = functionInt();
+            case FUNCTION_INT:
+                feat = functionInt();
                 break;
-            case FUNCTION_DOUBLE: feat = functionDouble();
+            case FUNCTION_DOUBLE:
+                feat = functionDouble();
                 break;
         }
         // TODO : Export the Header in the final file
@@ -47,13 +51,50 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, string pa
     // TODO : Export the Data in the final file
     cout << "\n@DATA" << endl;
     string tinyRes = "";
-    for(Feature* f : results) {
-        tinyRes+= f->getValue()+",";
+    for (Feature *f : results) {
+        tinyRes += f->getValue() + ",";
     }
     cout << tinyRes << endl;
 }
 
-int a_main(){
+vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
+    vector<Point> nonzero;
+    Mat binim;
+    cvtColor(image,binim,COLOR_BGR2GRAY);
+    threshold(binim, binim,200,255,THRESH_BINARY_INV);
+    findNonZero(binim, nonzero);
+    int top = 0;
+    int bottom = 1000;
+    int left = 1000;
+    int right = 0;
+    Point sum = Point(0, 0);
+
+    for (Point p : nonzero) {
+        if (p.x > right) right = p.x;
+        if (p.x < left) left = p.x;
+        if (p.y > top) top = p.y;
+        if (p.y < bottom) bottom = p.y;
+
+        sum += p;
+    }
+
+    Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
+    Point center = Point((right + left) / 2, (top + bottom) / 2);
+    double baryx = (double)(average.x - center.x)/((double)(left - right));
+    double baryy = (double)(average.y - center.y)/((double)(top - bottom));
+
+    FeatureDouble baryX = FeatureDouble(BARYCENTER_X, baryx);
+    FeatureDouble baryY = FeatureDouble(BARYCENTER_Y, baryy);
+
+    vector<Feature*> res = {&baryX, &baryY};
+    return res;
+}
+
+
+int main() {
     FeatureExtractor feat = FeatureExtractor();
-    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "a/path");
+    feat.exportARFF({FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE}, "a/path");
+    Mat img = openImage("../../data/output/accident/accident_000_00_1_1.png");
+    vector<Feature * > f = feat.barycentre(img);
+
 }
