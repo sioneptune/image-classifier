@@ -54,16 +54,16 @@ vector<Point> boundingBox(const Mat image) {
     vector<Point> nonzero;
     threshold(binim, binim, 200, 255, THRESH_BINARY_INV);
     findNonZero(binim, nonzero);
-    int top = 0;
-    int bottom = INT_MAX;
+    int top = INT_MAX;
+    int bottom = 0;
     int left = INT_MAX;
     int right = 0;
 
     for (Point p : nonzero) {
         if (p.x > right) right = p.x;
         if (p.x < left) left = p.x;
-        if (p.y > top) top = p.y;
-        if (p.y < bottom) bottom = p.y;
+        if (p.y < top) top = p.y;
+        if (p.y > bottom) bottom = p.y;
 
     }
 
