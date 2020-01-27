@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { FUNCTION_BOOL, FUNCTION_STRING, FUNCTION_INT, FUNCTION_DOUBLE , BARYCENTER_X, BARYCENTER_Y};
+enum FeatureFunction { BARYCENTER_X, BARYCENTER_Y};
 
 class Feature {
 public:
@@ -21,35 +21,33 @@ public:
     virtual string getValue() = 0;
     string getName() {
         switch (name) {
-            case FUNCTION_BOOL: return "function_bool_or_any_name";
-            case FUNCTION_STRING: return "function_something";
-            case FUNCTION_INT: return "function_that_happened_to_be_useful";
-            case FUNCTION_DOUBLE: return "function_double_trouble";
         }
     }
 };
+
 
 class FeatureExtractor {
 private:
     vector<Feature*> results;
     Mat image;
+    Mat bbImage;
     Point upLeftCorner;
     Point downRightCorner;
 
 public:
     ~FeatureExtractor();
     void setImage(const Mat& img);
-
-    Feature* functionBool() const;
-    Feature* functionString() const;
-    Feature* functionInt() const;
-    Feature* functionDouble() const;
+    void setBBImage(const Mat& img);
+    
     vector<Feature *> barycentre(Mat &image);
+
+
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
 };
 
-// Inherited Features
 
+
+// Inherited Features
 class FeatureBool : public Feature {
 public:
     const string nominalValues = "{true, false}";

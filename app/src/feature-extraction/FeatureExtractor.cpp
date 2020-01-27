@@ -10,20 +10,8 @@ void FeatureExtractor::setImage(const Mat& img){
     image = img;
 }
 
-Feature* FeatureExtractor::functionBool() const {
-    return new FeatureBool(FUNCTION_BOOL, false);
-}
-
-Feature* FeatureExtractor::functionString() const {
-    return new FeatureString(FUNCTION_STRING, "{pelican, pingouin, cockatiel}", "cockatiel");
-}
-
-Feature* FeatureExtractor::functionInt() const {
-    return new FeatureInt(FUNCTION_INT, 124);
-}
-
-Feature* FeatureExtractor::functionDouble() const {
-    return new FeatureDouble(FUNCTION_DOUBLE, -34.56);
+void FeatureExtractor::setBBImage(const Mat& img){
+    bbImage = img;
 }
 
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
@@ -54,18 +42,13 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 vector<Point> imgBoundingBox = boundingBox(image);
                 upLeftCorner = imgBoundingBox[0];
                 downRightCorner = imgBoundingBox[1];
+                
+                // initialization of the extracted bounding box of the image
+                setBBImage(regionOfInterest(img, upLeftCorner, downRightCorner));
 
                 // Extraction
                 for (FeatureFunction f : list) {
                     switch (f) {
-                        case FUNCTION_BOOL:     feat = functionBool();
-                            break;
-                        case FUNCTION_STRING:   feat = functionString();
-                            break;
-                        case FUNCTION_INT:      feat = functionInt();
-                            break;
-                        case FUNCTION_DOUBLE:   feat = functionDouble();
-                            break;
                     }
                     results.push_back(feat);
                 }
@@ -123,5 +106,5 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE }, "../../data/output/", "../../data/");
+    feat.exportARFF({}, "../../data/output/", "../../data/");
 }
