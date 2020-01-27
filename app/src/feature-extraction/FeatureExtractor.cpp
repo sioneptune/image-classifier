@@ -114,10 +114,10 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
     double baryx = (double)(average.x - center.x)/((double)(left - right));
     double baryy = (double)(average.y - center.y)/((double)(top - bottom));
 
-    FeatureDouble baryX = FeatureDouble(BARYCENTER_X, baryx);
-    FeatureDouble baryY = FeatureDouble(BARYCENTER_Y, baryy);
+    FeatureDouble* baryX = new FeatureDouble(BARYCENTER_X, baryx);
+    FeatureDouble* baryY = new FeatureDouble(BARYCENTER_Y, baryy);
 
-    vector<Feature*> res = {&baryX, &baryY};
+    vector<Feature*> res = {baryX, baryY};
     return res;
 }
 
