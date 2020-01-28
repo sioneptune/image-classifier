@@ -1,5 +1,5 @@
 #include "feature-extraction/FeatureExtractor.h"
-void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
+void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
     Feature *feat = nullptr;
     vector<Feature *> featureVect;
     int nbOfImages=0;
@@ -18,14 +18,14 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
             // Open every image in given folder
             while(getline(input, iname)) {
+                iname.replace(0,2,"");
                 iname = inputPath + iname;
-                cout << "Iname : " + iname << endl;
                 img = openImage(iname);
 
                 // initialization of image attribute
                 setImage(img);
 
-                // initialization of bouding box attributes
+                // initialization of bounding box attributes
                 vector<Point> imgBoundingBox = boundingBox(image);
                 upLeftCorner = imgBoundingBox[0];
                 downRightCorner = imgBoundingBox[1];
