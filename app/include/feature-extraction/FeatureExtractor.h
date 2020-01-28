@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER_X, BARYCENTER_Y};
+enum FeatureFunction { BARYCENTER_X, BARYCENTER_Y, LEVELS_OF_HIERARCHY };
 
 class Feature {
 public:
@@ -21,6 +21,7 @@ public:
     virtual string getValue() = 0;
     string getName() {
         switch (name) {
+            case LEVELS_OF_HIERARCHY: return "levels_of_hierarchy";
         }
     }
 };
@@ -40,6 +41,7 @@ public:
     void setBBImage(const Mat& img);
     
     vector<Feature *> barycentre(Mat &image);
+    Feature* levelsOfHierarchy() const;
 
 
     void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
