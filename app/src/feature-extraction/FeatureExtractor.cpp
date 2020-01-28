@@ -7,14 +7,6 @@ FeatureExtractor::~FeatureExtractor() {
     }
 }
 
-void FeatureExtractor::setImage(const Mat& img){
-    image = img;
-}
-
-void FeatureExtractor::setBBImage(const Mat& img){
-    bbImage = img;
-}
-
 
 Feature* FeatureExtractor::levelsOfHierarchy() const {
 
@@ -61,6 +53,8 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
 
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string inputPath, const string outputPath) {
     Feature *feat = nullptr;
+    vector<Feature *> featureVect;
+    int nbOfImages=0;
     string iname;
     string name = outputPath + "extracted_images.arff";
     Mat img;
@@ -94,18 +88,27 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 // Extraction
                 for (FeatureFunction f : list) {
                     switch (f) {
+                        case BARYCENTER:
+                            featureVect = barycenter();
+                            results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
+                            break ;
+                        case HEIGHT_WIDTH_RATIO:
+                            feat = heightWidthRatio();
+                            results.push_back(feat);
+                            break;
                     }
-                    results.push_back(feat);
                 }
+
+                nbOfImages ++;
             }
             // Export Header
-            for(int i = 0; i<list.size(); i++){ file << results[i]->getDescriptor() << endl; }
+            for(int i = 0; i<(results.size() / nbOfImages); i++){ file << results[i]->getDescriptor() << endl; }
 
             // Export Values
             file << "\n@DATA" << endl;
             for(int i = 1; i<= results.size(); i++){
                 file << results[i-1]->getValue();
-                if(i % list.size() == 0)    file << endl;   //End of line
+                if(i % (results.size() / nbOfImages) == 0)    file << endl;   //End of line
                 else    file << ',';                        //Separate values of the same image
             }
             file.close();
@@ -116,7 +119,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open file: " << name << endl;
 }
 
-vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
+vector<Feature *> FeatureExtractor::barycenter() const {
     vector<Point> nonzero;
     Mat binim;
     cvtColor(image,binim,COLOR_BGR2GRAY);
@@ -142,14 +145,20 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
     double baryx = (double)(average.x - center.x)/((double)(left - right));
     double baryy = (double)(average.y - center.y)/((double)(top - bottom));
 
-    FeatureDouble* baryX = new FeatureDouble(BARYCENTER_X, baryx);
-    FeatureDouble* baryY = new FeatureDouble(BARYCENTER_Y, baryy);
+    FeatureDouble* baryX = new FeatureDouble("barycenter_x", baryx);
+    FeatureDouble* baryY = new FeatureDouble("barycenter_y", baryy);
 
     vector<Feature*> res = {baryX, baryY};
     return res;
 }
 
+Feature* FeatureExtractor::heightWidthRatio() const {
+    int height = downRightCorner.y - upLeftCorner. y;
+    int width = downRightCorner.x - upLeftCorner.x;
+    return new FeatureDouble("height_width_ratio",1.0 * height / width );
+}
+
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({}, "../../data/output/", "../../data/");
+    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO}, "../../data/output/", "../../data/");
 }
