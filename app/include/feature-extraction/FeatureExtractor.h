@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY };
 
 class Feature {
     const string name;
@@ -38,6 +38,7 @@ private:
 
     vector<Feature *> barycenter() const;
     Feature* heightWidthRatio() const;
+    Feature* levelsOfHierarchy() const;
 
 
 public:
