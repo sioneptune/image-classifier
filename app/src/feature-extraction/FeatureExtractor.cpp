@@ -115,6 +115,60 @@ vector<Feature *> FeatureExtractor::barycentre(Mat &image) {
     return res;
 }
 
+Feature *FeatureExtractor::lines(Mat &image) {
+
+    Mat src, dst, cdst, cdstP;
+    image.copyTo(src);
+
+/*    // Edge detection
+    Canny(src, dst, 50, 200, 3);*/
+
+    cvtColor(src,dst,COLOR_BGR2GRAY);
+    threshold(dst,dst,230,255,THRESH_BINARY_INV);
+    Mat elem = getStructuringElement(MORPH_CROSS,Size(3,3));
+    dilate(dst,dst,elem);
+    erode(dst,dst,elem);
+    erode(dst,dst,elem);
+    // Copy edges to the images that will display the results in BGR
+    cvtColor(dst, cdst, COLOR_GRAY2BGR);
+    cdstP = cdst.clone();
+    // Standard Hough Line Transform
+    vector<Vec2f> lines; // will hold the results of the detection
+    HoughLines(dst, lines, 1, CV_PI/180, 55, 0, 0 ); // runs the actual detection
+    // Draw the lines
+    for( size_t i = 0; i < lines.size(); i++ )
+    {
+        float rho = lines[i][0], theta = lines[i][1];
+        Point pt1, pt2;
+        double a = cos(theta), b = sin(theta);
+        double x0 = a*rho, y0 = b*rho;
+        pt1.x = cvRound(x0 + 1000*(-b));
+        pt1.y = cvRound(y0 + 1000*(a));
+        pt2.x = cvRound(x0 - 1000*(-b));
+        pt2.y = cvRound(y0 - 1000*(a));
+        line( cdst, pt1, pt2, Scalar(0,0,255), 3, LINE_AA);
+    }
+    // Probabilistic Line Transform
+    vector<Vec4i> linesP; // will hold the results of the detection
+    HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 10 ); // runs the actual detection
+
+        // Draw the lines
+        cout << linesP.size() << endl;
+    for( size_t i = 0; i < linesP.size(); i++ )
+    {
+        Vec4i l = linesP[i];
+        line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
+    }
+    // Show results
+    imshow("Source", src);
+    imshow("Standard Hough Line Transform", cdst);
+    imshow("Probabilistic Line Transform", cdstP);
+    // Wait and Exit
+    waitKey();
+
+    return nullptr;
+}
+
 int main() {
     FeatureExtractor feat;
     feat.exportARFF({FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE}, "../../data/output/",
