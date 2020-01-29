@@ -135,7 +135,8 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
         parents.insert(hierarchy[i][3]);
     }
 
-    /* DEBUG ONLY
+/*
+    // DEBUG ONLY
     cout << parents.size() << endl;
 
     /// Draw contours
@@ -149,12 +150,12 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
 
     imshow("draw", drawing);
     waitKey();
-    */
+*/
 
     return new FeatureInt("levels_of_hierarchy", parents.size());
 }
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY }, "../../data/output/", "../../data/");
+    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY }, "../../data/output/", "../../data/output/");
 }
