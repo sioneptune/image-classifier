@@ -25,6 +25,8 @@ public:
             case FUNCTION_STRING: return "function_something";
             case FUNCTION_INT: return "function_that_happened_to_be_useful";
             case FUNCTION_DOUBLE: return "function_double_trouble";
+            case BARYCENTER_X: return "barycenter_x_coordinate";
+            case BARYCENTER_Y: return "barycenter_y_coordinate";
         }
     }
 };
