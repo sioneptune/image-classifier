@@ -49,11 +49,17 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             break;
                         case PIXEL_RATE:
                             results.push_back(pixelRate());
+                            break;
+                        case HU_MOMENTS:
+                            featureVect = HuMoments();
+                            results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
+                            break;
                     }
                 }
 
                 nbOfImages ++;
             }
+
             // Export Header
             for(int i = 0; i<(results.size() / nbOfImages); i++){ file << results[i]->getDescriptor() << endl; }
 
@@ -168,7 +174,24 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
     return new FeatureInt("levels_of_hierarchy", parents.size());
 }
 
+vector<Feature *> FeatureExtractor::HuMoments() const {
+    Mat binaryImage;
+    cvtColor(bbImage, binaryImage, COLOR_BGR2GRAY);
+    threshold(binaryImage, binaryImage, 220, 255, CV_THRESH_BINARY);
+
+    Moments moments = cv::moments(binaryImage, false);
+    double huMoments[7];
+    cv::HuMoments(moments, huMoments);
+
+    vector<Feature*> momentFeatures;
+    for(int i = 0; i<7; i++) {
+        momentFeatures.push_back(new FeatureDouble("hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
+    }
+
+    return momentFeatures;
+}
+
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY}, "../../data/output_extract/", "../../data/output_extract/");
+    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS}, "../../data/output/", "../../data/");
 }
