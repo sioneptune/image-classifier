@@ -6,11 +6,13 @@ then
 	#Create destination folders
 
 	#Create files_output.txt file
-	if [ ! -d "./output/files_output.txt" ]
+	if [ -f "./output/files_output.txt" ]
 	then
-		touch ./output/files_output.txt
-		echo "Create files_output.txt file"
+		# Delete it before filling it, to clean old versions
+		rm ./output/files_output.txt
 	fi
+	touch ./output/files_output.txt
+	echo "Create files_output.txt file"
 
 	#ACCIDENT
 	if [ ! -d "./output/accident" ]
