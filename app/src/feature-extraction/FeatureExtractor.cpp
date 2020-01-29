@@ -130,30 +130,13 @@ Feature *FeatureExtractor::lines(Mat &image) {
     erode(dst,dst,elem);
     erode(dst,dst,elem);
     // Copy edges to the images that will display the results in BGR
-    cvtColor(dst, cdst, COLOR_GRAY2BGR);
-    cdstP = cdst.clone();
-    // Standard Hough Line Transform
-    vector<Vec2f> lines; // will hold the results of the detection
-    HoughLines(dst, lines, 1, CV_PI/180, 55, 0, 0 ); // runs the actual detection
-    // Draw the lines
-    for( size_t i = 0; i < lines.size(); i++ )
-    {
-        float rho = lines[i][0], theta = lines[i][1];
-        Point pt1, pt2;
-        double a = cos(theta), b = sin(theta);
-        double x0 = a*rho, y0 = b*rho;
-        pt1.x = cvRound(x0 + 1000*(-b));
-        pt1.y = cvRound(y0 + 1000*(a));
-        pt2.x = cvRound(x0 - 1000*(-b));
-        pt2.y = cvRound(y0 - 1000*(a));
-        line( cdst, pt1, pt2, Scalar(0,0,255), 3, LINE_AA);
-    }
+    cvtColor(dst, cdstP, COLOR_GRAY2BGR);
     // Probabilistic Line Transform
     vector<Vec4i> linesP; // will hold the results of the detection
-    HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 10 ); // runs the actual detection
+    HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 15 ); // runs the actual detection
 
         // Draw the lines
-        cout << linesP.size() << endl;
+        cout << "Probalistic lines:" << linesP.size() << endl;
     for( size_t i = 0; i < linesP.size(); i++ )
     {
         Vec4i l = linesP[i];
@@ -161,16 +144,39 @@ Feature *FeatureExtractor::lines(Mat &image) {
     }
     // Show results
     imshow("Source", src);
-    imshow("Standard Hough Line Transform", cdst);
-    imshow("Probabilistic Line Transform", cdstP);
+        imshow("Probabilistic Line Transform", cdstP);
     // Wait and Exit
     waitKey();
 
     return nullptr;
 }
 
-int main() {
+int main(){
+    vector<string> names = {"../../data/output/accident/accident_000_00_1_4.png",
+                            "../../data/output/bomb/bomb_000_04_5_4.png",
+                            "../../data/output/car/car_000_02_6_2.png",
+                            "../../data/output/casualty/casualty_000_03_2_4.png",
+                            "../../data/output/electricity/electricity_000_00_5_2.png",
+                            "../../data/output/fire/fire_000_00_6_2.png",
+                            "../../data/output/fire_brigade/fire brigade_000_03_4_2.png",
+                            "../../data/output/flood/flood_000_04_1_3.png",
+                            "../../data/output/gas/gas_000_03_7_1.png",
+                            "../../data/output/injury/injury_000_03_5_3.png",
+                            "../../data/output/paramedics/paramedics_000_04_4_3.png",
+                            "../../data/output/person/person_000_02_3_5.png",
+                            "../../data/output/police/police_000_02_4_4.png",
+                            "../../data/output/road_block/road block_000_02_5_1.png"};
+    FeatureExtractor f = FeatureExtractor();
+    Mat image;
+    for(string name : names){
+        image = imread(name);
+        f.setImage(image);
+        f.lines(image);
+    }
+}
+
+int __main() {
     FeatureExtractor feat;
-    feat.exportARFF({FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE}, "../../data/output/",
+    feat.exportARFF({FUNCTION_BOOL, FUNCTION_INT, FUNCTION_STRING, FUNCTION_DOUBLE, BARYCENTER_X, BARYCENTER_Y}, "../../data/output/",
                     "../../data/");
 }
