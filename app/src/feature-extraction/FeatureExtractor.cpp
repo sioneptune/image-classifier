@@ -1,7 +1,7 @@
 #include <set>
 #include "feature-extraction/FeatureExtractor.h"
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
-    Feature *feat = nullptr;
+
     vector<Feature *> featureVect;
     int nbOfImages=0;
     string iname;
@@ -42,8 +42,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
                             break ;
                         case HEIGHT_WIDTH_RATIO:
-                            feat = heightWidthRatio();
-                            results.push_back(feat);
+                            results.push_back(heightWidthRatio());
                             break;
                         case LEVELS_OF_HIERARCHY:
                             results.push_back(levelsOfHierarchy());
