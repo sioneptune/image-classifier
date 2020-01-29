@@ -69,7 +69,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
         else cerr << "Unable to open file: " << name << endl;
         input.close();
     }
-    else cerr << "Unable to open file: " << name << endl;
+    else cerr << "Unable to open file: " << iname << endl;
 }
 
 vector<Feature *> FeatureExtractor::barycenter() const {
