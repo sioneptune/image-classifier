@@ -115,7 +115,7 @@ then
 	#Arrange output files inside destination folders and cat in files_output.txt
 	mv ./accident* ./accident/ 2> /dev/null
 	ls ./accident/ -l | wc -l && echo "files moved to /accident"
-	ls .∕accident/accident*.png >> ./files_output.txt
+	ls ./accident/accident*.png >> ./files_output.txt
 	
 	mv ./bomb* ./bomb/ 2> /dev/null
 	ls ./bomb/ -l | wc -l && echo "files moved to /bomb"
