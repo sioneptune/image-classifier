@@ -47,7 +47,7 @@ public:
             delete f;
         }
     }
-    void exportARFF(const vector<FeatureFunction>& list, const string inputPath, const string outputPath);
+    void exportARFF(const vector<FeatureFunction>& list, const string& inputPath, const string& outputPath);
 };
 
 
