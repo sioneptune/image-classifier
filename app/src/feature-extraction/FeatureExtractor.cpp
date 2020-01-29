@@ -1,7 +1,5 @@
-#include <set>
 #include "feature-extraction/FeatureExtractor.h"
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
-
     vector<Feature *> featureVect;
     int nbOfImages=0;
     string iname;
@@ -47,6 +45,8 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                         case LEVELS_OF_HIERARCHY:
                             results.push_back(levelsOfHierarchy());
                             break;
+                        case PIXEL_RATE:
+                            results.push_back(pixelRate());
                     }
                 }
 
@@ -109,6 +109,21 @@ Feature* FeatureExtractor::heightWidthRatio() const {
     return new FeatureDouble("height_width_ratio",1.0 * height / width );
 }
 
+Feature* FeatureExtractor::pixelRate() const {
+    Mat binaryImage;
+    cvtColor(bbImage, binaryImage, COLOR_BGR2GRAY);
+    threshold(bbImage, binaryImage, 220, 255, THRESH_BINARY);
+    cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
+
+    vector<Point> whitePoints;
+    findNonZero(binaryImage, whitePoints);
+
+    int nbOfPixels = binaryImage.cols * binaryImage.rows;
+    int nbOfBlackPixels = nbOfPixels - whitePoints.size();
+
+    return new FeatureDouble("drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
+}
+
 Feature* FeatureExtractor::levelsOfHierarchy() const {
 
     Mat clean, pyr, timg, gray0, gray;
@@ -155,5 +170,5 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY }, "../../data/output/", "../../data/output/");
+    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY}, "../../data/output/", "../../data/");
 }
