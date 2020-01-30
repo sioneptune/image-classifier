@@ -26,7 +26,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 try {
 
                     // initialization of bounding box attributes
-                    vector<Point> imgBoundingBox = boundingBox(image);
+                    vector<Point> imgBoundingBox = boundingBox(img);
                     Point upLeftCorner = imgBoundingBox[0];
                     Point downRightCorner = imgBoundingBox[1];
 
@@ -93,6 +93,13 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string pr
     for (Point p : nonzero) {
         sum += p;
     }
+
+    // TODO: A FIXER
+
+    // initialization of bounding box attributes
+    vector<Point> imgBoundingBox = boundingBox(image);
+    Point upLeftCorner = imgBoundingBox[0];
+    Point downRightCorner = imgBoundingBox[1];
 
     Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
     Point center = Point((downRightCorner.x + upLeftCorner.x) / 2, (upLeftCorner.y + downRightCorner.y) / 2);
@@ -186,7 +193,7 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& image, const string pre
     return momentFeatures;
 }
 
-Feature *FeatureExtractor::lines(Mat &image) {
+Feature* FeatureExtractor::lines(const Mat &image) const {
 
     Mat src, dst, cdst, cdstP;
     image.copyTo(src);

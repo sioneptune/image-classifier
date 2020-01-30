@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES };
 
 class Feature {
     const string name;
@@ -34,6 +34,7 @@ private:
     Feature* pixelRate(const Mat& image, const string prefix = "") const;
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& image, const string prefix = "") const;
+    Feature * lines(const Mat &image) const;
 
 
 public:
