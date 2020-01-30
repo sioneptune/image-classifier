@@ -28,19 +28,12 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
-    Mat image;
-    Mat bbImage;
-    Point upLeftCorner;
-    Point downRightCorner;
 
-    void setImage(const Mat& img) { image = img; }
-    void setBBImage(const Mat& img) { bbImage = img; }
-
-    vector<Feature *> barycenter() const;
-    Feature* heightWidthRatio() const;
-    Feature* pixelRate() const;
-    Feature* levelsOfHierarchy() const;
-    vector<Feature *> HuMoments() const;
+    vector<Feature *> barycenter(const Mat& image, const string prefix = "") const;
+    Feature* heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix = "") const;
+    Feature* pixelRate(const Mat& image, const string prefix = "") const;
+    Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
+    vector<Feature *> HuMoments(const Mat& image, const string prefix = "") const;
 
 
 public:
