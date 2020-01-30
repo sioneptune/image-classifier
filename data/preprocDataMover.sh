@@ -4,6 +4,16 @@
 if [ -d "./output" ]
 then
 	#Create destination folders
+
+	#Create files_output.txt file
+	if [ -f "./output/files_output.txt" ]
+	then
+		# Delete it before filling it, to clean old versions
+		rm ./output/files_output.txt
+	fi
+	touch ./output/files_output.txt
+	echo "Create files_output.txt file"
+
 	#ACCIDENT
 	if [ ! -d "./output/accident" ]
 	then
@@ -102,48 +112,64 @@ then
 		echo "Create destination folder road_block"
 	fi
 	
-	#Arrange output files inside destination folders
-	mv ./output/accident* ./output/accident/ 2> /dev/null
-	ls ./output/accident/ -l | wc -l && echo "files moved to /accident"
+	cd ./output
 	
-	mv ./output/bomb* ./output/bomb/ 2> /dev/null
-	ls ./output/bomb/ -l | wc -l && echo "files moved to /bomb"
+	#Arrange output files inside destination folders and cat in files_output.txt
+	mv ./accident* ./accident/ 2> /dev/null
+	ls ./accident/ -l | wc -l && echo "files moved to /accident"
+	ls ./accident/accident*.png >> ./files_output.txt
 	
-	mv ./output/car* ./output/car/ 2> /dev/null
-	ls ./output/car/ -l | wc -l && echo "files moved to /car"
+	mv ./bomb* ./bomb/ 2> /dev/null
+	ls ./bomb/ -l | wc -l && echo "files moved to /bomb"
+	ls ./bomb/bomb*.png >> ./files_output.txt
+
+	mv ./car* ./car/ 2> /dev/null
+	ls ./car/ -l | wc -l && echo "files moved to /car"
+	ls ./car/car*.png >> ./files_output.txt
 	
-	mv ./output/casualty* ./output/casualty/ 2> /dev/null
-	ls ./output/casualty/ -l | wc -l && echo "files moved to /casualty"
+	mv ./casualty* ./casualty/ 2> /dev/null
+	ls ./casualty/ -l | wc -l && echo "files moved to /casualty"
+	ls ./casualty/casualty*.png >> ./files_output.txt
+
+	mv ./electricity* ./electricity/ 2> /dev/null
+	ls ./electricity/ -l | wc -l && echo "files moved to /electricity"
+	ls ./electricity/electricity*.png >> ./files_output.txt	
+
+	mv ./fire\ brigade* ./fire_brigade/ 2> /dev/null
+	ls ./fire_brigade/ -l | wc -l && echo "files moved to /fire_brigade"
+	ls ./fire_brigade/fire\ brigade*.png >> ./files_output.txt	
+
+	mv ./fire_0* ./fire/ 2> /dev/null
+	ls ./fire/ -l | wc -l && echo "files moved to /fire"
+	ls ./fire/fire_0*.png >> ./files_output.txt	
+
+	mv ./flood* ./flood/ 2> /dev/null
+	ls ./flood/ -l | wc -l && echo "files moved to /flood"
+	ls ./flood/flood*.png >> ./files_output.txt
 	
-	mv ./output/electricity* ./output/electricity/ 2> /dev/null
-	ls ./output/electricity/ -l | wc -l && echo "files moved to /electricity"
+	mv ./gas* ./gas/ 2> /dev/null
+	ls ./gas/ -l | wc -l && echo "files moved to /gas"
+	ls ./gas/gas*.png >> ./files_output.txt
 	
-	mv ./output/fire\ brigade* ./output/fire_brigade/ 2> /dev/null
-	ls ./output/fire_brigade/ -l | wc -l && echo "files moved to /fire_brigade"
+	mv ./injury* ./injury/ 2> /dev/null
+	ls ./injury/ -l | wc -l && echo "files moved to /injury"
+	ls ./injury/injury*.png >> ./files_output.txt
+
+	mv ./paramedics* ./paramedics/ 2> /dev/null
+	ls ./paramedics/ -l | wc -l && echo "files moved to /paramedics"
+	ls ./paramedics/paramedics*.png >> ./files_output.txt	
+
+	mv ./person* ./person/ 2> /dev/null
+	ls ./person/ -l | wc -l && echo "files moved to /person"
+	ls ./person/person*.png >> ./files_output.txt	
+
+	mv ./police* ./police/ 2> /dev/null
+	ls ./police/ -l | wc -l && echo "files moved to /police"
+	ls ./police/police*.png >> ./files_output.txt	
 	
-	mv ./output/fire_0* ./output/fire/ 2> /dev/null
-	ls ./output/fire/ -l | wc -l && echo "files moved to /fire"
-	
-	mv ./output/flood* ./output/flood/ 2> /dev/null
-	ls ./output/flood/ -l | wc -l && echo "files moved to /flood"
-	
-	mv ./output/gas* ./output/gas/ 2> /dev/null
-	ls ./output/gas/ -l | wc -l && echo "files moved to /gas"
-	
-	mv ./output/injury* ./output/injury/ 2> /dev/null
-	ls ./output/injury/ -l | wc -l && echo "files moved to /injury"
-	
-	mv ./output/paramedics* ./output/paramedics/ 2> /dev/null
-	ls ./output/paramedics/ -l | wc -l && echo "files moved to /paramedics"
-	
-	mv ./output/person* ./output/person/ 2> /dev/null
-	ls ./output/person/ -l | wc -l && echo "files moved to /person"
-	
-	mv ./output/police* ./output/police/ 2> /dev/null
-	ls ./output/police/ -l | wc -l && echo "files moved to /police"
-	
-	mv ./output/road* ./output/road_block/ 2> /dev/null
-	ls ./output/road_block/ -l | wc -l && echo "files moved to /road_block"
+	mv ./road* ./road_block/ 2> /dev/null
+	ls ./road_block/ -l | wc -l && echo "files moved to /road_block"
+	ls ./road_block/road*.png >> ./files_output.txt	
 			
 else
 	echo "Directory output doesn't exist, can't re-order extracted data."
