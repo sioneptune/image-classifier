@@ -19,6 +19,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
             // Open every image in given folder
             while(getline(input, iname)) {
+
                 iname.replace(0,2,"");
                 iname = inputPath + iname;
                 img = openImage(iname);
@@ -26,28 +27,35 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 // initialization of image attribute
                 setImage(img);
 
-                // initialization of bounding box attributes
-                vector<Point> imgBoundingBox = boundingBox(image);
-                upLeftCorner = imgBoundingBox[0];
-                downRightCorner = imgBoundingBox[1];
+                try {
 
-                // initialization of the extracted bounding box of the image
-                setBBImage(regionOfInterest(img, upLeftCorner, downRightCorner));
+                    // initialization of bounding box attributes
+                    vector<Point> imgBoundingBox = boundingBox(image);
+                    upLeftCorner = imgBoundingBox[0];
+                    downRightCorner = imgBoundingBox[1];
 
-                // Extraction
-                for (FeatureFunction f : list) {
-                    switch (f) {
-                        case BARYCENTER:
-                            featureVect = barycenter();
-                            results.insert(results.end(), featureVect.begin(), featureVect.end()) ;
-                            break ;
-                        case HEIGHT_WIDTH_RATIO:
-                            results.push_back(heightWidthRatio());
-                            break;
-                        case LEVELS_OF_HIERARCHY:
-                            results.push_back(levelsOfHierarchy());
-                            break;
+                    // initialization of the extracted bounding box of the image
+                    setBBImage(regionOfInterest(img, upLeftCorner, downRightCorner));
+
+                    // Extraction
+                    for (FeatureFunction f : list) {
+                        switch (f) {
+                            case BARYCENTER:
+                                featureVect = barycenter();
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case HEIGHT_WIDTH_RATIO:
+                                results.push_back(heightWidthRatio());
+                                break;
+                            case LEVELS_OF_HIERARCHY:
+                                results.push_back(levelsOfHierarchy());
+                                break;
+                        }
                     }
+                } catch (Exception& e) {
+                    cerr << "[FAIL] Couldn't extract features from image: " << iname << endl;
+                } catch (exception& e) {
+                    cerr << "C++ error on image: " << iname << ", error = " << e.what() << endl;
                 }
 
                 nbOfImages ++;
