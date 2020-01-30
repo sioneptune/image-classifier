@@ -1,7 +1,7 @@
-#include <set>
 #include "feature-extraction/FeatureExtractor.h"
-void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
+#include <set>
 
+void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
     vector<Feature *> featureVect;
     int nbOfImages=0;
     string iname;
@@ -23,37 +23,35 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                 iname = inputPath + iname;
                 img = openImage(iname);
 
-                // initialization of image attribute
-                setImage(img);
-
                 try {
 
                     // initialization of bounding box attributes
                     vector<Point> imgBoundingBox = boundingBox(image);
-                    upLeftCorner = imgBoundingBox[0];
-                    downRightCorner = imgBoundingBox[1];
+                    Point upLeftCorner = imgBoundingBox[0];
+                    Point downRightCorner = imgBoundingBox[1];
 
                     // initialization of the extracted bounding box of the image
-                    setBBImage(regionOfInterest(img, upLeftCorner, downRightCorner));
+                    Mat bbImage = regionOfInterest(img, upLeftCorner, downRightCorner);
 
                     // Extraction
                     for (FeatureFunction f : list) {
                         switch (f) {
                             case BARYCENTER:
-                                featureVect = barycenter();
+                                featureVect = barycenter(bbImage); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case HEIGHT_WIDTH_RATIO:
-                                results.push_back(heightWidthRatio());
+                                results.push_back(heightWidthRatio(upLeftCorner, downRightCorner));
                                 break;
                             case LEVELS_OF_HIERARCHY:
-                                results.push_back(levelsOfHierarchy());
+                                results.push_back(levelsOfHierarchy(img));
                                 break;
                             case PIXEL_RATE:
-                                results.push_back(pixelRate());
+                                results.push_back(
+                                        pixelRate(bbImage)); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
                                 break;
                             case HU_MOMENTS:
-                                featureVect = HuMoments();
+                                featureVect = HuMoments(bbImage); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }
@@ -84,7 +82,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open file: " << iname << endl;
 }
 
-vector<Feature *> FeatureExtractor::barycenter() const {
+vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string prefix) const {
     vector<Point> nonzero;
     Mat binim;
     cvtColor(image, binim, COLOR_BGR2GRAY);
@@ -101,23 +99,23 @@ vector<Feature *> FeatureExtractor::barycenter() const {
     double baryx = (double) (average.x - center.x) / ((double) (upLeftCorner.x - downRightCorner.x));
     double baryy = (double) (average.y - center.y) / ((double) (upLeftCorner.y - downRightCorner.y));
 
-    FeatureDouble* baryX = new FeatureDouble("barycenter_x", baryx);
-    FeatureDouble* baryY = new FeatureDouble("barycenter_y", baryy);
+    FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
+    FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
 
     vector<Feature*> res = {baryX, baryY};
     return res;
 }
 
-Feature* FeatureExtractor::heightWidthRatio() const {
+Feature* FeatureExtractor::heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix) const {
     int height = downRightCorner.y - upLeftCorner. y;
     int width = downRightCorner.x - upLeftCorner.x;
-    return new FeatureDouble("height_width_ratio",1.0 * height / width );
+    return new FeatureDouble(prefix + "height_width_ratio",1.0 * height / width );
 }
 
-Feature* FeatureExtractor::pixelRate() const {
+Feature* FeatureExtractor::pixelRate(const Mat& image, const string prefix) const {
     Mat binaryImage;
-    cvtColor(bbImage, binaryImage, COLOR_BGR2GRAY);
-    threshold(bbImage, binaryImage, 220, 255, THRESH_BINARY);
+    cvtColor(image, binaryImage, COLOR_BGR2GRAY);
+    threshold(image, binaryImage, 220, 255, THRESH_BINARY);
     cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
 
     vector<Point> whitePoints;
@@ -126,10 +124,10 @@ Feature* FeatureExtractor::pixelRate() const {
     int nbOfPixels = binaryImage.cols * binaryImage.rows;
     int nbOfBlackPixels = nbOfPixels - whitePoints.size();
 
-    return new FeatureDouble("drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
+    return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
 }
 
-Feature* FeatureExtractor::levelsOfHierarchy() const {
+Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
 
     Mat clean, pyr, timg, gray0, gray;
 
@@ -153,8 +151,7 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
         parents.insert(hierarchy[i][3]);
     }
 
-/*
-    // DEBUG ONLY
+/*    // DEBUG ONLY
     cout << parents.size() << endl;
 
     /// Draw contours
@@ -167,15 +164,14 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
     }
 
     imshow("draw", drawing);
-    waitKey();
-*/
+    waitKey();*/
 
-    return new FeatureInt("levels_of_hierarchy", parents.size());
+    return new FeatureInt(prefix + "levels_of_hierarchy", parents.size());
 }
 
-vector<Feature *> FeatureExtractor::HuMoments() const {
+vector<Feature *> FeatureExtractor::HuMoments(const Mat& image, const string prefix) const {
     Mat binaryImage;
-    cvtColor(bbImage, binaryImage, COLOR_BGR2GRAY);
+    cvtColor(image, binaryImage, COLOR_BGR2GRAY);
     threshold(binaryImage, binaryImage, 220, 255, CV_THRESH_BINARY);
 
     Moments moments = cv::moments(binaryImage, false);
@@ -184,7 +180,7 @@ vector<Feature *> FeatureExtractor::HuMoments() const {
 
     vector<Feature*> momentFeatures;
     for(int i = 0; i<7; i++) {
-        momentFeatures.push_back(new FeatureDouble("hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
+        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
     }
 
     return momentFeatures;
