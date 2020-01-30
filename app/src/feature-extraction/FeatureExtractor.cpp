@@ -33,11 +33,14 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                     // initialization of the extracted bounding box of the image
                     Mat bbImage = regionOfInterest(img, upLeftCorner, downRightCorner);
 
+                    // initialization of the normalized image
+                    Mat normImage = normalization(bbImage, 180);
+
                     // Extraction
                     for (FeatureFunction f : list) {
                         switch (f) {
                             case BARYCENTER:
-                                featureVect = barycenter(bbImage); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
+                                featureVect = barycenter(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case HEIGHT_WIDTH_RATIO:
@@ -48,10 +51,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                             case PIXEL_RATE:
                                 results.push_back(
-                                        pixelRate(bbImage)); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
+                                        pixelRate(normImage));
                                 break;
                             case HU_MOMENTS:
-                                featureVect = HuMoments(bbImage); //TODO: METTRE L'IMAGE NORMALISEE QUAND ELLE SERA FAITE
+                                featureVect = HuMoments(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }
