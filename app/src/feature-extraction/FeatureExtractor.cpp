@@ -107,8 +107,7 @@ Mat FeatureExtractor::normalization(const Mat &image, const int size) const {
 vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string prefix) const {
     vector<Point> nonzero;
     Mat binim;
-    cvtColor(image, binim, COLOR_BGR2GRAY);
-    threshold(binim, binim, 200, 255, THRESH_BINARY_INV);
+    threshold(image, binim, 200, 255, THRESH_BINARY_INV);
     findNonZero(binim, nonzero);
     Point sum = Point(0, 0);
 
@@ -143,7 +142,6 @@ Feature* FeatureExtractor::heightWidthRatio(const Point upLeftCorner, const Poin
 
 Feature* FeatureExtractor::pixelRate(const Mat& image, const string prefix) const {
     Mat binaryImage;
-    cvtColor(image, binaryImage, COLOR_BGR2GRAY);
     threshold(image, binaryImage, 220, 255, THRESH_BINARY);
     cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
 
@@ -200,8 +198,7 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
 vector<Feature *> FeatureExtractor::HuMoments(const Mat& image, const string prefix) const {
     Mat binaryImage;
-    cvtColor(image, binaryImage, COLOR_BGR2GRAY);
-    threshold(binaryImage, binaryImage, 220, 255, CV_THRESH_BINARY);
+    threshold(image, binaryImage, 220, 255, CV_THRESH_BINARY);
 
     Moments moments = cv::moments(binaryImage, false);
     double huMoments[7];
@@ -223,8 +220,7 @@ Feature* FeatureExtractor::lines(const Mat &image) const {
 /*    // Edge detection
     Canny(src, dst, 50, 200, 3);*/
 
-    cvtColor(src,dst,COLOR_BGR2GRAY);
-    threshold(dst,dst,230,255,THRESH_BINARY_INV);
+    threshold(src,dst,230,255,THRESH_BINARY_INV);
     Mat elem = getStructuringElement(MORPH_CROSS,Size(3,3));
     dilate(dst,dst,elem);
     erode(dst,dst,elem);
