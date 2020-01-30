@@ -29,14 +29,14 @@ class FeatureExtractor {
 private:
     vector<Feature*> results;
 
-    Mat normalization(const Mat& image, const int size) const;
+    Mat normalization(const Mat& bbImage, const int size) const;
 
-    vector<Feature *> barycenter(const Mat& image, const string prefix = "") const;
+    vector<Feature *> barycenter(const Mat& normImage, const string prefix = "") const;
     Feature* heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix = "") const;
-    Feature* pixelRate(const Mat& image, const string prefix = "") const;
+    Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
-    vector<Feature *> HuMoments(const Mat& image, const string prefix = "") const;
-    Feature * lines(const Mat &image) const;
+    vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
+    Feature * lines(const Mat &normImage) const;
 
 
 public:

@@ -6,7 +6,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     int nbOfImages=0;
     string iname;
     string name = outputPath + "extracted_images.arff";
-    Mat img;
+    Mat image;
 
 
     ifstream input (inputPath + "files_output.txt");
@@ -21,17 +21,17 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
             while(getline(input, iname)) {
                 iname.replace(0,2,"");
                 iname = inputPath + iname;
-                img = openImage(iname);
+                image = openImage(iname);
 
                 try {
 
                     // initialization of bounding box attributes
-                    vector<Point> imgBoundingBox = boundingBox(img);
+                    vector<Point> imgBoundingBox = boundingBox(image);
                     Point upLeftCorner = imgBoundingBox[0];
                     Point downRightCorner = imgBoundingBox[1];
 
                     // initialization of the extracted bounding box of the image
-                    Mat bbImage = regionOfInterest(img, upLeftCorner, downRightCorner);
+                    Mat bbImage = regionOfInterest(image, upLeftCorner, downRightCorner);
 
                     // initialization of the normalized image
                     Mat normImage = normalization(bbImage, 180);
@@ -47,11 +47,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 results.push_back(heightWidthRatio(upLeftCorner, downRightCorner));
                                 break;
                             case LEVELS_OF_HIERARCHY:
-                                results.push_back(levelsOfHierarchy(img));
+                                results.push_back(levelsOfHierarchy(image));
                                 break;
                             case PIXEL_RATE:
-                                results.push_back(
-                                        pixelRate(normImage));
+                                results.push_back(pixelRate(normImage));
                                 break;
                             case HU_MOMENTS:
                                 featureVect = HuMoments(normImage);
@@ -67,14 +66,15 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
                 nbOfImages ++;
             }
+            int nbOfFeatures = results.size() / nbOfImages;
             // Export Header
-            for(int i = 0; i<(results.size() / nbOfImages); i++){ file << results[i]->getDescriptor() << endl; }
+            for(int i = 0; i<nbOfFeatures; i++){ file << results[i]->getDescriptor() << endl; }
 
             // Export Values
             file << "\n@DATA" << endl;
             for(int i = 1; i<= results.size(); i++){
                 file << results[i-1]->getValue();
-                if(i % (results.size() / nbOfImages) == 0)    file << endl;   //End of line
+                if(i % nbOfFeatures == 0)    file << endl;   //End of line
                 else    file << ',';                        //Separate values of the same image
             }
             file.close();
@@ -85,11 +85,11 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open file: " << iname << endl;
 }
 
-Mat FeatureExtractor::normalization(const Mat &image, const int size) const {
+Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
     Mat gray, scaled, normalized;
-    Size normSize(size, size), bbSize(image.cols, image.rows);
+    Size normSize(size, size), bbSize(bbImage.cols, bbImage.rows);
 
-    cvtColor(image, gray, COLOR_BGR2GRAY);
+    cvtColor(bbImage, gray, COLOR_BGR2GRAY);
 
     // Scale the image in order that the biggest side of the image matches the desired size
     int maxDim = max(bbSize.height, bbSize.width);
@@ -107,10 +107,10 @@ Mat FeatureExtractor::normalization(const Mat &image, const int size) const {
     return normalized;
 }
 
-vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string prefix) const {
+vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const string prefix) const {
     vector<Point> nonzero;
     Mat binim;
-    threshold(image, binim, 200, 255, THRESH_BINARY_INV);
+    threshold(normImage, binim, 200, 255, THRESH_BINARY_INV);
     findNonZero(binim, nonzero);
     Point sum = Point(0, 0);
 
@@ -121,7 +121,7 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string pr
     // TODO: A FIXER
 
     // initialization of bounding box attributes
-    vector<Point> imgBoundingBox = boundingBox(image);
+    vector<Point> imgBoundingBox = boundingBox(normImage);
     Point upLeftCorner = imgBoundingBox[0];
     Point downRightCorner = imgBoundingBox[1];
 
@@ -143,9 +143,9 @@ Feature* FeatureExtractor::heightWidthRatio(const Point upLeftCorner, const Poin
     return new FeatureDouble(prefix + "height_width_ratio",1.0 * height / width );
 }
 
-Feature* FeatureExtractor::pixelRate(const Mat& image, const string prefix) const {
+Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) const {
     Mat binaryImage;
-    threshold(image, binaryImage, 220, 255, THRESH_BINARY);
+    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
     cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
 
     vector<Point> whitePoints;
@@ -199,9 +199,9 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
     return new FeatureInt(prefix + "levels_of_hierarchy", parents.size());
 }
 
-vector<Feature *> FeatureExtractor::HuMoments(const Mat& image, const string prefix) const {
+vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
     Mat binaryImage;
-    threshold(image, binaryImage, 220, 255, CV_THRESH_BINARY);
+    threshold(normImage, binaryImage, 220, 255, CV_THRESH_BINARY);
 
     Moments moments = cv::moments(binaryImage, false);
     double huMoments[7];
@@ -215,10 +215,10 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& image, const string pre
     return momentFeatures;
 }
 
-Feature* FeatureExtractor::lines(const Mat &image) const {
+Feature* FeatureExtractor::lines(const Mat &normImage) const {
 
     Mat src, dst, cdst, cdstP;
-    image.copyTo(src);
+    normImage.copyTo(src);
 
 /*    // Edge detection
     Canny(src, dst, 50, 200, 3);*/
