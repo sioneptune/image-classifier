@@ -9,7 +9,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     Mat img;
 
 
-    ifstream input (inputPath + "files_output.txt");
+    //ifstream input (inputPath + "files_output.txt");
+    //TEST
+    ifstream input (inputPath + "files_output_test.txt");
     ofstream file (name);
 
     if(input.is_open()) {
@@ -47,6 +49,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                         case LEVELS_OF_HIERARCHY:
                             results.push_back(levelsOfHierarchy());
                             break;
+                        case NUMBER_OF_ELEMENTS:
+                            results.push_back(numberOfElements());
+                            break;
                     }
                 }
 
@@ -64,10 +69,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
             }
             file.close();
         }
-        else cerr << "Unable to open file: " << name << endl;
+        else cerr << "Unable to open output file: " << name << endl;
         input.close();
     }
-    else cerr << "Unable to open file: " << iname << endl;
+    else cerr << "Unable to open input file: " << iname << endl;
 }
 
 vector<Feature *> FeatureExtractor::barycenter() const {
@@ -109,9 +114,10 @@ Feature* FeatureExtractor::heightWidthRatio() const {
     return new FeatureDouble("height_width_ratio",1.0 * height / width );
 }
 
-Feature* FeatureExtractor::levelsOfHierarchy() const {
-
+void FeatureExtractor::getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy, Mat* img) {
     Mat clean, pyr, timg, gray0, gray;
+    if(img == nullptr)
+        img = &image;
 
     clean = removeNoise(image);
 
@@ -121,11 +127,17 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
 
     threshold(timg,gray,230,255,0);
 
+    // find contours and store them all as a list
+    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    imwrite("../../gray.jpg", gray);
+}
+
+Feature* FeatureExtractor::levelsOfHierarchy() {
+
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    // find contours and store them all as a list
-    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    getContours(contours, hierarchy);
 
     set<int> parents;
     // We start at 2 because contour 0 is the border of the image, and contour 1's parent is contour 0, which is useless
@@ -153,7 +165,22 @@ Feature* FeatureExtractor::levelsOfHierarchy() const {
     return new FeatureInt("levels_of_hierarchy", parents.size());
 }
 
+Feature *FeatureExtractor::numberOfElements() {
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    Mat edge, res;
+    Canny(image, edge, 0,30);
+    edge.convertTo(res,CV_8U);
+    imwrite("../../canny.jpg", res);
+
+    getContours(contours, hierarchy, &res);
+
+    return new FeatureInt("number_of_elements", contours.size());
+}
+
+
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY }, "../../data/output/", "../../data/output/");
+    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY, NUMBER_OF_ELEMENTS }, "../../data/output/", "../../data/output/");
 }

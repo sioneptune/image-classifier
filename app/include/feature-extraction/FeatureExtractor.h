@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY, NUMBER_OF_ELEMENTS };
 
 class Feature {
     const string name;
@@ -36,9 +36,12 @@ private:
     void setImage(const Mat& img) { image = img; }
     void setBBImage(const Mat& img) { bbImage = img; }
 
+    void getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy, Mat* img= nullptr);
+
     vector<Feature *> barycenter() const;
     Feature* heightWidthRatio() const;
-    Feature* levelsOfHierarchy() const;
+    Feature* levelsOfHierarchy();
+    Feature* numberOfElements();
 
 
 public:
