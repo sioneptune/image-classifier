@@ -29,6 +29,8 @@ class FeatureExtractor {
 private:
     vector<Feature*> results;
 
+    Mat normalization(const Mat& image, const int size) const;
+
     vector<Feature *> barycenter(const Mat& image, const string prefix = "") const;
     Feature* heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix = "") const;
     Feature* pixelRate(const Mat& image, const string prefix = "") const;
@@ -44,6 +46,7 @@ public:
         }
     }
     void exportARFF(const vector<FeatureFunction>& list, const string& inputPath, const string& outputPath);
+
 };
 
 

@@ -82,6 +82,28 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open file: " << iname << endl;
 }
 
+Mat FeatureExtractor::normalization(const Mat &image, const int size) const {
+    Mat gray, scaled, normalized;
+    Size normSize(size, size), bbSize(image.cols, image.rows);
+
+    cvtColor(image, gray, COLOR_BGR2GRAY);
+
+    // Scale the image in order that the biggest side of the image matches the desired size
+    int maxDim = max(bbSize.height, bbSize.width);
+    double scaleFactor = (1. * size) / maxDim;
+    resize(gray, scaled, Size(bbSize.width * scaleFactor, bbSize.height * scaleFactor));
+
+    // Add borders horizontally / vertically to fill the normalized image
+    int top = (normSize.height - scaled.rows) / 2;
+    int down = (normSize.height - scaled.rows+1) / 2;
+    int left = (normSize.width - scaled.cols) / 2;
+    int right = (normSize.width - scaled.cols+1) / 2;
+
+    copyMakeBorder(scaled, normalized, top, down, left, right, BORDER_CONSTANT, Scalar(255,255,255));
+
+    return normalized;
+}
+
 vector<Feature *> FeatureExtractor::barycenter(const Mat& image, const string prefix) const {
     vector<Point> nonzero;
     Mat binim;
