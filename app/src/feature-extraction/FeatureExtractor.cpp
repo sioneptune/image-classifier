@@ -36,29 +36,28 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                     // initialization of the extracted bounding box of the image
                     setBBImage(regionOfInterest(img, upLeftCorner, downRightCorner));
 
-                // Extraction
-                for (FeatureFunction f : list) {
-                    switch (f) {
-                        case BARYCENTER:
-                            featureVect = barycenter();
-                            results.insert(results.end(), featureVect.begin(), featureVect.end());
-                            break;
-                        case HEIGHT_WIDTH_RATIO:
-                            results.push_back(heightWidthRatio());
-                            break;
-                        case LEVELS_OF_HIERARCHY:
-                            results.push_back(levelsOfHierarchy());
-                            break;
-                        case PIXEL_RATE:
-                            results.push_back(pixelRate());
-                            break;
-                        case HU_MOMENTS:
-                            featureVect = HuMoments();
-                            results.insert(results.end(), featureVect.begin(), featureVect.end());
-                            break;
+                    // Extraction
+                    for (FeatureFunction f : list) {
+                        switch (f) {
+                            case BARYCENTER:
+                                featureVect = barycenter();
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case HEIGHT_WIDTH_RATIO:
+                                results.push_back(heightWidthRatio());
+                                break;
+                            case LEVELS_OF_HIERARCHY:
+                                results.push_back(levelsOfHierarchy());
+                                break;
+                            case PIXEL_RATE:
+                                results.push_back(pixelRate());
+                                break;
+                            case HU_MOMENTS:
+                                featureVect = HuMoments();
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                        }
                     }
-                }
-
                 } catch (Exception& e) {
                     cerr << "[FAIL] Couldn't extract features from image: " << iname << endl;
                 } catch (exception& e) {
