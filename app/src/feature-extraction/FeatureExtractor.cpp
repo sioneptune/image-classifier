@@ -218,7 +218,52 @@ Feature *FeatureExtractor::lines(Mat &image) {
     return nullptr;
 }
 
-int main(){
+vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int> decoupY) {
+    vector<Mat> zones(decoupX.size() * decoupY.size());
+
+    int sizeX = image.cols;
+    int sizeY = image.rows;
+
+    vector<int> splitX, splitY;
+    int sumx = 0;
+    int sumy = 0;
+    // Computes the sum of the elements of the split vectors, to get the proportions later
+    for (int x: decoupX) sumx += x;
+    for (int y : decoupY) sumy += y;
+
+    // Computes the new sizes from the proportions
+    for (int x : decoupX) splitX.push_back(x * sizeX / sumx);
+    for (int y : decoupY) splitY.push_back(y * sizeY / sumy);
+
+    vector<int> coordsX, coordsY;
+
+    coordsX.push_back(0);
+    coordsY.push_back(0);
+
+    for (int i = 0; i < splitX.size(); i++) coordsX.push_back(coordsX[i] + splitX[i]);
+    for (int i = 0; i < splitY.size(); i++) coordsY.push_back(coordsY[i] + splitY[i]);
+    // We now have the coordinates to cut up the image at
+
+    for (int c : coordsX) cout << c << ',';
+    cout << endl;
+    for (int c : coordsY) cout << c << ',';
+    cout << endl;
+
+    int zonesCreated = 0;
+    Mat tempMat;
+
+    for (int i = 0; i < coordsX.size() - 1; i++) {
+        for (int j = 0; j < coordsY.size() - 1; j++) {
+            tempMat = regionOfInterest(image, coordsX[i], coordsY[j], coordsX[i + 1], coordsY[j + 1]);
+            tempMat.copyTo(zones[zonesCreated]);
+            zonesCreated++;
+        }
+    }
+
+    return zones;
+}
+
+int main() {
     FeatureExtractor feat;
     feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS}, "../../data/output/", "../../data/");
 }
