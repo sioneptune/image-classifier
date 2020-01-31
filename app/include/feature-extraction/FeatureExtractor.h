@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES };
 
 class Feature {
     const string name;
@@ -28,20 +28,15 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
-    Mat image;
-    Mat bbImage;
-    Point upLeftCorner;
-    Point downRightCorner;
 
-    void setImage(const Mat& img) { image = img; }
-    void setBBImage(const Mat& img) { bbImage = img; }
+    Mat normalization(const Mat& bbImage, const int size) const;
 
-    vector<Feature *> barycenter() const;
-    Feature* heightWidthRatio() const;
-    Feature* pixelRate() const;
-    Feature* levelsOfHierarchy() const;
-    vector<Feature *> HuMoments() const;
-    Feature* lines (Mat &image);
+    vector<Feature *> barycenter(const Mat& normImage, const string prefix = "") const;
+    Feature* heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix = "") const;
+    Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
+    Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
+    vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
+    Feature * lines(const Mat &normImage) const;
 
 
 public:
@@ -51,6 +46,7 @@ public:
         }
     }
     void exportARFF(const vector<FeatureFunction>& list, const string& inputPath, const string& outputPath);
+
 };
 
 
