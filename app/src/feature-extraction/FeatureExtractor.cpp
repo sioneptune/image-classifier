@@ -11,7 +11,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
     //ifstream input (inputPath + "files_output.txt");
     //TEST
-    ifstream input (inputPath + "files_output_test.txt");
+    ifstream input (inputPath + "files_output.txt");
     ofstream file (name);
 
     if(input.is_open()) {
@@ -119,13 +119,13 @@ void FeatureExtractor::getContours(vector<vector<Point>>& contours, vector<Vec4i
     if(img == nullptr)
         img = &image;
 
-    clean = removeNoise(image);
+    clean = removeNoise(*img);
 
     // down-scale and upscale the image to filter out the noise
-    pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
-    pyrUp(pyr, timg, image.size());
+    pyrDown(clean, pyr, Size(img->cols / 2, img->rows / 2));
+    pyrUp(pyr, timg, img->size());
 
-    threshold(timg,gray,230,255,0);
+    threshold(timg,gray,230,255,1);
 
     // find contours and store them all as a list
     findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
@@ -170,9 +170,12 @@ Feature *FeatureExtractor::numberOfElements() {
     vector<Vec4i> hierarchy;
 
     Mat edge, res;
-    Canny(image, edge, 0,30);
+    int threshold = 200;
+    Canny(image, edge, threshold,3*threshold, 3);
     edge.convertTo(res,CV_8U);
-    imwrite("../../canny.jpg", res);
+    //res = cvtColor(res, COLOR_BGR2RGB)
+
+    imwrite("../../canny.jpg", edge);
 
     getContours(contours, hierarchy, &res);
 
@@ -182,5 +185,5 @@ Feature *FeatureExtractor::numberOfElements() {
 
 int main(){
     FeatureExtractor feat;
-    feat.exportARFF({ BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY, NUMBER_OF_ELEMENTS }, "../../data/output/", "../../data/output/");
+    feat.exportARFF({ /*BARYCENTER, HEIGHT_WIDTH_RATIO, LEVELS_OF_HIERARCHY,*/ NUMBER_OF_ELEMENTS}, "../../data/output/", "../../data/output/");
 }
