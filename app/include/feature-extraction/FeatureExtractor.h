@@ -36,8 +36,8 @@ private:
     Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
-    Feature * lines(const Mat &normImage) const;
     vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
+    Feature * lines(const Mat &normImage, const string prefix) const;
 
 
 public:
