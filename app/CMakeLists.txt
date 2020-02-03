@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 project(Image-Classifier)
 
 
+set(CMAKE_C_COMPILER /usr/bin/gcc-5 CACHE PATH "" FORCE)
+set(CMAKE_CXX_COMPILER /usr/bin/g++-5 CACHE PATH "" FORCE)
 set(CMAKE_CXX_STANDARD 14)
 find_package(OpenCV REQUIRED)
 

@@ -212,7 +212,7 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
 vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
     Mat binaryImage;
-    threshold(normImage, binaryImage, 220, 255, CV_THRESH_BINARY);
+    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
 
     Moments moments = cv::moments(binaryImage, false);
     double huMoments[7];
