@@ -140,13 +140,24 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const strin
 Feature* FeatureExtractor::heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix) const {
     int height = downRightCorner.y - upLeftCorner. y;
     int width = downRightCorner.x - upLeftCorner.x;
-    return new FeatureDouble(prefix + "height_width_ratio",1.0 * height / width );
+    double ratio = 1.0 * height / width;
+
+    double normalizedRatio;
+    // normalization: values are between 0.2 and 4
+    if(ratio > 4) {
+        normalizedRatio = 1.0;
+    } else if (ratio < 0.2) {
+        normalizedRatio = 0.0;
+    } else {
+        normalizedRatio = (ratio - 0.2) / 3.8;
+    }
+
+    return new FeatureDouble(prefix + "height_width_ratio",normalizedRatio);
 }
 
 Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) const {
     Mat binaryImage;
     threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
-    cvtColor(binaryImage, binaryImage, COLOR_BGR2GRAY);
 
     vector<Point> whitePoints;
     findNonZero(binaryImage, whitePoints);
@@ -201,7 +212,7 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
 vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
     Mat binaryImage;
-    threshold(normImage, binaryImage, 220, 255, CV_THRESH_BINARY);
+    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
 
     Moments moments = cv::moments(binaryImage, false);
     double huMoments[7];
@@ -299,5 +310,5 @@ vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int>
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS}, "../../data/output/", "../../data/");
+    feat.exportARFF({HU_MOMENTS}, "../../data/output_extract/", "../../data/output_extract/");
 }
