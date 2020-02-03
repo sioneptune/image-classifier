@@ -215,7 +215,7 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
     return momentFeatures;
 }
 
-Feature* FeatureExtractor::lines(const Mat &normImage) const {
+Feature* FeatureExtractor::lines(const Mat &normImage, const string prefix) const {
 
     Mat src, dst, cdst, cdstP;
     normImage.copyTo(src);
@@ -242,12 +242,14 @@ Feature* FeatureExtractor::lines(const Mat &normImage) const {
         line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
     }
     // Show results
-    imshow("Source", src);
-        imshow("Probabilistic Line Transform", cdstP);
-    // Wait and Exit
-    waitKey();
+//    imshow("Source", src);
+//        imshow("Probabilistic Line Transform", cdstP);
+//    // Wait and Exit
+//    waitKey();
 
-    return nullptr;
+    Feature * f = new FeatureInt(prefix+"lines",linesP.size());
+
+    return f;
 }
 
 vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int> decoupY) {
