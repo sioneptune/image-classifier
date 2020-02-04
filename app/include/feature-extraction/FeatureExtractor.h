@@ -11,8 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES };
-
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES, ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, ZONING_LINES };
 class Feature {
     const string name;
 public:
@@ -28,16 +27,19 @@ public:
 class FeatureExtractor {
 private:
     vector<Feature*> results;
+    Point upLeftCorner;
+    Point downRightCorner;
 
     Mat normalization(const Mat& bbImage, const int size) const;
 
     vector<Feature *> barycenter(const Mat& normImage, const string prefix = "") const;
-    Feature* heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix = "") const;
+    Feature* heightWidthRatio(const string prefix = "") const;
     Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
     vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
-    Feature * lines(const Mat &normImage, const string prefix) const;
+    Feature * lines(const Mat &normImage, const string prefix = "") const;
+    vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
 
 
 public:

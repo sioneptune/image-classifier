@@ -27,14 +27,17 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
                     // initialization of bounding box attributes
                     vector<Point> imgBoundingBox = boundingBox(image);
-                    Point upLeftCorner = imgBoundingBox[0];
-                    Point downRightCorner = imgBoundingBox[1];
+                    upLeftCorner = imgBoundingBox[0];
+                    downRightCorner = imgBoundingBox[1];
 
                     // initialization of the extracted bounding box of the image
                     Mat bbImage = regionOfInterest(image, upLeftCorner, downRightCorner);
 
                     // initialization of the normalized image
                     Mat normImage = normalization(bbImage, 180);
+
+                    // initialization of the zones
+                    vector<Mat> zoneImages = zones(normImage, {1,1,1}, {1,1,1});
 
                     // Extraction
                     for (FeatureFunction f : list) {
@@ -44,7 +47,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case HEIGHT_WIDTH_RATIO:
-                                results.push_back(heightWidthRatio(upLeftCorner, downRightCorner));
+                                results.push_back(heightWidthRatio());
                                 break;
                             case LEVELS_OF_HIERARCHY:
                                 results.push_back(levelsOfHierarchy(image));
@@ -54,6 +57,27 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                             case HU_MOMENTS:
                                 featureVect = HuMoments(normImage);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case LINES:
+                                results.push_back(lines(normImage));
+                                break;
+
+                                // Zoning
+                            case ZONING_BARYCENTER:
+                                featureVect = zoning_feature(zoneImages, BARYCENTER);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_PIXEL_RATE:
+                                featureVect = zoning_feature(zoneImages, PIXEL_RATE);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_HU_MOMENTS:
+                                featureVect = zoning_feature(zoneImages, HU_MOMENTS);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_LINES:
+                                featureVect = zoning_feature(zoneImages, LINES);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }
@@ -66,7 +90,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
 
                 nbOfImages ++;
             }
+
             int nbOfFeatures = results.size() / nbOfImages;
+
             // Export Header
             for(int i = 0; i<nbOfFeatures; i++){ file << results[i]->getDescriptor() << endl; }
 
@@ -108,27 +134,28 @@ Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
 }
 
 vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const string prefix) const {
+    Point center = Point((downRightCorner.x + upLeftCorner.x) / 2, (upLeftCorner.y + downRightCorner.y) / 2);
+
     vector<Point> nonzero;
     Mat binim;
     threshold(normImage, binim, 200, 255, THRESH_BINARY_INV);
     findNonZero(binim, nonzero);
+
+    if(nonzero.size() == 0) {
+        return {new FeatureDouble(prefix + "barycenter_x", center.x), new FeatureDouble(prefix + "barycenter_y", center.y) };
+    }
+
     Point sum = Point(0, 0);
 
     for (Point p : nonzero) {
         sum += p;
     }
 
-    // TODO: A FIXER
-
-    // initialization of bounding box attributes
-    vector<Point> imgBoundingBox = boundingBox(normImage);
-    Point upLeftCorner = imgBoundingBox[0];
-    Point downRightCorner = imgBoundingBox[1];
-
     Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
-    Point center = Point((downRightCorner.x + upLeftCorner.x) / 2, (upLeftCorner.y + downRightCorner.y) / 2);
+
     double baryx = (double) (average.x - center.x) / ((double) (upLeftCorner.x - downRightCorner.x));
     double baryy = (double) (average.y - center.y) / ((double) (upLeftCorner.y - downRightCorner.y));
+
 
     FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
     FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
@@ -137,7 +164,7 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const strin
     return res;
 }
 
-Feature* FeatureExtractor::heightWidthRatio(const Point upLeftCorner, const Point downRightCorner, const string prefix) const {
+Feature* FeatureExtractor::heightWidthRatio(const string prefix) const {
     int height = downRightCorner.y - upLeftCorner. y;
     int width = downRightCorner.x - upLeftCorner.x;
     double ratio = 1.0 * height / width;
@@ -222,7 +249,6 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
     for(int i = 0; i<7; i++) {
         momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
     }
-
     return momentFeatures;
 }
 
@@ -289,10 +315,10 @@ vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int>
     for (int i = 0; i < splitY.size(); i++) coordsY.push_back(coordsY[i] + splitY[i]);
     // We now have the coordinates to cut up the image at
 
-    for (int c : coordsX) cout << c << ',';
-    cout << endl;
-    for (int c : coordsY) cout << c << ',';
-    cout << endl;
+//    for (int c : coordsX) cout << c << ',';
+//    cout << endl;
+//    for (int c : coordsY) cout << c << ',';
+//    cout << endl;
 
     int zonesCreated = 0;
     Mat tempMat;
@@ -308,7 +334,31 @@ vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int>
     return zones;
 }
 
+vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const {
+    vector<Feature *> results;
+    vector<Feature *> tmp;
+    for(int i=0; i<zoneImages.size(); i++) {
+        switch(f) {
+            case BARYCENTER:
+                tmp = barycenter(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
+                break;
+            case PIXEL_RATE:
+                results.push_back(pixelRate(zoneImages[i], "zone_" + to_string(i) + "_"));
+                break;
+            case HU_MOMENTS:
+                tmp = HuMoments(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
+                break;
+            case LINES:
+                results.push_back(lines(zoneImages[i], "zone_" + to_string(i) + "_"));
+                break;
+        }
+    }
+    return results;
+}
+
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({HU_MOMENTS}, "../../data/output_extract/", "../../data/output_extract/");
+    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS}, "../../data/output/", "../../data/");
 }
