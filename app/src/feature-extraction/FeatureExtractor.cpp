@@ -82,13 +82,14 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                         }
                     }
+
+                    nbOfImages ++;
+
                 } catch (Exception& e) {
                     cerr << "[FAIL] Couldn't extract features from image: " << iname << endl;
                 } catch (exception& e) {
                     cerr << "C++ error on image: " << iname << ", error = " << e.what() << endl;
                 }
-
-                nbOfImages ++;
             }
 
             int nbOfFeatures = results.size() / nbOfImages;
@@ -272,7 +273,7 @@ Feature* FeatureExtractor::lines(const Mat &normImage, const string prefix) cons
     HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 15 ); // runs the actual detection
 
         // Draw the lines
-        cout << "Probalistic lines:" << linesP.size() << endl;
+        //cout << "Probalistic lines:" << linesP.size() << endl;
     for( size_t i = 0; i < linesP.size(); i++ )
     {
         Vec4i l = linesP[i];
