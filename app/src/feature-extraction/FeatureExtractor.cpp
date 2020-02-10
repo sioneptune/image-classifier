@@ -4,24 +4,24 @@
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
     vector<Feature *> featureVect;
     int nbOfImages=0;
-    string iname;
-    string name = outputPath + "extracted_images.arff";
+    string iname, ipath;
+    string arffFile = outputPath + "extracted_images.arff";
     Mat image;
 
 
     ifstream input (inputPath + "files_output.txt");
-    ofstream file (name);
+    ofstream file (arffFile);
 
     if(input.is_open()) {
         if (file.is_open()) {
-            cout << "Exportation to " + name << endl;
+            cout << "Exportation to " + arffFile << endl;
             file << "@RELATION EXTRACTED_IMAGES" << endl << endl;
 
             // Open every image in given folder
             while(getline(input, iname)) {
                 iname.replace(0,2,"");
-                iname = inputPath + iname;
-                image = openImage(iname);
+                ipath = inputPath + iname;
+                image = openImage(ipath);
 
                 try {
 
@@ -86,6 +86,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                         }
                     }
 
+                    //Add class attribute
+                    results.push_back(getClass(iname));
+
                     nbOfImages ++;
 
                 } catch (Exception& e) {
@@ -109,7 +112,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
             }
             file.close();
         }
-        else cerr << "Unable to open output file: " << name << endl;
+        else cerr << "Unable to open output file: " << arffFile << endl;
         input.close();
     }
     else cerr << "Unable to open input file: " << iname << endl;
@@ -199,9 +202,10 @@ Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) 
     return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
 }
 
-void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) {
+void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const{
     Mat clean, pyr, timg, gray0, gray;
-    clean = removeNoise(image);
+    clean = image;
+    clean = removeNoise(clean);
 
     // down-scale and upscale the image to filter out the noise
     pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
@@ -370,7 +374,7 @@ Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    getContours(contours, hierarchy);
+    getContours(normImage, contours, hierarchy);
 
     /// Draw contours
     Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
@@ -387,8 +391,13 @@ Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
     return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
 }
 
+Feature *FeatureExtractor::getClass(const string name) const {
+    unsigned stop = name.find('/');
+    return new FeatureString("class","{accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}", name.substr(0, stop));
+}
+
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS}, "../../data/output/", "../../data/");
+    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, NUMBER_OF_ELEMENTS}, "../../data/output/", "../../data/");
 }

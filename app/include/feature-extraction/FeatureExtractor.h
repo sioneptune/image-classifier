@@ -41,7 +41,8 @@ private:
     Feature * lines(const Mat &normImage, const string prefix = "") const;
     vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
     Feature* numberOfElements(const Mat &normImage) const;
-    void getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy);
+    Feature* getClass(const string name) const;
+    void getContours(const Mat &normImage, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const;
 
 public:
     ~FeatureExtractor() {
