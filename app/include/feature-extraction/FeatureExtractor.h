@@ -11,7 +11,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES, ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, ZONING_LINES };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, LINES, ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, ZONING_LINES, NUMBER_OF_ELEMENTS };
 class Feature {
     const string name;
 public:
@@ -40,7 +40,8 @@ private:
     vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
     Feature * lines(const Mat &normImage, const string prefix = "") const;
     vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
-
+    Feature* numberOfElements(const Mat &normImage) const;
+    void getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy);
 
 public:
     ~FeatureExtractor() {

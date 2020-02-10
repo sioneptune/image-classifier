@@ -62,6 +62,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             case LINES:
                                 results.push_back(lines(normImage));
                                 break;
+                            case NUMBER_OF_ELEMENTS:
+                                results.push_back(numberOfElements(image));
+                                break;
 
                                 // Zoning
                             case ZONING_BARYCENTER:
@@ -106,10 +109,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
             }
             file.close();
         }
-        else cerr << "Unable to open file: " << name << endl;
+        else cerr << "Unable to open output file: " << name << endl;
         input.close();
     }
-    else cerr << "Unable to open file: " << iname << endl;
+    else cerr << "Unable to open input file: " << iname << endl;
 }
 
 Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
@@ -196,10 +199,8 @@ Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) 
     return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
 }
 
-Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
-
+void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) {
     Mat clean, pyr, timg, gray0, gray;
-
     clean = removeNoise(image);
 
     // down-scale and upscale the image to filter out the noise
@@ -208,11 +209,17 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
     threshold(timg,gray,230,255,0);
 
+    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //imshow("CONTOURS", gray);
+    //waitKey();
+}
+
+Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
+
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    // find contours and store them all as a list
-    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    getContours(image, contours, hierarchy);
 
     set<int> parents;
     // We start at 2 because contour 0 is the border of the image, and contour 1's parent is contour 0, which is useless
@@ -358,6 +365,28 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
     }
     return results;
 }
+
+Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    getContours(contours, hierarchy);
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
+    RNG rng(12345);
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+
+    //imshow("draw", drawing);
+    //waitKey();
+
+    return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
+}
+
 
 int main() {
     FeatureExtractor feat;
