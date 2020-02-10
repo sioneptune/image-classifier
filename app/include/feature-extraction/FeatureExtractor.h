@@ -36,7 +36,7 @@ private:
     void setImage(const Mat& img) { image = img; }
     void setBBImage(const Mat& img) { bbImage = img; }
 
-    void getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy, Mat* img= nullptr);
+    void getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy);
 
     vector<Feature *> barycenter() const;
     Feature* heightWidthRatio() const;

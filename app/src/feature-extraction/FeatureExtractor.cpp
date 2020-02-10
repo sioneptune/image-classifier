@@ -114,22 +114,21 @@ Feature* FeatureExtractor::heightWidthRatio() const {
     return new FeatureDouble("height_width_ratio",1.0 * height / width );
 }
 
-void FeatureExtractor::getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy, Mat* img) {
+void FeatureExtractor::getContours(vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) {
     Mat clean, pyr, timg, gray0, gray;
-    if(img == nullptr)
-        img = &image;
-
-    clean = removeNoise(*img);
+    clean = removeNoise(image);
 
     // down-scale and upscale the image to filter out the noise
-    pyrDown(clean, pyr, Size(img->cols / 2, img->rows / 2));
-    pyrUp(pyr, timg, img->size());
+    pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
+    pyrUp(pyr, timg, image.size());
 
     threshold(timg,gray,230,255,1);
+    //imshow("THRESHOLD", gray);
 
     // find contours and store them all as a list
     findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
-    imwrite("../../gray.jpg", gray);
+    //imshow("CONTOURS", gray);
+    //waitKey();
 }
 
 Feature* FeatureExtractor::levelsOfHierarchy() {
@@ -145,7 +144,7 @@ Feature* FeatureExtractor::levelsOfHierarchy() {
         parents.insert(hierarchy[i][3]);
     }
 
-/*
+
     // DEBUG ONLY
     cout << parents.size() << endl;
 
@@ -160,7 +159,7 @@ Feature* FeatureExtractor::levelsOfHierarchy() {
 
     imshow("draw", drawing);
     waitKey();
-*/
+
 
     return new FeatureInt("levels_of_hierarchy", parents.size());
 }
@@ -169,17 +168,21 @@ Feature *FeatureExtractor::numberOfElements() {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    Mat edge, res;
-    int threshold = 200;
-    Canny(image, edge, threshold,3*threshold, 3);
-    edge.convertTo(res,CV_8U);
-    //res = cvtColor(res, COLOR_BGR2RGB)
+    getContours(contours, hierarchy);
 
-    imwrite("../../canny.jpg", edge);
+    /// Draw contours
+    Mat drawing = Mat::zeros( image.size(), CV_8UC3 );
+    RNG rng(12345);
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
 
-    getContours(contours, hierarchy, &res);
+    //imshow("draw", drawing);
+    //waitKey();
 
-    return new FeatureInt("number_of_elements", contours.size());
+    return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
 }
 
 
