@@ -246,7 +246,18 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
     imshow("draw", drawing);
     waitKey();*/
 
-    return new FeatureInt(prefix + "levels_of_hierarchy", parents.size());
+    const int levels = parents.size();
+    double normalizedLevels;
+    // normalization: values are between 0.2 and 4
+    if(levels > 10) {
+        normalizedLevels = 1.0;
+    } else if (levels < 1) {
+        normalizedLevels = 0.0;
+    } else {
+        normalizedLevels = levels / 9.0;
+    }
+
+    return new FeatureDouble(prefix + "levels_of_hierarchy", normalizedLevels);
 }
 
 vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
