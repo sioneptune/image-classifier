@@ -1,7 +1,0 @@
-label fire
-form 00421
-scripter 004
-page 21
-row 3
-column 1
-size medium

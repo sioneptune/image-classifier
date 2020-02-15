@@ -1,7 +1,0 @@
-label fire brigade
-form 02110
-scripter 021
-page 10
-row 2
-column 2
-size medium
