@@ -1,0 +1,7 @@
+label fire
+form 00420
+scripter 004
+page 20
+row 4
+column 2
+size medium

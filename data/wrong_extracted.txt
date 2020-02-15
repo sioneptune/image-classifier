@@ -1,0 +1,41 @@
+Almost white :
+
+electricity_004_20_5_1
+electricity_004_20_5_2
+
+fire_004_20_4_4
+fire_004_20_4_5
+
+flood_029_05_6_2
+flood_029_05_6_3
+flood_029_05_6_4
+flood_029_05_6_5
+
+files ligne 22566
+
+Wrong detection :
+(cars)
+paramedics_028_02_4_1
+paramedics_028_02_4_2
+paramedics_028_02_4_3
+paramedics_028_02_4_4
+paramedics_028_02_4_5
+
+paramedics_034_02_5_1
+paramedics_034_02_5_2
+paramedics_034_02_5_3
+paramedics_034_02_5_4
+paramedics_034_02_5_5
+
+road block_027_19_2_1
+road block_027_19_2_2
+road block_027_19_2_3
+road block_027_19_2_4
+road block_027_19_2_5
+
+road block_032_16_1_1
+road block_032_16_1_2
+road block_032_16_1_3
+road block_032_16_1_4
+road block_032_16_1_5
+

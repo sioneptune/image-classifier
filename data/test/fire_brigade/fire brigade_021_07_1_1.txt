@@ -1,0 +1,7 @@
+label fire brigade
+form 02107
+scripter 021
+page 07
+row 1
+column 1
+size medium

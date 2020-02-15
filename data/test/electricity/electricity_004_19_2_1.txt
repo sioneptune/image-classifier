@@ -1,0 +1,7 @@
+label electricity
+form 00419
+scripter 004
+page 19
+row 2
+column 1
+size medium

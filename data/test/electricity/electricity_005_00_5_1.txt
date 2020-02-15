@@ -1,0 +1,7 @@
+label electricity
+form 00500
+scripter 005
+page 00
+row 5
+column 1
+size 
