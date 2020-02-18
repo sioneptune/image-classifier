@@ -270,7 +270,7 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
 
     vector<Feature*> momentFeatures;
     for(int i = 0; i<7; i++) {
-        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
+        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) ) ) );
     }
     return momentFeatures;
 }
