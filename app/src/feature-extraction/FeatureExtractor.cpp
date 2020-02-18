@@ -268,9 +268,27 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
     double huMoments[7];
     cv::HuMoments(moments, huMoments);
 
+    vector< vector<double> > limits = { {0.3, 0.4} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} };
     vector<Feature*> momentFeatures;
-    for(int i = 0; i<7; i++) {
-        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) ) ) );
+    for (int i = 0; i<7; i++) {
+        double value = 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) );
+
+        // normalization: values are between limits[i][0] and limits[i][1]
+        if (value > limits[i][1]) {
+            value = 1.0;
+        } else if(value < limits[i][0]) {
+            value = 0.0;
+        } else {
+            value = (value - limits[i][0]) / (limits[i][1] - limits[i][0]);
+        }
+
+        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), value ) );
     }
     return momentFeatures;
 }
