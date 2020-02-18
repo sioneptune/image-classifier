@@ -4,24 +4,24 @@
 void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const string& inputPath, const string& outputPath) {
     vector<Feature *> featureVect;
     int nbOfImages=0;
-    string iname;
-    string name = outputPath + "extracted_images.arff";
+    string iname, ipath;
+    string arffFile = outputPath + "extracted_images.arff";
     Mat image;
 
 
     ifstream input (inputPath + "files_output.txt");
-    ofstream file (name);
+    ofstream file (arffFile);
 
     if(input.is_open()) {
         if (file.is_open()) {
-            cout << "Exportation to " + name << endl;
+            cout << "Exportation to " + arffFile << endl;
             file << "@RELATION EXTRACTED_IMAGES" << endl << endl;
 
             // Open every image in given folder
             while(getline(input, iname)) {
                 iname.replace(0,2,"");
-                iname = inputPath + iname;
-                image = openImage(iname);
+                ipath = inputPath + iname;
+                image = openImage(ipath);
 
                 try {
 
@@ -62,6 +62,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             case LINES:
                                 results.push_back(lines(normImage));
                                 break;
+                            case NUMBER_OF_ELEMENTS:
+                                results.push_back(numberOfElements(image));
+                                break;
                             case PEAKS:
                                 featureVect = peaks(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
@@ -91,6 +94,9 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                         }
                     }
 
+                    //Add class attribute
+                    results.push_back(getClass(iname));
+
                     nbOfImages ++;
 
                 } catch (Exception& e) {
@@ -114,10 +120,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
             }
             file.close();
         }
-        else cerr << "Unable to open file: " << name << endl;
+        else cerr << "Unable to open output file: " << arffFile << endl;
         input.close();
     }
-    else cerr << "Unable to open file: " << iname << endl;
+    else cerr << "Unable to open input file: " << iname << endl;
 }
 
 Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
@@ -204,11 +210,10 @@ Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) 
     return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
 }
 
-Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
-
+void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const{
     Mat clean, pyr, timg, gray0, gray;
-
-    clean = removeNoise(image);
+    clean = image;
+    clean = removeNoise(clean);
 
     // down-scale and upscale the image to filter out the noise
     pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
@@ -216,11 +221,17 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
     threshold(timg,gray,230,255,0);
 
+    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //imshow("CONTOURS", gray);
+    //waitKey();
+}
+
+Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
+
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    // find contours and store them all as a list
-    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    getContours(image, contours, hierarchy);
 
     set<int> parents;
     // We start at 2 because contour 0 is the border of the image, and contour 1's parent is contour 0, which is useless
@@ -243,7 +254,18 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
     imshow("draw", drawing);
     waitKey();*/
 
-    return new FeatureInt(prefix + "levels_of_hierarchy", parents.size());
+    const int levels = parents.size();
+    double normalizedLevels;
+    // normalization: values are between 1 and 10
+    if(levels > 10) {
+        normalizedLevels = 1.0;
+    } else if (levels < 1) {
+        normalizedLevels = 0.0;
+    } else {
+        normalizedLevels = (levels - 1.0) / 9.0;
+    }
+
+    return new FeatureDouble(prefix + "levels_of_hierarchy", normalizedLevels);
 }
 
 vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
@@ -254,9 +276,27 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
     double huMoments[7];
     cv::HuMoments(moments, huMoments);
 
+    vector< vector<double> > limits = { {0.3, 0.4} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} };
     vector<Feature*> momentFeatures;
-    for(int i = 0; i<7; i++) {
-        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), -1 * copysign(1.0, huMoments[i]) * log10(abs(huMoments[i]))));
+    for (int i = 0; i<7; i++) {
+        double value = 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) );
+
+        // normalization: values are between limits[i][0] and limits[i][1]
+        if (value > limits[i][1]) {
+            value = 1.0;
+        } else if(value < limits[i][0]) {
+            value = 0.0;
+        } else {
+            value = (value - limits[i][0]) / (limits[i][1] - limits[i][0]);
+        }
+
+        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), value ) );
     }
     return momentFeatures;
 }
@@ -367,6 +407,33 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
     return results;
 }
 
+Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    getContours(normImage, contours, hierarchy);
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
+    RNG rng(12345);
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+
+    //imshow("draw", drawing);
+    //waitKey();
+
+    return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
+}
+
+Feature *FeatureExtractor::getClass(const string name) const {
+    unsigned stop = name.find('/');
+    return new FeatureString("class","{accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}", name.substr(0, stop));
+}
+
+
 vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) {
 
     // will be replaced by the actual values once we've done a few runs
@@ -403,5 +470,5 @@ vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) {
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS}, "../../data/output/", "../../data/");
+    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, NUMBER_OF_ELEMENTS}, "../../data/output/", "../../data/");
 }
