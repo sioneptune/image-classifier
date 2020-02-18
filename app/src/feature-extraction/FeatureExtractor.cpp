@@ -248,13 +248,13 @@ Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string pref
 
     const int levels = parents.size();
     double normalizedLevels;
-    // normalization: values are between 0.2 and 4
+    // normalization: values are between 1 and 10
     if(levels > 10) {
         normalizedLevels = 1.0;
     } else if (levels < 1) {
         normalizedLevels = 0.0;
     } else {
-        normalizedLevels = levels / 9.0;
+        normalizedLevels = (levels - 1.0) / 9.0;
     }
 
     return new FeatureDouble(prefix + "levels_of_hierarchy", normalizedLevels);
