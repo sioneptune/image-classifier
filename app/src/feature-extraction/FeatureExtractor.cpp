@@ -62,6 +62,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             case LINES:
                                 results.push_back(lines(normImage));
                                 break;
+                            case PEAKS:
+                                featureVect = peaks(normImage);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
 
                                 // Zoning
                             case ZONING_BARYCENTER:
@@ -78,6 +82,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                             case ZONING_LINES:
                                 featureVect = zoning_feature(zoneImages, LINES);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_PEAKS:
+                                featureVect = zoning_feature(zoneImages, PEAKS);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }
@@ -357,6 +365,40 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
         }
     }
     return results;
+}
+
+vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) {
+
+    // will be replaced by the actual values once we've done a few runs
+    int maxpeaksX = 30;
+    int maxpeaksY = 30;
+    Mat binImg;
+    threshold(img,binImg,230,255,THRESH_BINARY_INV);
+    int sizeX = binImg.cols;
+    int sizeY = binImg.rows;
+    vector<int> h_histo(sizeX,0);
+    vector<int> v_histo(sizeY,0);
+
+    for(int i=0;i<sizeX;i++){
+        for(int j=0;j<sizeY;j++){
+            if(binImg.at<int>(i,j) > 0) {
+                h_histo[i] +=1;
+                v_histo[j] += 1;
+            }
+        }
+    }
+
+    vector<int> peaksX = histopeaks(h_histo);
+    vector<int> peaksY = histopeaks(v_histo);
+
+
+
+
+    FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", (double)peaksX.size()/(double)maxpeaksX);
+    FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", (double)peaksY.size()/(double)maxpeaksY);
+
+    vector<Feature*> res = {peaknumX, peaknumY};
+    return res;
 }
 
 int main() {

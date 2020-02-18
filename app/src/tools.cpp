@@ -152,3 +152,22 @@ Mat removeNoise(const Mat& image) {
 
     return copy;
 }
+
+vector<int> histopeaks(vector<int> hist) {
+
+    //Gaussian smoothing of the histogram
+
+    vector<double> smoothed={};
+
+    for(int i=3;i<hist.size()-3;i++) smoothed.push_back(
+                ((double)hist[i-3]+6*hist[i-2]+15*hist[i-1]+20*hist[i]+15*hist[i+1]+6*hist[i+2]+hist[i+3])/64
+        );
+
+    vector<int> maxima = {};
+
+    for(int i=1; i<smoothed.size()-1;i++){
+        if (smoothed[i-1] < smoothed[i] && smoothed[i] > smoothed[i+1]) maxima.push_back(i+3);  //+3 to account for the shift in smoothing vector
+    }
+
+    return maxima;
+}

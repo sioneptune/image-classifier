@@ -52,4 +52,6 @@ Scalar getAverageColor(const Mat& image);
  */
 Mat removeNoise(const Mat& image);
 
+vector<int> histopeaks(vector<int> hist);
+
 #endif //IMAGE_CLASSIFIER_TOOLS_H
