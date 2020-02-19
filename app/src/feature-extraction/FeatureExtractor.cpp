@@ -149,7 +149,9 @@ Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
 }
 
 vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const string prefix) const {
-    Point center = Point((downRightCorner.x + upLeftCorner.x) / 2, (upLeftCorner.y + downRightCorner.y) / 2);
+    int width = normImage.cols;
+    int height = normImage.rows;
+    Point center = Point(width / 2, height / 2);
 
     vector<Point> nonzero;
     Mat binim;
@@ -168,13 +170,17 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const strin
 
     Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
 
-    double baryx = (double) (average.x - center.x) / ((double) (upLeftCorner.x - downRightCorner.x));
-    double baryy = (double) (average.y - center.y) / ((double) (upLeftCorner.y - downRightCorner.y));
+    double baryx = (double(average.x - center.x) / width) + 0.5;
+    double baryy = (double(average.y - center.y) / height) + 0.5;
+
+    if(baryx < 0) baryx = 0;
+    if(baryy < 0) baryy = 0;
+    if(baryx > 1) baryx = 1;
+    if(baryy > 1) baryy = 1;
 
 
     FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
     FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
-
     vector<Feature*> res = {baryX, baryY};
     return res;
 }
