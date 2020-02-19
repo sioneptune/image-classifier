@@ -43,7 +43,7 @@ private:
     Feature* numberOfElements(const Mat &normImage) const;
     Feature* getClass(const string name) const;
     void getContours(const Mat &normImage, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const;
-    vector<Feature *> peaks(const Mat &img, string prefix="");
+    vector<Feature *> peaks(const Mat &img, string prefix="") const;
 
 
 public:
