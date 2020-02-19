@@ -8,6 +8,9 @@
 #include "opencv2/highgui.hpp"
 #include "tools.h"
 
+#define MAIN_LINES_THRESHOLD 100
+#define ZONE_LINES_THRESHOLD 35
+
 using namespace cv;
 using namespace std;
 
@@ -38,7 +41,7 @@ private:
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
     vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
-    Feature * lines(const Mat &normImage, const string prefix = "") const;
+    Feature * lines(const Mat &normImage, const int threshNum, const string prefix = "") const;
     vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
     Feature* numberOfElements(const Mat &normImage) const;
     Feature* getClass(const string name) const;

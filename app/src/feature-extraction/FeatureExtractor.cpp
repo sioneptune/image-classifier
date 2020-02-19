@@ -60,7 +60,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case LINES:
-                                results.push_back(lines(normImage));
+                                results.push_back(lines(normImage, MAIN_LINES_THRESHOLD));
                                 break;
                             case NUMBER_OF_ELEMENTS:
                                 results.push_back(numberOfElements(image));
@@ -307,13 +307,10 @@ vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string
     return momentFeatures;
 }
 
-Feature* FeatureExtractor::lines(const Mat &normImage, const string prefix) const {
+Feature* FeatureExtractor::lines(const Mat &normImage, const int threshNum, const string prefix) const {
 
     Mat src, dst, cdst, cdstP;
     normImage.copyTo(src);
-
-/*    // Edge detection
-    Canny(src, dst, 50, 200, 3);*/
 
     threshold(src,dst,230,255,THRESH_BINARY_INV);
     Mat elem = getStructuringElement(MORPH_CROSS,Size(3,3));
@@ -339,7 +336,13 @@ Feature* FeatureExtractor::lines(const Mat &normImage, const string prefix) cons
 //    // Wait and Exit
 //    waitKey();
 
-    Feature * f = new FeatureInt(prefix+"lines",linesP.size());
+    double res = double(linesP.size());
+    if(res > threshNum){
+        res = 1.0;
+    }else{
+        res = res/ threshNum;
+    }
+    Feature * f = new FeatureDouble(prefix+"lines",res);
 
     return f;
 }
@@ -406,7 +409,7 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
                 results.insert(results.end(), tmp.begin(), tmp.end());
                 break;
             case LINES:
-                results.push_back(lines(zoneImages[i], "zone_" + to_string(i) + "_"));
+                results.push_back(lines(zoneImages[i], ZONE_LINES_THRESHOLD, "zone_" + to_string(i) + "_"));
                 break;
         }
     }
