@@ -411,6 +411,9 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
             case LINES:
                 results.push_back(lines(zoneImages[i], ZONE_LINES_THRESHOLD, "zone_" + to_string(i) + "_"));
                 break;
+            case PEAKS:
+                tmp = peaks(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
         }
     }
     return results;
@@ -443,7 +446,7 @@ Feature *FeatureExtractor::getClass(const string name) const {
 }
 
 
-vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) {
+vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
 
     // will be replaced by the actual values once we've done a few runs
     int maxpeaksX = 30;
