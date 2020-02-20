@@ -7,7 +7,7 @@
 				"loader" : {
 					"type" : "loader",
 					"class" : "weka.core.converters.ArffLoader",
-					"filePath" : "/mnt/data/INSA/4INFO/TIV/image-classifier/data/arff/2_all_but_HU.arff",
+					"filePath" : "/mnt/data/INSA/4INFO/TIV/image-classifier/data/arff/4_all_normalized_200220.arff",
 					"useRelativePath" : false
 				},
 				"name" : "ArffLoader"
@@ -69,7 +69,7 @@
 				"filter" : {
 					"type" : "optionHandler",
 					"class" : "weka.filters.supervised.attribute.AttributeSelection",
-					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 1\" -S \"weka.attributeSelection.BestFirst -D 1 -N 5\""
+					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 2\" -S \"weka.attributeSelection.BestFirst -D 1 -N 5\""
 				},
 				"name" : "AttributeSelection"
 			},
@@ -182,7 +182,7 @@
 			"class" : "weka.knowledgeflow.steps.TextSaver",
 			"properties" : {
 				"append" : true,
-				"file" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/results_run",
+				"file" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/Results_run_8_200220",
 				"name" : "TextSaver",
 				"writeTitleString" : true
 			},

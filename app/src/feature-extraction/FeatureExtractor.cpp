@@ -482,5 +482,18 @@ vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, NUMBER_OF_ELEMENTS}, "../../data/output/", "../../data/");
+    feat.exportARFF({ BARYCENTER,
+                      HEIGHT_WIDTH_RATIO,
+                      PIXEL_RATE,
+                      LEVELS_OF_HIERARCHY,
+                      HU_MOMENTS,
+                      NUMBER_OF_ELEMENTS,
+                      LINES,
+                      PEAKS,
+                      // ZONES
+                      ZONING_BARYCENTER,
+                      ZONING_PIXEL_RATE,
+                      ZONING_HU_MOMENTS,
+                      ZONING_LINES,
+                      ZONING_PEAKS }, "../../data/output/", "../../data/");
 }
