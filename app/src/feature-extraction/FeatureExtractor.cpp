@@ -49,34 +49,30 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                             case HEIGHT_WIDTH_RATIO:
                                 results.push_back(heightWidthRatio());
                                 break;
-                            case LEVELS_OF_HIERARCHY:
-                                results.push_back(levelsOfHierarchy(image));
-                                break;
-                            case PIXEL_RATE:
-                                results.push_back(pixelRate(normImage));
-                                break;
                             case HU_MOMENTS:
                                 featureVect = HuMoments(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
-                            case LINES:
-                                results.push_back(lines(normImage, MAIN_LINES_THRESHOLD));
+                            case LEVELS_OF_HIERARCHY:
+                                results.push_back(levelsOfHierarchy(image));
                                 break;
                             case NUMBER_OF_ELEMENTS:
                                 results.push_back(numberOfElements(image));
+                                break;
+                            case LINES:
+                                results.push_back(lines(normImage, MAIN_LINES_THRESHOLD));
                                 break;
                             case PEAKS:
                                 featureVect = peaks(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
+                            case PIXEL_RATE:
+                                results.push_back(pixelRate(normImage));
+                                break;
 
                                 // Zoning
                             case ZONING_BARYCENTER:
                                 featureVect = zoning_feature(zoneImages, BARYCENTER);
-                                results.insert(results.end(), featureVect.begin(), featureVect.end());
-                                break;
-                            case ZONING_PIXEL_RATE:
-                                featureVect = zoning_feature(zoneImages, PIXEL_RATE);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case ZONING_HU_MOMENTS:
@@ -89,6 +85,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                             case ZONING_PEAKS:
                                 featureVect = zoning_feature(zoneImages, PEAKS);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_PIXEL_RATE:
+                                featureVect = zoning_feature(zoneImages, PIXEL_RATE);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }

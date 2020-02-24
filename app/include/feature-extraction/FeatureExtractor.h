@@ -14,7 +14,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, PIXEL_RATE, LEVELS_OF_HIERARCHY, HU_MOMENTS, NUMBER_OF_ELEMENTS, LINES, PEAKS, ZONING_BARYCENTER, ZONING_PIXEL_RATE, ZONING_HU_MOMENTS, ZONING_LINES, ZONING_PEAKS };
+enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, HU_MOMENTS, LEVELS_OF_HIERARCHY, LINES, NUMBER_OF_ELEMENTS, PEAKS, PIXEL_RATE, ZONING_BARYCENTER, ZONING_HU_MOMENTS, ZONING_LINES, ZONING_PEAKS, ZONING_PIXEL_RATE };
 class Feature {
     const string name;
 public:
@@ -34,19 +34,20 @@ private:
     Point downRightCorner;
 
     Mat normalization(const Mat& bbImage, const int size) const;
+    void getContours(const Mat &normImage, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const;
+    Feature* getClass(const string name) const;
 
     vector<Feature *> barycenter(const Mat& normImage, const string prefix = "") const;
     Feature* heightWidthRatio(const string prefix = "") const;
-    Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
-    Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
-    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
+    Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
     Feature * lines(const Mat &normImage, const int threshNum, const string prefix = "") const;
-    vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
     Feature* numberOfElements(const Mat &normImage) const;
-    Feature* getClass(const string name) const;
-    void getContours(const Mat &normImage, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const;
     vector<Feature *> peaks(const Mat &img, string prefix="") const;
+    Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
+
+    vector<Feature *> zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const;
+    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
 
 
 public:
