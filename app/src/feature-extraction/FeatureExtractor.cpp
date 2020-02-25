@@ -468,13 +468,13 @@ Feature *FeatureExtractor::numberOfElements(const Mat &image) const {
     return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
 }
 
-vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
+vector<Feature *> FeatureExtractor::peaks(const Mat &image, string prefix) const{
 
     // will be replaced by the actual values once we've done a few runs
     int maxpeaksX = 30;
     int maxpeaksY = 30;
     Mat binImg;
-    threshold(img,binImg,230,255,THRESH_BINARY_INV);
+    threshold(image,binImg,230,255,THRESH_BINARY_INV);
     int sizeX = binImg.cols;
     int sizeY = binImg.rows;
     vector<int> h_histo(sizeX,0);

@@ -72,7 +72,7 @@ private:
 
     /**
      * All the following methods are based on the same principle. From an image, they compute a set of features (may be 1) and return it.
-     * @param normImage/image/img the image to be analysed
+     * @param normImage/image the image to be analysed
      * @param prefix is the prefix of the finale feature(s)'s name (used for zoning, for example)
      * @return a vector of the computed features or the feature if there's only one
      */
@@ -91,7 +91,7 @@ private:
     // Computes the drawing number of distinct elements
     Feature* numberOfElements(const Mat &image) const;
     // Computes the number of peaks of the drawing histograms from the X and Y axes
-    vector<Feature *> peaks(const Mat &img, string prefix="") const;
+    vector<Feature *> peaks(const Mat &image, string prefix="") const;
     // Computes the drawing bounding box percentage of black pixels (pixels which belongs to the drawing)
     Feature* pixelRate(const Mat& normImage, const string prefix = "") const;
 
