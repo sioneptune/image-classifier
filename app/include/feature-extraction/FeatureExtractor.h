@@ -89,7 +89,7 @@ private:
     // Computes the drawing number of lines
     Feature * lines(const Mat &normImage, const int threshNum, const string prefix = "") const;
     // Computes the drawing number of distinct elements
-    Feature* numberOfElements(const Mat &normImage) const;
+    Feature* numberOfElements(const Mat &image) const;
     // Computes the number of peaks of the drawing histograms from the X and Y axes
     vector<Feature *> peaks(const Mat &img, string prefix="") const;
     // Computes the drawing bounding box percentage of black pixels (pixels which belongs to the drawing)

@@ -447,14 +447,14 @@ Feature* FeatureExtractor::lines(const Mat &normImage, const int threshNum, cons
     return f;
 }
 
-Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
+Feature *FeatureExtractor::numberOfElements(const Mat &image) const {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
-    getContours(normImage, contours, hierarchy);
+    getContours(image, contours, hierarchy);
 
     /// Draw contours
-    Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
+    Mat drawing = Mat::zeros( image.size(), CV_8UC3 );
     RNG rng(12345);
     for( int i = 0; i< contours.size(); i++ )
     {
@@ -556,19 +556,20 @@ Feature *FeatureExtractor::getClass(const string name) const {
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({ BARYCENTER,
-                      CONVEX_HULL_AREA,
-                      HEIGHT_WIDTH_RATIO,
-                      PIXEL_RATE,
-                      LEVELS_OF_HIERARCHY,
-                      HU_MOMENTS,
-                      NUMBER_OF_ELEMENTS,
-                      LINES,
-                      PEAKS,
-                      // ZONES
-                      ZONING_BARYCENTER,
-                      ZONING_PIXEL_RATE,
-                      ZONING_HU_MOMENTS,
-                      ZONING_LINES,
-                      ZONING_PEAKS }, "../../data/output/", "../../data/");
+    feat.exportARFF({CONVEX_HULL_AREA}, "../../data/output/", "../../data/");
+//    feat.exportARFF({ BARYCENTER,
+//                      CONVEX_HULL_AREA,
+//                      HEIGHT_WIDTH_RATIO,
+//                      PIXEL_RATE,
+//                      LEVELS_OF_HIERARCHY,
+//                      HU_MOMENTS,
+//                      NUMBER_OF_ELEMENTS,
+//                      LINES,
+//                      PEAKS,
+//                      // ZONES
+//                      ZONING_BARYCENTER,
+//                      ZONING_PIXEL_RATE,
+//                      ZONING_HU_MOMENTS,
+//                      ZONING_LINES,
+//                      ZONING_PEAKS }, "../../data/output/", "../../data/");
 }
