@@ -219,9 +219,10 @@ _deps
 data/output/*
 data/output_test/*
 
-# Weka model files
-*.model
-
 # EXCEPTIONS
 !data/templates/*
+!classifiers/results/*
+
+# Weka model files
+*.model
 
