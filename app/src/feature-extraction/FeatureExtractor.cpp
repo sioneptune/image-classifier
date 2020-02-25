@@ -476,8 +476,8 @@ vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
 
 
 
-    FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", (double)peaksX.size()/(double)maxpeaksX);
-    FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", (double)peaksY.size()/(double)maxpeaksY);
+    FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", peaksX.size() > maxpeaksX ? 1.0 : (double)peaksX.size()/(double)maxpeaksX);
+    FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", peaksY.size() > maxpeaksY ? 1.0 : (double)peaksY.size()/(double)maxpeaksY);
 
     vector<Feature*> res = {peaknumX, peaknumY};
     return res;
