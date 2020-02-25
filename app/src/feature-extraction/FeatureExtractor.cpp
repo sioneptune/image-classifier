@@ -259,13 +259,13 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const strin
 
     FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
     FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
-    vector<Feature*> res = {baryX, baryY};
-    return res;
+    return {baryX, baryY};
 }
 
 Feature* FeatureExtractor::convexHullArea(const Mat& normImage, const string prefix) const {
     // binarize image
     Mat binaryImage;
+    // we need inverted binary threshold to no detect the frame border as a contour
     threshold(normImage, binaryImage, 230, 255, THRESH_BINARY_INV);
 
     // find contours
@@ -285,7 +285,7 @@ Feature* FeatureExtractor::convexHullArea(const Mat& normImage, const string pre
     double area = contourArea(hull);
 
 //    // FOR DEBUG PURPOSE ONLY: show convex hull (blue) and contours (green)
-//    Mat drawing = Mat::zeros(binaryImage.size(), CV_8UC3);
+//    Mat drawing = Mat::zeros(normImage.size(), CV_8UC3);
 //    vector< vector< Point > > hullVect; // drawContours wants a vector< vector< Point > >
 //    hullVect.push_back(hull);
 //
@@ -442,9 +442,8 @@ Feature* FeatureExtractor::lines(const Mat &normImage, const int threshNum, cons
     }else{
         res = res/ threshNum;
     }
-    Feature * f = new FeatureDouble(prefix+"lines",res);
 
-    return f;
+    return new FeatureDouble(prefix+"lines",res);
 }
 
 Feature *FeatureExtractor::numberOfElements(const Mat &image) const {
@@ -498,8 +497,7 @@ vector<Feature *> FeatureExtractor::peaks(const Mat &image, string prefix) const
     FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", peaksX.size() > maxpeaksX ? 1.0 : (double)peaksX.size()/(double)maxpeaksX);
     FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", peaksY.size() > maxpeaksY ? 1.0 : (double)peaksY.size()/(double)maxpeaksY);
 
-    vector<Feature*> res = {peaknumX, peaknumY};
-    return res;
+    return {peaknumX, peaknumY};
 }
 
 Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) const {
@@ -556,20 +554,19 @@ Feature *FeatureExtractor::getClass(const string name) const {
 
 int main() {
     FeatureExtractor feat;
-    feat.exportARFF({CONVEX_HULL_AREA}, "../../data/output/", "../../data/");
-//    feat.exportARFF({ BARYCENTER,
-//                      CONVEX_HULL_AREA,
-//                      HEIGHT_WIDTH_RATIO,
-//                      PIXEL_RATE,
-//                      LEVELS_OF_HIERARCHY,
-//                      HU_MOMENTS,
-//                      NUMBER_OF_ELEMENTS,
-//                      LINES,
-//                      PEAKS,
-//                      // ZONES
-//                      ZONING_BARYCENTER,
-//                      ZONING_PIXEL_RATE,
-//                      ZONING_HU_MOMENTS,
-//                      ZONING_LINES,
-//                      ZONING_PEAKS }, "../../data/output/", "../../data/");
+    feat.exportARFF({ BARYCENTER,
+                      CONVEX_HULL_AREA,
+                      HEIGHT_WIDTH_RATIO,
+                      PIXEL_RATE,
+                      LEVELS_OF_HIERARCHY,
+                      HU_MOMENTS,
+                      NUMBER_OF_ELEMENTS,
+                      LINES,
+                      PEAKS,
+                      // ZONES
+                      ZONING_BARYCENTER,
+                      ZONING_PIXEL_RATE,
+                      ZONING_HU_MOMENTS,
+                      ZONING_LINES,
+                      ZONING_PEAKS }, "../../data/output/", "../../data/");
 }

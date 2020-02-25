@@ -54,7 +54,7 @@ private:
 
     /**
      * Pastes the drawing bounding box on a defined bigger image so that all the images finally has the same height and width.
-     * The image is enlarged according to its biggest dimension.
+     * The image is enlarged according to its biggest dimension and centered according to the other.
      * @param bbImage is the drawing bounding box
      * @param size is the size of the final image
      * @return a normalized image (Mat)
