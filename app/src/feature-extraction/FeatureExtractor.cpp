@@ -46,37 +46,36 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 featureVect = barycenter(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
+                            case CONVEX_HULL_AREA:
+                                results.push_back(convexHullArea(normImage, ""));
+                                break;
                             case HEIGHT_WIDTH_RATIO:
                                 results.push_back(heightWidthRatio());
-                                break;
-                            case LEVELS_OF_HIERARCHY:
-                                results.push_back(levelsOfHierarchy(image));
-                                break;
-                            case PIXEL_RATE:
-                                results.push_back(pixelRate(normImage));
                                 break;
                             case HU_MOMENTS:
                                 featureVect = HuMoments(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
-                            case LINES:
-                                results.push_back(lines(normImage, MAIN_LINES_THRESHOLD));
+                            case LEVELS_OF_HIERARCHY:
+                                results.push_back(levelsOfHierarchy(image));
                                 break;
                             case NUMBER_OF_ELEMENTS:
                                 results.push_back(numberOfElements(image));
+                                break;
+                            case LINES:
+                                results.push_back(lines(normImage, MAIN_LINES_THRESHOLD));
                                 break;
                             case PEAKS:
                                 featureVect = peaks(normImage);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
+                            case PIXEL_RATE:
+                                results.push_back(pixelRate(normImage));
+                                break;
 
                                 // Zoning
                             case ZONING_BARYCENTER:
                                 featureVect = zoning_feature(zoneImages, BARYCENTER);
-                                results.insert(results.end(), featureVect.begin(), featureVect.end());
-                                break;
-                            case ZONING_PIXEL_RATE:
-                                featureVect = zoning_feature(zoneImages, PIXEL_RATE);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                             case ZONING_HU_MOMENTS:
@@ -89,6 +88,10 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                                 break;
                             case ZONING_PEAKS:
                                 featureVect = zoning_feature(zoneImages, PEAKS);
+                                results.insert(results.end(), featureVect.begin(), featureVect.end());
+                                break;
+                            case ZONING_PIXEL_RATE:
+                                featureVect = zoning_feature(zoneImages, PIXEL_RATE);
                                 results.insert(results.end(), featureVect.begin(), featureVect.end());
                                 break;
                         }
@@ -480,9 +483,61 @@ vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
     return res;
 }
 
+Feature* FeatureExtractor::convexHullArea(const Mat& normImage, const string prefix) const {
+    // binarize image
+    Mat binaryImage;
+    threshold(normImage, binaryImage, 230, 255, THRESH_BINARY_INV);
+
+    // find contours
+    vector< vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    findContours(binaryImage, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0));
+
+    // create only one hull for all convex hull points
+    vector<Point> hull;
+    vector<Point> pts; // to combine all contours in one
+    for (int i = 0; i < contours.size(); i++)
+        for (int j = 0; j < contours[i].size(); j++)
+            pts.push_back(contours[i][j]);
+    convexHull(pts, hull);
+
+    // compute the area
+    double area = contourArea(hull);
+
+//    // FOR DEBUG PURPOSE ONLY: show convex hull (blue) and contours (green)
+//    Mat drawing = Mat::zeros(binaryImage.size(), CV_8UC3);
+//    vector< vector< Point > > hullVect; // drawContours wants a vector< vector< Point > >
+//    hullVect.push_back(hull);
+//
+//    Scalar color_contours = Scalar(0, 255, 0); // green - color for contours
+//    for(int i = 0; i < contours.size(); i++) {
+//        drawContours(drawing, contours, i, color_contours, 1, 8, vector<Vec4i>(), 0, Point());
+//    }
+//
+//    drawContours(drawing, hullVect, 0, Scalar(255, 0, 0), 1, 8, vector<Vec4i>(), 0, Point());
+//
+//    imshow("", drawing);
+//    waitKey();
+
+    // normalization (values are between 3000 and 32000)
+    double result;
+    if (area > 32000) {
+        result = 1.0;
+    }
+    else if (area < 3000) {
+        result = 0.0;
+    }
+    else {
+        result = (area - 3000) / 29000;
+    }
+
+    return new FeatureDouble(prefix + "area", result);
+}
+
 int main() {
     FeatureExtractor feat;
     feat.exportARFF({ BARYCENTER,
+                      CONVEX_HULL_AREA,
                       HEIGHT_WIDTH_RATIO,
                       PIXEL_RATE,
                       LEVELS_OF_HIERARCHY,
