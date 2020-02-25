@@ -14,7 +14,7 @@
 using namespace cv;
 using namespace std;
 
-enum FeatureFunction { BARYCENTER, HEIGHT_WIDTH_RATIO, HU_MOMENTS, LEVELS_OF_HIERARCHY, LINES, NUMBER_OF_ELEMENTS, PEAKS, PIXEL_RATE, ZONING_BARYCENTER, ZONING_HU_MOMENTS, ZONING_LINES, ZONING_PEAKS, ZONING_PIXEL_RATE };
+enum FeatureFunction { BARYCENTER, CONVEX_HULL_AREA, HEIGHT_WIDTH_RATIO, HU_MOMENTS, LEVELS_OF_HIERARCHY, LINES, NUMBER_OF_ELEMENTS, PEAKS, PIXEL_RATE, ZONING_BARYCENTER, ZONING_HU_MOMENTS, ZONING_LINES, ZONING_PEAKS, ZONING_PIXEL_RATE };
 class Feature {
     const string name;
 public:
@@ -38,6 +38,7 @@ private:
     Feature* getClass(const string name) const;
 
     vector<Feature *> barycenter(const Mat& normImage, const string prefix = "") const;
+    Feature* convexHullArea(const Mat& normImage, const string prefix = "") const;
     Feature* heightWidthRatio(const string prefix = "") const;
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
