@@ -129,6 +129,29 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
     else cerr << "Unable to open input file: " << iname << endl;
 }
 
+
+/**
+=========================================================================
+                          TOOLS METHODS
+=========================================================================
+ */
+
+void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const{
+    Mat clean, pyr, timg, gray0, gray;
+    clean = image;
+    clean = removeNoise(clean);
+
+    // down-scale and upscale the image to filter out the noise
+    pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
+    pyrUp(pyr, timg, image.size());
+
+    threshold(timg,gray,230,255,0);
+
+    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //imshow("CONTOURS", gray);
+    //waitKey();
+}
+
 Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
     Mat gray, scaled, normalized;
     Size normSize(size, size), bbSize(bbImage.cols, bbImage.rows);
@@ -149,205 +172,6 @@ Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
     copyMakeBorder(scaled, normalized, top, down, left, right, BORDER_CONSTANT, Scalar(255,255,255));
 
     return normalized;
-}
-
-vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const string prefix) const {
-    int width = normImage.cols;
-    int height = normImage.rows;
-    Point center = Point(width / 2, height / 2);
-
-    vector<Point> nonzero;
-    Mat binim;
-    threshold(normImage, binim, 200, 255, THRESH_BINARY_INV);
-    findNonZero(binim, nonzero);
-
-    if(nonzero.size() == 0) {
-        return {new FeatureDouble(prefix + "barycenter_x", center.x), new FeatureDouble(prefix + "barycenter_y", center.y) };
-    }
-
-    Point sum = Point(0, 0);
-
-    for (Point p : nonzero) {
-        sum += p;
-    }
-
-    Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
-
-    double baryx = (double(average.x - center.x) / width) + 0.5;
-    double baryy = (double(average.y - center.y) / height) + 0.5;
-
-    if(baryx < 0) baryx = 0;
-    if(baryy < 0) baryy = 0;
-    if(baryx > 1) baryx = 1;
-    if(baryy > 1) baryy = 1;
-
-
-    FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
-    FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
-    vector<Feature*> res = {baryX, baryY};
-    return res;
-}
-
-Feature* FeatureExtractor::heightWidthRatio(const string prefix) const {
-    int height = downRightCorner.y - upLeftCorner. y;
-    int width = downRightCorner.x - upLeftCorner.x;
-    double ratio = 1.0 * height / width;
-
-    double normalizedRatio;
-    // normalization: values are between 0.2 and 4
-    if(ratio > 4) {
-        normalizedRatio = 1.0;
-    } else if (ratio < 0.2) {
-        normalizedRatio = 0.0;
-    } else {
-        normalizedRatio = (ratio - 0.2) / 3.8;
-    }
-
-    return new FeatureDouble(prefix + "height_width_ratio",normalizedRatio);
-}
-
-Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) const {
-    Mat binaryImage;
-    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
-
-    vector<Point> whitePoints;
-    findNonZero(binaryImage, whitePoints);
-
-    int nbOfPixels = binaryImage.cols * binaryImage.rows;
-    int nbOfBlackPixels = nbOfPixels - whitePoints.size();
-
-    return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
-}
-
-void FeatureExtractor::getContours(const Mat& image, vector<vector<Point>>& contours, vector<Vec4i>& hierarchy) const{
-    Mat clean, pyr, timg, gray0, gray;
-    clean = image;
-    clean = removeNoise(clean);
-
-    // down-scale and upscale the image to filter out the noise
-    pyrDown(clean, pyr, Size(image.cols / 2, image.rows / 2));
-    pyrUp(pyr, timg, image.size());
-
-    threshold(timg,gray,230,255,0);
-
-    findContours(gray, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
-    //imshow("CONTOURS", gray);
-    //waitKey();
-}
-
-Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
-
-    vector<vector<Point>> contours;
-    vector<Vec4i> hierarchy;
-
-    getContours(image, contours, hierarchy);
-
-    set<int> parents;
-    // We start at 2 because contour 0 is the border of the image, and contour 1's parent is contour 0, which is useless
-    for(int i = 2; i < hierarchy.size(); i++) {
-        parents.insert(hierarchy[i][3]);
-    }
-
-/*    // DEBUG ONLY
-    cout << parents.size() << endl;
-
-    /// Draw contours
-    Mat drawing = Mat::zeros( image.size(), CV_8UC3 );
-    RNG rng(12345);
-    for( int i = 0; i< contours.size(); i++ )
-    {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
-    }
-
-    imshow("draw", drawing);
-    waitKey();*/
-
-    const int levels = parents.size();
-    double normalizedLevels;
-    // normalization: values are between 1 and 10
-    if(levels > 10) {
-        normalizedLevels = 1.0;
-    } else if (levels < 1) {
-        normalizedLevels = 0.0;
-    } else {
-        normalizedLevels = (levels - 1.0) / 9.0;
-    }
-
-    return new FeatureDouble(prefix + "levels_of_hierarchy", normalizedLevels);
-}
-
-vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
-    Mat binaryImage;
-    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
-
-    Moments moments = cv::moments(binaryImage, false);
-    double huMoments[7];
-    cv::HuMoments(moments, huMoments);
-
-    vector< vector<double> > limits = { {0.3, 0.4} ,
-                                        {0.0, 0.2} ,
-                                        {0.0, 0.2} ,
-                                        {0.0, 0.2} ,
-                                        {-0.1, 0.1} ,
-                                        {-0.1, 0.1} ,
-                                        {-0.1, 0.1} };
-    vector<Feature*> momentFeatures;
-    for (int i = 0; i<7; i++) {
-        double value = 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) );
-
-        // normalization: values are between limits[i][0] and limits[i][1]
-        if (value > limits[i][1]) {
-            value = 1.0;
-        } else if(value < limits[i][0]) {
-            value = 0.0;
-        } else {
-            value = (value - limits[i][0]) / (limits[i][1] - limits[i][0]);
-        }
-
-        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), value ) );
-    }
-    return momentFeatures;
-}
-
-Feature* FeatureExtractor::lines(const Mat &normImage, const int threshNum, const string prefix) const {
-
-    Mat src, dst, cdst, cdstP;
-    normImage.copyTo(src);
-
-    threshold(src,dst,230,255,THRESH_BINARY_INV);
-    Mat elem = getStructuringElement(MORPH_CROSS,Size(3,3));
-    dilate(dst,dst,elem);
-    erode(dst,dst,elem);
-    erode(dst,dst,elem);
-    // Copy edges to the images that will display the results in BGR
-    cvtColor(dst, cdstP, COLOR_GRAY2BGR);
-    // Probabilistic Line Transform
-    vector<Vec4i> linesP; // will hold the results of the detection
-    HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 15 ); // runs the actual detection
-
-        // Draw the lines
-        //cout << "Probalistic lines:" << linesP.size() << endl;
-    for( size_t i = 0; i < linesP.size(); i++ )
-    {
-        Vec4i l = linesP[i];
-        line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
-    }
-    // Show results
-//    imshow("Source", src);
-//        imshow("Probabilistic Line Transform", cdstP);
-//    // Wait and Exit
-//    waitKey();
-
-    double res = double(linesP.size());
-    if(res > threshNum){
-        res = 1.0;
-    }else{
-        res = res/ threshNum;
-    }
-    Feature * f = new FeatureDouble(prefix+"lines",res);
-
-    return f;
 }
 
 vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int> decoupY) {
@@ -395,91 +219,47 @@ vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int>
     return zones;
 }
 
-vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const {
-    vector<Feature *> results;
-    vector<Feature *> tmp;
-    for(int i=0; i<zoneImages.size(); i++) {
-        switch(f) {
-            case BARYCENTER:
-                tmp = barycenter(zoneImages[i], "zone_" + to_string(i) + "_");
-                results.insert(results.end(), tmp.begin(), tmp.end());
-                break;
-            case PIXEL_RATE:
-                results.push_back(pixelRate(zoneImages[i], "zone_" + to_string(i) + "_"));
-                break;
-            case HU_MOMENTS:
-                tmp = HuMoments(zoneImages[i], "zone_" + to_string(i) + "_");
-                results.insert(results.end(), tmp.begin(), tmp.end());
-                break;
-            case LINES:
-                results.push_back(lines(zoneImages[i], ZONE_LINES_THRESHOLD, "zone_" + to_string(i) + "_"));
-                break;
-            case PEAKS:
-                tmp = peaks(zoneImages[i], "zone_" + to_string(i) + "_");
-                results.insert(results.end(), tmp.begin(), tmp.end());
-        }
-    }
-    return results;
-}
 
-Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
-    vector<vector<Point>> contours;
-    vector<Vec4i> hierarchy;
+/**
+=========================================================================
+                            FEATURES
+=========================================================================
+ */
 
-    getContours(normImage, contours, hierarchy);
+vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const string prefix) const {
+    int width = normImage.cols;
+    int height = normImage.rows;
+    Point center = Point(width / 2, height / 2);
 
-    /// Draw contours
-    Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
-    RNG rng(12345);
-    for( int i = 0; i< contours.size(); i++ )
-    {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    vector<Point> nonzero;
+    Mat binim;
+    threshold(normImage, binim, 200, 255, THRESH_BINARY_INV);
+    findNonZero(binim, nonzero);
+
+    if(nonzero.size() == 0) {
+        return {new FeatureDouble(prefix + "barycenter_x", center.x), new FeatureDouble(prefix + "barycenter_y", center.y) };
     }
 
-    //imshow("draw", drawing);
-    //waitKey();
+    Point sum = Point(0, 0);
 
-    return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
-}
-
-Feature *FeatureExtractor::getClass(const string name) const {
-    unsigned stop = name.find('/');
-    return new FeatureString("class","{accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}", name.substr(0, stop));
-}
-
-
-vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
-
-    // will be replaced by the actual values once we've done a few runs
-    int maxpeaksX = 30;
-    int maxpeaksY = 30;
-    Mat binImg;
-    threshold(img,binImg,230,255,THRESH_BINARY_INV);
-    int sizeX = binImg.cols;
-    int sizeY = binImg.rows;
-    vector<int> h_histo(sizeX,0);
-    vector<int> v_histo(sizeY,0);
-
-    for(int i=0;i<sizeX;i++){
-        for(int j=0;j<sizeY;j++){
-            if(binImg.at<int>(i,j) > 0) {
-                h_histo[i] +=1;
-                v_histo[j] += 1;
-            }
-        }
+    for (Point p : nonzero) {
+        sum += p;
     }
 
-    vector<int> peaksX = histopeaks(h_histo);
-    vector<int> peaksY = histopeaks(v_histo);
+    Point average = Point(sum.x / nonzero.size(), sum.y / nonzero.size());
+
+    double baryx = (double(average.x - center.x) / width) + 0.5;
+    double baryy = (double(average.y - center.y) / height) + 0.5;
+
+    if(baryx < 0) baryx = 0;
+    if(baryy < 0) baryy = 0;
+    if(baryx > 1) baryx = 1;
+    if(baryy > 1) baryy = 1;
 
 
-
-
-    FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", peaksX.size() > maxpeaksX ? 1.0 : (double)peaksX.size()/(double)maxpeaksX);
-    FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", peaksY.size() > maxpeaksY ? 1.0 : (double)peaksY.size()/(double)maxpeaksY);
-
-    vector<Feature*> res = {peaknumX, peaknumY};
+    FeatureDouble* baryX = new FeatureDouble(prefix + "barycenter_x", baryx);
+    FeatureDouble* baryY = new FeatureDouble(prefix + "barycenter_y", baryy);
+    vector<Feature*> res = {baryX, baryY};
     return res;
 }
 
@@ -533,6 +313,246 @@ Feature* FeatureExtractor::convexHullArea(const Mat& normImage, const string pre
 
     return new FeatureDouble(prefix + "area", result);
 }
+
+Feature* FeatureExtractor::heightWidthRatio(const string prefix) const {
+    int height = downRightCorner.y - upLeftCorner. y;
+    int width = downRightCorner.x - upLeftCorner.x;
+    double ratio = 1.0 * height / width;
+
+    double normalizedRatio;
+    // normalization: values are between 0.2 and 4
+    if(ratio > 4) {
+        normalizedRatio = 1.0;
+    } else if (ratio < 0.2) {
+        normalizedRatio = 0.0;
+    } else {
+        normalizedRatio = (ratio - 0.2) / 3.8;
+    }
+
+    return new FeatureDouble(prefix + "height_width_ratio",normalizedRatio);
+}
+
+vector<Feature *> FeatureExtractor::HuMoments(const Mat& normImage, const string prefix) const {
+    Mat binaryImage;
+    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
+
+    Moments moments = cv::moments(binaryImage, false);
+    double huMoments[7];
+    cv::HuMoments(moments, huMoments);
+
+    vector< vector<double> > limits = { {0.3, 0.4} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {0.0, 0.2} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} ,
+                                        {-0.1, 0.1} };
+    vector<Feature*> momentFeatures;
+    for (int i = 0; i<7; i++) {
+        double value = 1 / ( -1 * copysign(1.0, huMoments[i]) * log10( abs(huMoments[i]) ) );
+
+        // normalization: values are between limits[i][0] and limits[i][1]
+        if (value > limits[i][1]) {
+            value = 1.0;
+        } else if(value < limits[i][0]) {
+            value = 0.0;
+        } else {
+            value = (value - limits[i][0]) / (limits[i][1] - limits[i][0]);
+        }
+
+        momentFeatures.push_back(new FeatureDouble(prefix + "hu_moments_m" + to_string(i+1), value ) );
+    }
+    return momentFeatures;
+}
+
+Feature* FeatureExtractor::levelsOfHierarchy(const Mat& image, const string prefix) const {
+
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    getContours(image, contours, hierarchy);
+
+    set<int> parents;
+    // We start at 2 because contour 0 is the border of the image, and contour 1's parent is contour 0, which is useless
+    for(int i = 2; i < hierarchy.size(); i++) {
+        parents.insert(hierarchy[i][3]);
+    }
+
+/*    // DEBUG ONLY
+    cout << parents.size() << endl;
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( image.size(), CV_8UC3 );
+    RNG rng(12345);
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+
+    imshow("draw", drawing);
+    waitKey();*/
+
+    const int levels = parents.size();
+    double normalizedLevels;
+    // normalization: values are between 1 and 10
+    if(levels > 10) {
+        normalizedLevels = 1.0;
+    } else if (levels < 1) {
+        normalizedLevels = 0.0;
+    } else {
+        normalizedLevels = (levels - 1.0) / 9.0;
+    }
+
+    return new FeatureDouble(prefix + "levels_of_hierarchy", normalizedLevels);
+}
+
+Feature* FeatureExtractor::lines(const Mat &normImage, const int threshNum, const string prefix) const {
+
+    Mat src, dst, cdst, cdstP;
+    normImage.copyTo(src);
+
+    threshold(src,dst,230,255,THRESH_BINARY_INV);
+    Mat elem = getStructuringElement(MORPH_CROSS,Size(3,3));
+    dilate(dst,dst,elem);
+    erode(dst,dst,elem);
+    erode(dst,dst,elem);
+    // Copy edges to the images that will display the results in BGR
+    cvtColor(dst, cdstP, COLOR_GRAY2BGR);
+    // Probabilistic Line Transform
+    vector<Vec4i> linesP; // will hold the results of the detection
+    HoughLinesP(dst, linesP, 1, CV_PI/180, 30, 25, 15 ); // runs the actual detection
+
+    // Draw the lines
+    //cout << "Probalistic lines:" << linesP.size() << endl;
+    for( size_t i = 0; i < linesP.size(); i++ )
+    {
+        Vec4i l = linesP[i];
+        line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
+    }
+    // Show results
+//    imshow("Source", src);
+//        imshow("Probabilistic Line Transform", cdstP);
+//    // Wait and Exit
+//    waitKey();
+
+    double res = double(linesP.size());
+    if(res > threshNum){
+        res = 1.0;
+    }else{
+        res = res/ threshNum;
+    }
+    Feature * f = new FeatureDouble(prefix+"lines",res);
+
+    return f;
+}
+
+Feature *FeatureExtractor::numberOfElements(const Mat &normImage) const {
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    getContours(normImage, contours, hierarchy);
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( normImage.size(), CV_8UC3 );
+    RNG rng(12345);
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+
+    //imshow("draw", drawing);
+    //waitKey();
+
+    return new FeatureDouble("number_of_elements", contours.size() < 10 ? float(contours.size())/10 : 1.0);
+}
+
+vector<Feature *> FeatureExtractor::peaks(const Mat &img, string prefix) const{
+
+    // will be replaced by the actual values once we've done a few runs
+    int maxpeaksX = 30;
+    int maxpeaksY = 30;
+    Mat binImg;
+    threshold(img,binImg,230,255,THRESH_BINARY_INV);
+    int sizeX = binImg.cols;
+    int sizeY = binImg.rows;
+    vector<int> h_histo(sizeX,0);
+    vector<int> v_histo(sizeY,0);
+
+    for(int i=0;i<sizeX;i++){
+        for(int j=0;j<sizeY;j++){
+            if(binImg.at<int>(i,j) > 0) {
+                h_histo[i] +=1;
+                v_histo[j] += 1;
+            }
+        }
+    }
+
+    vector<int> peaksX = histopeaks(h_histo);
+    vector<int> peaksY = histopeaks(v_histo);
+
+
+
+
+    FeatureDouble* peaknumX = new FeatureDouble(prefix + "peaks_x", peaksX.size() > maxpeaksX ? 1.0 : (double)peaksX.size()/(double)maxpeaksX);
+    FeatureDouble* peaknumY = new FeatureDouble(prefix + "peaks_y", peaksY.size() > maxpeaksY ? 1.0 : (double)peaksY.size()/(double)maxpeaksY);
+
+    vector<Feature*> res = {peaknumX, peaknumY};
+    return res;
+}
+
+Feature* FeatureExtractor::pixelRate(const Mat& normImage, const string prefix) const {
+    Mat binaryImage;
+    threshold(normImage, binaryImage, 220, 255, THRESH_BINARY);
+
+    vector<Point> whitePoints;
+    findNonZero(binaryImage, whitePoints);
+
+    int nbOfPixels = binaryImage.cols * binaryImage.rows;
+    int nbOfBlackPixels = nbOfPixels - whitePoints.size();
+
+    return new FeatureDouble(prefix + "drawing_pixel_rate_on_image", (1.0 * nbOfBlackPixels / nbOfPixels));
+}
+
+vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages, const FeatureFunction f) const {
+    vector<Feature *> results;
+    vector<Feature *> tmp;
+    for(int i=0; i<zoneImages.size(); i++) {
+        switch(f) {
+            case BARYCENTER:
+                tmp = barycenter(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
+                break;
+            case PIXEL_RATE:
+                results.push_back(pixelRate(zoneImages[i], "zone_" + to_string(i) + "_"));
+                break;
+            case HU_MOMENTS:
+                tmp = HuMoments(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
+                break;
+            case LINES:
+                results.push_back(lines(zoneImages[i], ZONE_LINES_THRESHOLD, "zone_" + to_string(i) + "_"));
+                break;
+            case PEAKS:
+                tmp = peaks(zoneImages[i], "zone_" + to_string(i) + "_");
+                results.insert(results.end(), tmp.begin(), tmp.end());
+        }
+    }
+    return results;
+}
+
+Feature *FeatureExtractor::getClass(const string name) const {
+    unsigned stop = name.find('/');
+    return new FeatureString("class","{accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}", name.substr(0, stop));
+}
+
+
+/**
+=========================================================================
+                          MAIN
+=========================================================================
+ */
 
 int main() {
     FeatureExtractor feat;
