@@ -49,7 +49,7 @@ Mat openImage(const String path) {
     return image;
 }
 
-vector<Point> boundingBox(const Mat image) {
+vector<Point> boundingBox(const Mat& image) {
     Mat binim = removeNoise(image);
     vector<Point> nonzero;
     threshold(binim, binim, 200, 255, THRESH_BINARY_INV);
@@ -153,7 +153,7 @@ Mat removeNoise(const Mat& image) {
     return copy;
 }
 
-vector<int> histopeaks(vector<int> hist) {
+vector<int> histopeaks(const vector<int>& hist) {
 
     //Gaussian smoothing of the histogram
 
@@ -163,7 +163,7 @@ vector<int> histopeaks(vector<int> hist) {
                 ((double)hist[i-3]+6*hist[i-2]+15*hist[i-1]+20*hist[i]+15*hist[i+1]+6*hist[i+2]+hist[i+3])/64
         );
 
-    vector<int> maxima = {};
+    vector<int> maxima;
 
     for(int i=1; i<smoothed.size()-1;i++){
         if (smoothed[i-1] < smoothed[i] && smoothed[i] > smoothed[i+1]) maxima.push_back(i+3);  //+3 to account for the shift in smoothing vector
