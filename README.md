@@ -151,13 +151,59 @@ The theoritical icons are 'Car' but 'Paramedics' was matched instead. Since it r
 
 ## Feature extraction
 
-### Features to extract:
-* Height
-* Width
-* Median point (ie center of the bounding box)
-* Percentage of pixels
-* Mean point (average of all the non-white pixels)
-* Number of edges
-* Number of curves
-* Number of distinct elements
-* Inclusion of one element into the other
+### Image pre-processing
+For the feature extraction, two images are computed from every original image:
+* the image cropped to the bouding box (called the "bounding box" image)
+* the normalized image
+
+In order to get the bounding box, we must modify the original image because some images have stains which come from the scan. We get the drawing average color and whiten all the pixels which are not similar to this color. Then, the drawing is dilated to close the holes. Thanks to this processing, the computed bounding box is more precised. 
+The "bounding box" image is used for the image normalization.
+
+The normalized images all have the exact same dimensions. It is very useful to compare features between images. 
+To normalize each image, we enlarged the biggest dimension of their "bounding box" image to the normalized image frame and we centered it with its other dimension.
+
+### API implementation
+We have decided to implement an API in order to simplify the ARFF file generation.
+From the main, it is possible to generate an ARFF file by calling the `exportARFF` method and by giving it the list of features that we want. 
+
+The method `exportARFF` iterates over the image list and the feature list to get each feature by calling the appropriate method. 
+Each method returns a `Feature` or a `Feature` array. A `Feature` class is implemented and two classes inherite them: `FeatureString` (for symbolic features) and `FeatureDouble` (for numeric features).
+Theses classes simplify the ARFF file writing when we have got all the features for all the images. For instance, the methode `getDescriptor` returns the feature description ('*@ATTRIBUTE name (Values | NUMERIC)*'). We don't have to write all of them one by one because we use a pattern. 
+
+### Implemented features
+* barycenter
+* convex hull area
+* bounding box 'height / width' ratio
+* Hu's moments
+* hierarchy levels maximum of the drawing elements
+* number of lines
+* number of peaks of the drawing histograms from the X and Y axes
+* bounding box percentage of black pixels (pixels which belongs to the drawing)
+* zoning: it is possible to apply zoning for the following features: barycenter, Hu's moments, number of lines, number of peaks, pixel rate
+
+### Developped classifiers 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
