@@ -37,7 +37,7 @@ void FeatureExtractor::exportARFF(const vector<FeatureFunction> &list, const str
                     Mat normImage = normalization(bbImage, 180);
 
                     // initialization of the zones
-                    vector<Mat> zoneImages = zones(normImage, {1,1,1}, {1,1,1});
+                    vector<Mat> zoneImages = zones(normImage, {2,3,2}, {2,3,2});
 
                     // Extraction
                     for (FeatureFunction f : list) {
@@ -215,7 +215,6 @@ vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int>
             zonesCreated++;
         }
     }
-
     return zones;
 }
 
@@ -237,7 +236,7 @@ vector<Feature *> FeatureExtractor::barycenter(const Mat& normImage, const strin
     findNonZero(binim, nonzero);
 
     if(nonzero.size() == 0) {
-        return {new FeatureDouble(prefix + "barycenter_x", center.x), new FeatureDouble(prefix + "barycenter_y", center.y) };
+        return {new FeatureDouble(prefix + "barycenter_x", 0.5), new FeatureDouble(prefix + "barycenter_y", 0.5) };
     }
 
     Point sum = Point(0, 0);
@@ -535,6 +534,7 @@ vector<Feature *> FeatureExtractor::zoning_feature(const vector<Mat> zoneImages,
             case PEAKS:
                 tmp = peaks(zoneImages[i], "zone_" + to_string(i) + "_");
                 results.insert(results.end(), tmp.begin(), tmp.end());
+                break;
         }
     }
     return results;
