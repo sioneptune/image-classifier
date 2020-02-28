@@ -29,7 +29,7 @@ Mat openImage(const String path);
  * @param image
  * @return two points, the top left (smallest x, smallest y) and the bottom right (biggest x, biggest y)
  */
-vector<Point> boundingBox(const Mat image);
+vector<Point> boundingBox(const Mat& image);
 
 /**
  * Transforms background "white" pixels into real white pixels on the image
@@ -52,6 +52,11 @@ Scalar getAverageColor(const Mat& image);
  */
 Mat removeNoise(const Mat& image);
 
-vector<int> histopeaks(vector<int> hist);
+/**
+ * Gives back the main peaks from an histogram
+ * @param hist is the histogram to analyse
+ * @return a vector of int containing the histogram main peaks position
+ */
+vector<int> histopeaks(const vector<int>& hist);
 
 #endif //IMAGE_CLASSIFIER_TOOLS_H
