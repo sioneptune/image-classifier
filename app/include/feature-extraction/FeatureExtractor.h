@@ -86,7 +86,7 @@ private:
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
     // Computes the hierarchy levels maximum of the drawing elements
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
-    // Computes the drawing number of lines
+    // Computes the drawing number of straight lines
     Feature * lines(const Mat &normImage, const int threshNum, const string prefix = "") const;
     // Computes the drawing number of distinct elements
     Feature* numberOfElements(const Mat &image) const;

@@ -176,7 +176,7 @@ Theses classes simplify the ARFF file writing when we have got all the features 
 * bounding box 'height / width' ratio
 * Hu's moments
 * hierarchy levels maximum of the drawing elements
-* number of lines
+* number of straight lines
 * number of peaks of the drawing histograms from the X and Y axes
 * bounding box percentage of black pixels (pixels which belongs to the drawing)
 * zoning: it is possible to apply zoning for the following features: barycenter, Hu's moments, number of lines, number of peaks, pixel rate
