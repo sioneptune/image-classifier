@@ -68,7 +68,7 @@ private:
      * @param decoupY is a vector containing the cutting proportion along the Y axis
      * @return a vector of the cut sub-images
      */
-    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
+    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY) const;
 
     /**
      * All the following methods are based on the same principle. From an image, they compute a set of features (may be 1) and return it.
