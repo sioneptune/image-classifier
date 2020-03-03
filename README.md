@@ -171,22 +171,84 @@ Each method returns a `Feature` or a `Feature` array. A `Feature` class is imple
 Theses classes simplify the ARFF file writing when we have got all the features for all the images. For instance, the methode `getDescriptor` returns the feature description ('*@ATTRIBUTE name (Values | NUMERIC)*'). We don't have to write all of them one by one because we use a pattern. 
 
 ### Implemented features
-* barycenter
-* convex hull area
-* bounding box 'height / width' ratio
+* Barycenter
+* Convex hull area
+* Bounding box 'height / width' ratio
 * Hu's moments
-* hierarchy levels maximum of the drawing elements
-* number of straight lines
-* number of peaks of the drawing histograms from the X and Y axes
-* bounding box percentage of black pixels (pixels which belongs to the drawing)
-* zoning: it is possible to apply zoning for the following features: barycenter, Hu's moments, number of lines, number of peaks, pixel rate
+* Hierarchy levels maximum of the drawing elements
+* Number of straight lines
+* Number of peaks of the drawing histograms from the X and Y axes
+* Bounding box percentage of black pixels (pixels which belongs to the drawing)
+* Zoning: it is possible to apply zoning for the following features: barycenter, Hu's moments, number of lines, number of peaks, pixel rate
 
-### Developped classifiers 
- 
+## Developped classifiers 
+### ARFF generation
+We first modelized some classifiers randomly before applying precise configurations. These classifiers allowed us to determine what we thought were the most useful features. We decided to modelize classifiers with two sets of attributes: all the features or the selected ones.
+
+We also use different zoning schemes:
+* regular 3x3
+* regular 2x2
+* 3x3 with "2-3-2" proportions
+
+Combining the feature selection and the zoning schemes, we have 6 possible configurations:
+* af\_33: all features with regular 3x3 zoning
+* af\_33_22: all features with regular 3x3 and regular 2x2 zoning
+* af\_232: all features with 3x3 ("2-3-2" proportions) zoning
+* sf\_33: selected features with regular 3x3 zoning
+* sf\_33_22: selected features with regular 3x3 and regular 2x2 zoning
+* sf\_232: selected features with 3x3 ("2-3-2" proportions) zoning
+
+Finally, the results with the selected features weren't not better than with all the features so we decided to use the attribute selection box (evaluator: CFS subset eval, search method: greedy stepwise) instead. The attributes selected by the box are almost equivalent to the ones we previously chose. The attribute selection box can select features applied to a precise zone, which we couldn't do because of our current API implementation. The box globally selected these features:
+* Barycenter
+* Convex hull area
+* "Height/width" ratio
+* Hierarchy level
+* Hu's moments
+* Histogram peaks
+* Number of elements
+* for the zones:
+	* Barycenter
+	* Histogram peaks
+	* Pixel rate
+	* Hu's moments
+	* Number of lines
+
+### Results using KNN classifiers
+Every ARFF configuration combined with KNN, K from K=1 to K=13, was tested.
+
+**Best result on the train dataset**: K=10, configuration=af\_33_22, accuracy=93.01% (with attribute selection)
+**Best result on the test dataset**: K=8, configuration=af\_33_22, accuracy=92.97% (with attribute selection)
+
+### Results for MLP classifier
+Every ARFF configuration was combined with the following MLP:
+* MLP one layer: A (attributes + classes)
+* MLP two layers: A, A
+* MLP three layers: 100, A, 100
+* MLP three layers: A, 100, A
+* MLP five layers: A, 200, 20, 200, A
+
+**Best result on the train dataset**: MLP A, configuration=af\_33_22, accuracy=95,49% (without attribute selection)
+**Best result on the test dataset**: MLP A, configuration=af\_33_22, accuracy=97,01% (with attribute selection)
+
+### Results for SVM classifiers 
+SVM classifiers were optimised through GridSearch and tested with every ARFF configuration.
+
+**Best result on the train dataset**: cost=10, gamma=1, configuration=af\_33_22, accuracy=96,72% (with or without attribute selection)
+**Best result on the test dataset**: cost=10, gamma=1, configuration=af\_33_22, accuracy=96,33% (without attribute selection)
+
+Better results were found with GridSearch but they didn't give the same results when we tried them after. There were:
+
+**Best result on the train dataset**: cost=10^1,1, gamma=10^-0,05, configuration=af\_33_22, accuracy=98,23% (with or without attribute selection)
+**Best result on the test dataset**: cost=10^1,1, gamma=10^-0,05, configuration=af\_33_22, accuracy=97,88% (without attribute selection)
 
 
+### Conclusion
+The best models are:
+* MLP one layer
+* SVM cost=10, gamma=1
+with the configuration: all features, zoning 3x3 and 2x2
 
-
+These classifiers wrongly classify some *fire* images and mixe up *casualty* and *person* images. Those are some improvement axes we can focus on if we want a better classifier.
 
 
 
