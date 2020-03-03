@@ -1,0 +1,265 @@
+MultilayerPerceptron
+
+=== Evaluation result ===
+
+Scheme: MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         295               90.2141 %
+Incorrectly Classified Instances        32                9.7859 %
+Kappa statistic                          0.8946
+Mean absolute error                      0.0147
+Root mean squared error                  0.1093
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     accident
+                 0.760    0.033    0.655      0.760    0.704      0.679    0.984     0.872     bomb
+                 1.000    0.003    0.962      1.000    0.980      0.979    1.000     1.000     car
+                 0.760    0.010    0.864      0.760    0.809      0.796    0.993     0.934     casualty
+                 0.960    0.013    0.857      0.960    0.906      0.899    0.996     0.951     electricity
+                 0.560    0.010    0.824      0.560    0.667      0.658    0.987     0.864     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.875    0.003    0.955      0.875    0.913      0.907    0.999     0.991     flood
+                 0.944    0.006    0.895      0.944    0.919      0.914    0.999     0.985     gas
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    1.000     1.000     paramedics
+                 0.909    0.020    0.769      0.909    0.833      0.824    0.996     0.948     person
+                 1.000    0.003    0.958      1.000    0.979      0.977    1.000     1.000     police
+                 0.909    0.000    1.000      0.909    0.952      0.950    0.998     0.983     road_block
+Weighted Avg.    0.902    0.008    0.905      0.902    0.900      0.895    0.996     0.965     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 19  0  0  3  2  0  1  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  1  0  0  5  0  0 |  d = casualty
+  0  1  0  0 24  0  0  0  0  0  0  0  0  0 |  e = electricity
+  0  9  0  0  1 14  0  0  0  0  0  0  1  0 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  1  0  0  0 21  1  0  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 17  0  0  1  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  2  0  0  0  0  0  0  0 20  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  1  0  0  0  0  1  0  0 20 |  n = road_block
+MultilayerPerceptron5 : MultilayerPerceptron
+
+=== Evaluation result ===
+
+Scheme: MultilayerPerceptron5 : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         302               92.3547 %
+Incorrectly Classified Instances        25                7.6453 %
+Kappa statistic                          0.9176
+Mean absolute error                      0.0113
+Root mean squared error                  0.0942
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     accident
+                 0.840    0.026    0.724      0.840    0.778      0.760    0.988     0.838     bomb
+                 1.000    0.003    0.962      1.000    0.980      0.979    1.000     0.998     car
+                 0.760    0.007    0.905      0.760    0.826      0.817    0.987     0.890     casualty
+                 1.000    0.013    0.862      1.000    0.926      0.922    0.998     0.980     electricity
+                 0.600    0.007    0.882      0.600    0.714      0.710    0.983     0.895     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.875    0.000    1.000      0.875    0.933      0.931    0.999     0.991     flood
+                 0.944    0.000    1.000      0.944    0.971      0.970    1.000     1.000     gas
+                 1.000    0.003    0.955      1.000    0.977      0.975    1.000     0.996     injury
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     paramedics
+                 0.955    0.020    0.778      0.955    0.857      0.851    0.993     0.927     person
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     police
+                 1.000    0.003    0.957      1.000    0.978      0.976    1.000     1.000     road_block
+Weighted Avg.    0.924    0.006    0.928      0.924    0.922      0.918    0.996     0.964     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 21  0  0  3  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  1  0  0  0  0  0  5  0  0 |  d = casualty
+  0  0  0  0 25  0  0  0  0  0  0  0  0  0 |  e = electricity
+  0  8  0  0  1 15  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  1  0  0  0 21  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 17  0  0  1  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  1  0  0  0  0  0  0  0 21  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+MultilayerPerceptron2 : MultilayerPerceptron
+
+=== Evaluation result ===
+
+Scheme: MultilayerPerceptron2 : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         300               91.7431 %
+Incorrectly Classified Instances        27                8.2569 %
+Kappa statistic                          0.911 
+Mean absolute error                      0.0125
+Root mean squared error                  0.1016
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     accident
+                 0.760    0.023    0.731      0.760    0.745      0.724    0.986     0.854     bomb
+                 1.000    0.003    0.962      1.000    0.980      0.979    1.000     1.000     car
+                 0.840    0.020    0.778      0.840    0.808      0.792    0.993     0.931     casualty
+                 0.960    0.017    0.828      0.960    0.889      0.882    0.998     0.970     electricity
+                 0.720    0.003    0.947      0.720    0.818      0.814    0.985     0.897     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.875    0.000    1.000      0.875    0.933      0.931    0.999     0.992     flood
+                 0.889    0.000    1.000      0.889    0.941      0.940    0.995     0.960     gas
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     injury
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     paramedics
+                 0.818    0.020    0.750      0.818    0.783      0.767    0.992     0.882     person
+                 1.000    0.003    0.958      1.000    0.979      0.977    1.000     1.000     police
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     road_block
+Weighted Avg.    0.917    0.007    0.923      0.917    0.918      0.912    0.996     0.963     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 19  0  0  5  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 21  0  0  0  0  0  0  0  4  0  0 |  d = casualty
+  0  1  0  0 24  0  0  0  0  0  0  0  0  0 |  e = electricity
+  0  6  0  0  0 18  0  0  0  0  0  0  1  0 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  2  0  0  0 21  0  0  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 16  0  0  2  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  4  0  0  0  0  0  0  0 18  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+MultilayerPerceptron3 : MultilayerPerceptron
+
+=== Evaluation result ===
+
+Scheme: MultilayerPerceptron3 : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         301               92.0489 %
+Incorrectly Classified Instances        26                7.9511 %
+Kappa statistic                          0.9143
+Mean absolute error                      0.0122
+Root mean squared error                  0.0972
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.960      1.000    0.980      0.978    1.000     1.000     accident
+                 0.840    0.023    0.750      0.840    0.792      0.776    0.990     0.900     bomb
+                 1.000    0.003    0.962      1.000    0.980      0.979    1.000     0.997     car
+                 0.800    0.000    1.000      0.800    0.889      0.887    0.994     0.951     casualty
+                 1.000    0.010    0.893      1.000    0.943      0.940    0.997     0.967     electricity
+                 0.600    0.003    0.938      0.600    0.732      0.735    0.991     0.933     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.833    0.000    1.000      0.833    0.909      0.907    0.999     0.986     flood
+                 0.889    0.000    1.000      0.889    0.941      0.940    0.999     0.985     gas
+                 1.000    0.010    0.875      1.000    0.933      0.931    1.000     0.998     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    1.000     1.000     paramedics
+                 1.000    0.023    0.759      1.000    0.863      0.861    0.995     0.917     person
+                 1.000    0.003    0.958      1.000    0.979      0.977    1.000     1.000     police
+                 0.955    0.003    0.955      0.955    0.955      0.951    0.999     0.992     road_block
+Weighted Avg.    0.920    0.006    0.929      0.920    0.918      0.916    0.997     0.973     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 21  0  0  3  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  0  0  0 25  0  0  0  0  0  0  0  0  0 |  e = electricity
+  1  7  0  0  0 15  0  0  0  0  0  0  1  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  0  0  0  0  0 20  0  3  1  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 16  0  0  2  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  1  0  0  0  0  0  0  0  0  0  0 21 |  n = road_block
+MultilayerPerceptron4 : MultilayerPerceptron
+
+=== Evaluation result ===
+
+Scheme: MultilayerPerceptron4 : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         296               90.5199 %
+Incorrectly Classified Instances        31                9.4801 %
+Kappa statistic                          0.8979
+Mean absolute error                      0.0151
+Root mean squared error                  0.1106
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.960      1.000    0.980      0.978    1.000     1.000     accident
+                 0.760    0.020    0.760      0.760    0.760      0.740    0.985     0.871     bomb
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     car
+                 0.680    0.013    0.810      0.680    0.739      0.723    0.984     0.888     casualty
+                 0.960    0.010    0.889      0.960    0.923      0.917    0.997     0.957     electricity
+                 0.560    0.007    0.875      0.560    0.683      0.682    0.981     0.825     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.875    0.000    1.000      0.875    0.933      0.931    0.999     0.985     flood
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     gas
+                 1.000    0.007    0.913      1.000    0.955      0.952    1.000     0.996     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    0.999     0.992     paramedics
+                 0.909    0.026    0.714      0.909    0.800      0.790    0.993     0.854     person
+                 1.000    0.007    0.920      1.000    0.958      0.956    1.000     0.995     police
+                 1.000    0.007    0.917      1.000    0.957      0.954    0.999     0.978     road_block
+Weighted Avg.    0.905    0.007    0.907      0.905    0.901      0.897    0.995     0.951     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 19  0  0  3  2  0  0  0  0  0  1  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 17  0  0  0  0  0  0  0  7  1  0 |  d = casualty
+  0  0  0  1 24  0  0  0  0  0  0  0  0  0 |  e = electricity
+  1  6  0  0  0 14  0  0  0  0  1  0  1  2 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  0  1  0  0  0 21  0  2  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 18  0  0  0  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  2  0  0  0  0  0  0  0 20  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
