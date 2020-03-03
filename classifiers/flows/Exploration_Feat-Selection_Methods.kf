@@ -1,0 +1,533 @@
+{
+	"flow_name" : "knn_attributes-selection",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "/mnt/data/INSA/4INFO/TIV/image-classifier/data/arff/Train/train_all_features_Zoning_2x2_3x3.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner"
+				]
+			},
+			"coordinates" : "28,143"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "class",
+				"name" : "ClassAssigner"
+			},
+			"connections" : {
+				"dataSet" : [
+					"5Fold_No-Selec",
+					"AttributeSelection_CFS-BestFirst",
+					"5Fold_Ranker_Auto",
+					"AttrSelec_InfoGain-Ranker_Fixed",
+					"AttrSelec_CFS-Greedy"
+				]
+			},
+			"coordinates" : "199,144"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+				"text" : [
+					"TextSaver"
+				]
+			},
+			"coordinates" : "1315,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextSaver",
+			"properties" : {
+				"append" : true,
+				"file" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/results_attribute-selection_3322",
+				"name" : "TextSaver",
+				"writeTitleString" : true
+			},
+			"connections" : {
+			},
+			"coordinates" : "1451,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "11_No-Selec",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/11/No selec"
+			},
+			"connections" : {
+			},
+			"coordinates" : "927,52"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "5Fold_No-Selec",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "314158"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"KNN_No-Selec"
+				],
+				"testSet" : [
+					"KNN_No-Selec"
+				]
+			},
+			"coordinates" : "599,8"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "Flow to test different selection methods offered by weka"
+			},
+			"connections" : {
+			},
+			"coordinates" : "25,68"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 10 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "KNN_No-Selec",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"Evaluator_No-Selec",
+					"SerializedModelSaver"
+				]
+			},
+			"coordinates" : "774,8"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "Evaluator_No-Selec",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1040,8"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "11_CFS-BestFirst",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver2",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/11/CFS-BestFirst"
+			},
+			"connections" : {
+			},
+			"coordinates" : "932,205"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "5Fold_CFS-BestFirst",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "314158"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"KNN_CFS-BestFirst"
+				],
+				"testSet" : [
+					"KNN_CFS-BestFirst"
+				]
+			},
+			"coordinates" : "604,161"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 10 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "KNN_CFS-BestFirst",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"Evaluator_CFS-BestFirst",
+					"SerializedModelSaver2"
+				]
+			},
+			"coordinates" : "779,161"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "Evaluator_CFS-BestFirst",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1045,161"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASEvaluator",
+			"properties" : {
+				"evaluator" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.InfoGainAttributeEval",
+					"options" : ""
+				},
+				"name" : "InfoGainAttributeEval",
+				"treatXValFoldsSeparately" : false
+			},
+			"connections" : {
+				"trainingSet" : [
+					"KNN_Ranker_Auto"
+				],
+				"testSet" : [
+					"KNN_Ranker_Auto"
+				]
+			},
+			"coordinates" : "621,336"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "11_Ranker_Auto",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver22",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/11/Ranker_Auto"
+			},
+			"connections" : {
+			},
+			"coordinates" : "935,385"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASSearchStrategy",
+			"properties" : {
+				"name" : "Ranker_Auto",
+				"searchStrategy" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.Ranker",
+					"options" : "-T -1.7976931348623157E308 -N -1"
+				}
+			},
+			"connections" : {
+				"info" : [
+					"InfoGainAttributeEval"
+				]
+			},
+			"coordinates" : "553,405"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "11_Ranker_Nb-Fixed-15",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver222",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/11/Ranker_Nb-Fixed"
+			},
+			"connections" : {
+			},
+			"coordinates" : "938,580"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 10 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "KNN_Ranker_Nb-Fixed",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"Evaluator_Ranker_Nb-Fixed",
+					"SerializedModelSaver222"
+				]
+			},
+			"coordinates" : "779,532"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 10 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "KNN_Ranker_Auto",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"Evaluator_Ranker_Auto",
+					"SerializedModelSaver22"
+				]
+			},
+			"coordinates" : "776,337"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "5Fold_Ranker_Auto",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "314158"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"InfoGainAttributeEval"
+				],
+				"testSet" : [
+					"InfoGainAttributeEval"
+				]
+			},
+			"coordinates" : "452,335"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "Evaluator_Ranker_Nb-Fixed",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1045,532"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "Evaluator_Ranker_Auto",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1042,337"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.attribute.AttributeSelection",
+					"options" : "-E \"weka.attributeSelection.InfoGainAttributeEval \" -S \"weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N 15\""
+				},
+				"name" : "AttrSelec_InfoGain-Ranker_Fixed"
+			},
+			"connections" : {
+				"dataSet" : [
+					"5Fold_InfoGain-Ranker_Fixed"
+				]
+			},
+			"coordinates" : "466,532"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "5Fold_InfoGain-Ranker_Fixed",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "314158"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"KNN_Ranker_Nb-Fixed"
+				],
+				"testSet" : [
+					"KNN_Ranker_Nb-Fixed"
+				]
+			},
+			"coordinates" : "618,532"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "Test_Selec_greedy",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver2222",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/final"
+			},
+			"connections" : {
+			},
+			"coordinates" : "953,755"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.attribute.AttributeSelection",
+					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 1\" -S \"weka.attributeSelection.GreedyStepwise -T -1.7976931348623157E308 -N -1 -num-slots 1\""
+				},
+				"name" : "AttrSelec_CFS-Greedy"
+			},
+			"connections" : {
+				"dataSet" : [
+					"5Fold_CFS-Greedy"
+				]
+			},
+			"coordinates" : "469,704"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "5Fold_CFS-Greedy",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "314158"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"KNN_CFS-Greedy"
+				],
+				"testSet" : [
+					"KNN_CFS-Greedy"
+				]
+			},
+			"coordinates" : "633,706"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 8 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "KNN_CFS-Greedy",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"Evaluator_CFS-Greedy",
+					"SerializedModelSaver2222"
+				]
+			},
+			"coordinates" : "794,707"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "Evaluator_CFS-Greedy",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1060,707"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.attribute.AttributeSelection",
+					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 1\" -S \"weka.attributeSelection.BestFirst -D 1 -N 5\""
+				},
+				"name" : "AttributeSelection_CFS-BestFirst"
+			},
+			"connections" : {
+				"dataSet" : [
+					"5Fold_CFS-BestFirst"
+				]
+			},
+			"coordinates" : "466,161"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2",
+				"noteText" : "Attribute Selection methods in this flow (top to bottom):\n- No selection (reference)\n- CFS with BestFirst\n- InfoGain with Ranker, select best subset of features\n- InfoGain with Ranker, number of features fixed\n- CFS with GreedyStepwise"
+			},
+			"connections" : {
+			},
+			"coordinates" : "22,537"
+		}
+	]
+}

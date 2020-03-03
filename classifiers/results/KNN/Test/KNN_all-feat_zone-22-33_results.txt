@@ -1,0 +1,715 @@
+1NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 1NN : IBk
+Options: -K 1 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         276               84.4037 %
+Incorrectly Classified Instances        51               15.5963 %
+Kappa statistic                          0.832 
+Mean absolute error                      0.0223
+Root mean squared error                  0.1492
+Relative absolute error                 16.8395 %
+Root relative squared error             57.943  %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,026    0,742      0,958    0,836      0,830    0,966     0,714     accident
+                 0,640    0,033    0,615      0,640    0,627      0,596    0,803     0,421     bomb
+                 0,960    0,003    0,960      0,960    0,960      0,957    0,978     0,925     car
+                 0,800    0,003    0,952      0,800    0,870      0,864    0,898     0,777     casualty
+                 0,840    0,000    1,000      0,840    0,913      0,911    0,920     0,852     electricity
+                 0,400    0,013    0,714      0,400    0,513      0,508    0,693     0,332     fire
+                 0,920    0,010    0,885      0,920    0,902      0,894    0,955     0,820     fire_brigade
+                 0,917    0,003    0,957      0,917    0,936      0,931    0,957     0,883     flood
+                 0,778    0,000    1,000      0,778    0,875      0,876    0,889     0,790     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    0,998     0,955     injury
+                 0,870    0,007    0,909      0,870    0,889      0,881    0,931     0,800     paramedics
+                 0,955    0,030    0,700      0,955    0,808      0,803    0,963     0,671     person
+                 0,913    0,010    0,875      0,913    0,894      0,886    0,952     0,805     police
+                 0,909    0,026    0,714      0,909    0,800      0,790    0,941     0,655     road_block
+Weighted Avg.    0,844    0,012    0,854      0,844    0,840      0,833    0,916     0,740     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 23  0  0  0  0  0  0  0  0  0  0  0  1  0 |  a = accident
+  2 16  0  1  0  2  1  1  0  0  0  1  0  1 |  b = bomb
+  0  0 24  0  0  0  0  0  0  0  0  0  0  1 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  3  0  0 21  0  0  0  0  0  0  1  0  0 |  e = electricity
+  5  7  0  0  0 10  1  0  0  0  0  0  1  1 |  f = fire
+  0  0  0  0  0  0 23  0  0  0  0  0  1  1 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  1  2  0  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  1  0  0  0 20  0  0  2 |  k = paramedics
+  0  0  0  0  0  1  0  0  0  0  0 21  0  0 |  l = person
+  0  0  0  0  0  1  0  0  0  0  0  0 21  1 |  m = police
+  1  0  0  0  0  0  0  0  0  0  1  0  0 20 |  n = road_block
+3NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 3NN : IBk
+Options: -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         282               86.2385 %
+Incorrectly Classified Instances        45               13.7615 %
+Kappa statistic                          0.8517
+Mean absolute error                      0.0259
+Root mean squared error                  0.1258
+Relative absolute error                 19.5544 %
+Root relative squared error             48.8431 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,033    0,697      0,958    0,807      0,801    0,998     0,968     accident
+                 0,760    0,043    0,594      0,760    0,667      0,641    0,918     0,586     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    0,998     0,956     car
+                 0,800    0,007    0,909      0,800    0,851      0,842    0,938     0,867     casualty
+                 0,840    0,000    1,000      0,840    0,913      0,911    0,959     0,917     electricity
+                 0,400    0,003    0,909      0,400    0,556      0,585    0,751     0,481     fire
+                 1,000    0,003    0,962      1,000    0,980      0,979    0,999     0,988     fire_brigade
+                 0,917    0,003    0,957      0,917    0,936      0,931    0,979     0,955     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,887     0,771     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,870    0,003    0,952      0,870    0,909      0,904    0,998     0,957     paramedics
+                 0,955    0,023    0,750      0,955    0,840      0,834    0,992     0,840     person
+                 0,957    0,003    0,957      0,957    0,957      0,953    0,999     0,976     police
+                 0,864    0,016    0,792      0,864    0,826      0,814    0,992     0,855     road_block
+Weighted Avg.    0,862    0,011    0,880      0,862    0,859      0,855    0,957     0,864     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 23  0  0  0  0  0  0  0  0  0  0  0  1  0 |  a = accident
+  4 19  0  1  0  0  0  0  0  0  0  0  0  1 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  3  0  0 21  0  0  0  0  0  0  1  0  0 |  e = electricity
+  4 10  0  0  0 10  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  1 14  0  1  1  0  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  1  0  0  1  0 20  0  0  1 |  k = paramedics
+  0  0  0  1  0  0  0  0  0  0  0 21  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 22  1 |  m = police
+  2  0  0  0  0  0  1  0  0  0  0  0  0 19 |  n = road_block
+8NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 8NN : IBk
+Options: -K 8 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         288               88.0734 %
+Incorrectly Classified Instances        39               11.9266 %
+Kappa statistic                          0.8715
+Mean absolute error                      0.0319
+Root mean squared error                  0.1232
+Relative absolute error                 24.0462 %
+Root relative squared error             47.8419 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,020    0,800      1,000    0,889      0,886    0,997     0,966     accident
+                 0,800    0,036    0,645      0,800    0,714      0,693    0,930     0,547     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    1,000     0,997     car
+                 0,800    0,000    1,000      0,800    0,889      0,887    0,997     0,958     casualty
+                 0,920    0,003    0,958      0,920    0,939      0,934    0,978     0,945     electricity
+                 0,360    0,007    0,818      0,360    0,500      0,521    0,821     0,544     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,986     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,989     0,865     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,999     0,982     paramedics
+                 0,955    0,026    0,724      0,955    0,824      0,818    0,996     0,937     person
+                 0,913    0,010    0,875      0,913    0,894      0,886    0,999     0,981     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    0,999     0,971     road_block
+Weighted Avg.    0,881    0,009    0,892      0,881    0,875      0,872    0,978     0,903     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  2 20  0  0  0  2  0  0  0  0  0  0  1  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  3 10  0  0  0  9  0  0  0  0  0  0  1  2 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  1  0 21  0  0  1 |  k = paramedics
+  0  0  0  0  1  0  0  0  0  0  0 21  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+6NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 6NN : IBk
+Options: -K 6 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         287               87.7676 %
+Incorrectly Classified Instances        40               12.2324 %
+Kappa statistic                          0.8682
+Mean absolute error                      0.0299
+Root mean squared error                  0.1231
+Relative absolute error                 22.5111 %
+Root relative squared error             47.8034 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,017    0,821      0,958    0,885      0,878    0,996     0,963     accident
+                 0,760    0,043    0,594      0,760    0,667      0,641    0,931     0,544     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    1,000     0,994     car
+                 0,760    0,007    0,905      0,760    0,826      0,817    0,996     0,943     casualty
+                 0,880    0,000    1,000      0,880    0,936      0,933    0,979     0,950     electricity
+                 0,400    0,010    0,769      0,400    0,526      0,530    0,821     0,526     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,998     0,967     flood
+                 0,778    0,000    1,000      0,778    0,875      0,876    0,911     0,814     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,957    0,003    0,957      0,957    0,957      0,953    0,999     0,984     paramedics
+                 1,000    0,030    0,710      1,000    0,830      0,830    0,998     0,957     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    0,997     0,959     police
+                 1,000    0,010    0,880      1,000    0,936      0,933    0,998     0,953     road_block
+Weighted Avg.    0,878    0,010    0,888      0,878    0,874      0,869    0,973     0,895     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 23  0  0  0  0  1  0  0  0  0  0  0  0  0 |  a = accident
+  2 19  0  2  0  2  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  6  0  0 |  d = casualty
+  0  2  0  0 22  0  0  0  0  0  0  1  0  0 |  e = electricity
+  2 11  0  0  0 10  0  0  0  0  0  0  1  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  1  2  1  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 22  0  0  1 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+9NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 9NN : IBk
+Options: -K 9 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         286               87.4618 %
+Incorrectly Classified Instances        41               12.5382 %
+Kappa statistic                          0.8649
+Mean absolute error                      0.0328
+Root mean squared error                  0.1233
+Relative absolute error                 24.7409 %
+Root relative squared error             47.8696 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,026    0,750      1,000    0,857      0,855    0,997     0,965     accident
+                 0,720    0,036    0,621      0,720    0,667      0,639    0,930     0,573     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    1,000     0,997     car
+                 0,800    0,003    0,952      0,800    0,870      0,864    0,998     0,974     casualty
+                 0,920    0,000    1,000      0,920    0,958      0,956    0,977     0,941     electricity
+                 0,320    0,007    0,800      0,320    0,457      0,484    0,819     0,540     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,990     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,991     0,885     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,998     0,979     paramedics
+                 1,000    0,026    0,733      1,000    0,846      0,845    0,996     0,935     person
+                 0,913    0,013    0,840      0,913    0,875      0,866    0,998     0,976     police
+                 1,000    0,013    0,846      1,000    0,917      0,914    0,999     0,980     road_block
+Weighted Avg.    0,875    0,010    0,885      0,875    0,867      0,864    0,978     0,907     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 18  0  1  0  2  0  0  0  0  0  0  1  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  4 10  0  0  0  8  0  0  0  0  0  0  2  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  1  0 21  0  0  1 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+4NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 4NN : IBk
+Options: -K 4 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         286               87.4618 %
+Incorrectly Classified Instances        41               12.5382 %
+Kappa statistic                          0.8649
+Mean absolute error                      0.028 
+Root mean squared error                  0.1239
+Relative absolute error                 21.0876 %
+Root relative squared error             48.0986 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,030    0,719      0,958    0,821      0,815    0,997     0,960     accident
+                 0,720    0,033    0,643      0,720    0,679      0,652    0,932     0,559     bomb
+                 1,000    0,007    0,926      1,000    0,962      0,959    1,000     0,994     car
+                 0,760    0,003    0,950      0,760    0,844      0,839    0,957     0,894     casualty
+                 0,920    0,000    1,000      0,920    0,958      0,956    0,979     0,956     electricity
+                 0,400    0,007    0,833      0,400    0,541      0,556    0,787     0,508     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,983     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,914     0,816     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,996     injury
+                 0,913    0,003    0,955      0,913    0,933      0,929    0,999     0,982     paramedics
+                 1,000    0,023    0,759      1,000    0,863      0,861    0,996     0,916     person
+                 0,913    0,013    0,840      0,913    0,875      0,866    0,998     0,966     police
+                 1,000    0,010    0,880      1,000    0,936      0,933    0,995     0,891     road_block
+Weighted Avg.    0,875    0,010    0,884      0,875    0,869      0,865    0,968     0,886     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 23  0  0  0  0  0  0  0  0  0  0  0  1  0 |  a = accident
+  4 18  0  1  0  2  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  5  0  1 |  d = casualty
+  0  2  0  0 23  0  0  0  0  0  0  0  0  0 |  e = electricity
+  4  8  0  0  0 10  0  0  0  0  0  0  2  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  1  2  1  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  1  0  0  0  0  0  1  0 21  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+7NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 7NN : IBk
+Options: -K 7 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         287               87.7676 %
+Incorrectly Classified Instances        40               12.2324 %
+Kappa statistic                          0.8682
+Mean absolute error                      0.0313
+Root mean squared error                  0.1232
+Relative absolute error                 23.6235 %
+Root relative squared error             47.8454 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,017    0,828      1,000    0,906      0,902    0,998     0,970     accident
+                 0,720    0,043    0,581      0,720    0,643      0,614    0,932     0,547     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    1,000     0,994     car
+                 0,760    0,000    1,000      0,760    0,864      0,863    0,997     0,961     casualty
+                 0,880    0,000    1,000      0,880    0,936      0,933    0,978     0,944     electricity
+                 0,400    0,007    0,833      0,400    0,541      0,556    0,820     0,529     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,988     flood
+                 0,778    0,000    1,000      0,778    0,875      0,876    0,936     0,829     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,957    0,000    1,000      0,957    0,978      0,976    0,999     0,983     paramedics
+                 1,000    0,033    0,688      1,000    0,815      0,815    0,997     0,947     person
+                 0,913    0,010    0,875      0,913    0,894      0,886    0,996     0,962     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    0,998     0,963     road_block
+Weighted Avg.    0,878    0,009    0,894      0,878    0,874      0,871    0,975     0,899     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 18  0  0  0  2  0  0  0  0  0  1  1  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  6  0  0 |  d = casualty
+  0  2  0  0 22  0  0  0  0  0  0  1  0  0 |  e = electricity
+  1 11  0  0  0 10  0  0  0  0  0  0  1  2 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 22  0  0  1 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+12NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 12NN : IBk
+Options: -K 12 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         282               86.2385 %
+Incorrectly Classified Instances        45               13.7615 %
+Kappa statistic                          0.8518
+Mean absolute error                      0.0347
+Root mean squared error                  0.1249
+Relative absolute error                 26.1851 %
+Root relative squared error             48.4831 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,033    0,706      1,000    0,828      0,826    0,998     0,974     accident
+                 0,640    0,036    0,593      0,640    0,615      0,583    0,930     0,570     bomb
+                 1,000    0,007    0,926      1,000    0,962      0,959    1,000     0,997     car
+                 0,760    0,007    0,905      0,760    0,826      0,817    0,997     0,963     casualty
+                 0,920    0,003    0,958      0,920    0,939      0,934    0,978     0,954     electricity
+                 0,320    0,007    0,800      0,320    0,457      0,484    0,833     0,547     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,986     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,992     0,902     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,997     0,972     paramedics
+                 0,955    0,026    0,724      0,955    0,824      0,818    0,995     0,922     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    0,999     0,987     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    0,999     0,985     road_block
+Weighted Avg.    0,862    0,011    0,872      0,862    0,854      0,851    0,979     0,908     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 16  0  2  0  2  0  0  0  0  0  0  1  1 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  5  0  1 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  6 10  0  0  0  8  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  1  0  0  0  0  0  1  0 21  0  0  0 |  k = paramedics
+  0  0  0  0  1  0  0  0  0  0  0 21  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+2NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 2NN : IBk
+Options: -K 2 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         276               84.4037 %
+Incorrectly Classified Instances        51               15.5963 %
+Kappa statistic                          0.8319
+Mean absolute error                      0.0251
+Root mean squared error                  0.1354
+Relative absolute error                 18.9578 %
+Root relative squared error             52.5919 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,036    0,686      1,000    0,814      0,813    0,998     0,961     accident
+                 0,800    0,036    0,645      0,800    0,714      0,693    0,917     0,555     bomb
+                 1,000    0,013    0,862      1,000    0,926      0,922    0,998     0,951     car
+                 0,800    0,000    1,000      0,800    0,889      0,887    0,899     0,806     casualty
+                 0,880    0,003    0,957      0,880    0,917      0,911    0,940     0,887     electricity
+                 0,320    0,017    0,615      0,320    0,421      0,413    0,711     0,389     fire
+                 0,960    0,013    0,857      0,960    0,906      0,899    0,979     0,954     fire_brigade
+                 0,875    0,000    1,000      0,875    0,933      0,931    0,958     0,917     flood
+                 0,667    0,003    0,923      0,667    0,774      0,774    0,887     0,765     gas
+                 0,952    0,003    0,952      0,952    0,952      0,949    0,998     0,949     injury
+                 0,870    0,007    0,909      0,870    0,889      0,881    0,975     0,892     paramedics
+                 0,955    0,023    0,750      0,955    0,840      0,834    0,989     0,770     person
+                 0,913    0,003    0,955      0,913    0,933      0,929    0,976     0,934     police
+                 0,818    0,010    0,857      0,818    0,837      0,826    0,968     0,784     road_block
+Weighted Avg.    0,844    0,012    0,852      0,844    0,838      0,832    0,942     0,821     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 20  0  0  0  2  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  3  0  0 22  0  0  0  0  0  0  0  0  0 |  e = electricity
+  6  8  0  0  0  8  2  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 24  0  0  0  0  0  1  0 |  g = fire_brigade
+  0  0  2  0  0  0  0 21  0  1  0  0  0  0 |  h = flood
+  0  0  1  0  1  0  0  0 12  0  1  2  0  1 |  i = gas
+  0  0  1  0  0  0  0  0  0 20  0  0  0  0 |  j = injury
+  0  0  0  0  0  1  1  0  1  0 20  0  0  0 |  k = paramedics
+  0  0  0  0  0  1  0  0  0  0  0 21  0  0 |  l = person
+  0  0  0  0  0  1  0  0  0  0  0  0 21  1 |  m = police
+  2  0  0  0  0  0  1  0  0  0  1  0  0 18 |  n = road_block
+13NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 13NN : IBk
+Options: -K 13 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         282               86.2385 %
+Incorrectly Classified Instances        45               13.7615 %
+Kappa statistic                          0.8518
+Mean absolute error                      0.0352
+Root mean squared error                  0.1247
+Relative absolute error                 26.5522 %
+Root relative squared error             48.426  %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,033    0,706      1,000    0,828      0,826    0,999     0,978     accident
+                 0,640    0,036    0,593      0,640    0,615      0,583    0,948     0,603     bomb
+                 1,000    0,007    0,926      1,000    0,962      0,959    1,000     0,997     car
+                 0,760    0,007    0,905      0,760    0,826      0,817    0,997     0,957     casualty
+                 0,920    0,003    0,958      0,920    0,939      0,934    0,978     0,952     electricity
+                 0,320    0,007    0,800      0,320    0,457      0,484    0,851     0,558     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,986     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,991     0,900     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,999     0,987     paramedics
+                 0,955    0,026    0,724      0,955    0,824      0,818    0,995     0,921     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    0,999     0,987     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    1,000     0,992     road_block
+Weighted Avg.    0,862    0,011    0,872      0,862    0,854      0,851    0,982     0,913     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 16  0  2  0  2  0  0  0  0  0  0  1  1 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  5  0  1 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  6 10  0  0  0  8  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  1  0  0  0  0  0  1  0 21  0  0  0 |  k = paramedics
+  0  0  0  0  1  0  0  0  0  0  0 21  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+10NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 10NN : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         284               86.8502 %
+Incorrectly Classified Instances        43               13.1498 %
+Kappa statistic                          0.8583
+Mean absolute error                      0.0332
+Root mean squared error                  0.1232
+Relative absolute error                 25.0002 %
+Root relative squared error             47.8351 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,030    0,727      1,000    0,842      0,840    0,997     0,967     accident
+                 0,680    0,036    0,607      0,680    0,642      0,611    0,929     0,554     bomb
+                 1,000    0,007    0,926      1,000    0,962      0,959    1,000     0,997     car
+                 0,760    0,003    0,950      0,760    0,844      0,839    0,998     0,965     casualty
+                 0,920    0,003    0,958      0,920    0,939      0,934    0,977     0,944     electricity
+                 0,360    0,007    0,818      0,360    0,500      0,521    0,817     0,549     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,988     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,993     0,906     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,998     0,977     paramedics
+                 0,955    0,026    0,724      0,955    0,824      0,818    0,996     0,929     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    0,999     0,982     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    0,999     0,986     road_block
+Weighted Avg.    0,869    0,010    0,880      0,869    0,862      0,859    0,977     0,907     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 17  0  1  0  2  0  0  0  0  0  0  1  1 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  5  0  1 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  5 10  0  0  0  9  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  1  0  0  0  0  0  1  0 21  0  0  0 |  k = paramedics
+  0  0  0  0  1  0  0  0  0  0  0 21  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block
+5NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 5NN : IBk
+Options: -K 5 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         282               86.2385 %
+Incorrectly Classified Instances        45               13.7615 %
+Kappa statistic                          0.8517
+Mean absolute error                      0.0296
+Root mean squared error                  0.1264
+Relative absolute error                 22.3368 %
+Root relative squared error             49.0984 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,026    0,742      0,958    0,836      0,830    0,997     0,964     accident
+                 0,680    0,043    0,567      0,680    0,618      0,586    0,929     0,529     bomb
+                 1,000    0,003    0,962      1,000    0,980      0,979    1,000     0,994     car
+                 0,800    0,007    0,909      0,800    0,851      0,842    0,957     0,885     casualty
+                 0,880    0,000    1,000      0,880    0,936      0,933    0,979     0,952     electricity
+                 0,360    0,010    0,750      0,360    0,486      0,495    0,802     0,488     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,998     0,975     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,913     0,820     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,996     injury
+                 0,870    0,003    0,952      0,870    0,909      0,904    0,999     0,981     paramedics
+                 1,000    0,026    0,733      1,000    0,846      0,845    0,996     0,915     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    0,997     0,967     police
+                 0,955    0,016    0,808      0,955    0,875      0,869    0,995     0,887     road_block
+Weighted Avg.    0,862    0,011    0,872      0,862    0,857      0,852    0,969     0,880     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 23  0  0  0  0  1  0  0  0  0  0  0  0  0 |  a = accident
+  4 17  0  2  0  2  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 20  0  0  0  0  0  0  0  5  0  0 |  d = casualty
+  0  2  0  0 22  0  0  0  0  0  0  1  0  0 |  e = electricity
+  2 11  0  0  0  9  0  0  0  0  0  0  1  2 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  1  2  1  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  1  0 20  0  0  2 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  1  0  0  0  0  0  0  0  0  0  0  0  0 21 |  n = road_block
+11NN : IBk
+
+=== Evaluation result ===
+
+Scheme: 11NN : IBk
+Options: -K 11 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         282               86.2385 %
+Incorrectly Classified Instances        45               13.7615 %
+Kappa statistic                          0.8518
+Mean absolute error                      0.0338
+Root mean squared error                  0.1241
+Relative absolute error                 25.4519 %
+Root relative squared error             48.1892 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,033    0,706      1,000    0,828      0,826    0,998     0,976     accident
+                 0,600    0,036    0,577      0,600    0,588      0,554    0,929     0,555     bomb
+                 1,000    0,007    0,926      1,000    0,962      0,959    1,000     0,995     car
+                 0,760    0,007    0,905      0,760    0,826      0,817    0,997     0,957     casualty
+                 0,920    0,000    1,000      0,920    0,958      0,956    0,978     0,953     electricity
+                 0,320    0,007    0,800      0,320    0,457      0,484    0,833     0,534     fire
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     fire_brigade
+                 0,917    0,000    1,000      0,917    0,957      0,954    0,999     0,987     flood
+                 0,778    0,003    0,933      0,778    0,848      0,844    0,993     0,905     gas
+                 1,000    0,003    0,955      1,000    0,977      0,975    1,000     0,998     injury
+                 0,913    0,000    1,000      0,913    0,955      0,952    0,997     0,975     paramedics
+                 1,000    0,030    0,710      1,000    0,830      0,830    0,995     0,923     person
+                 0,913    0,007    0,913      0,913    0,913      0,906    1,000     0,993     police
+                 1,000    0,016    0,815      1,000    0,898      0,895    1,000     0,992     road_block
+Weighted Avg.    0,862    0,011    0,873      0,862    0,854      0,851    0,979     0,907     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  3 15  0  2  0  2  0  0  0  0  0  1  1  1 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 19  0  0  0  0  0  0  0  5  0  1 |  d = casualty
+  0  1  0  0 23  0  0  0  0  0  0  1  0  0 |  e = electricity
+  6 10  0  0  0  8  0  0  0  0  0  0  0  1 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  1  0  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 14  0  0  2  1  1 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  1  0  0  0  0  0  1  0 21  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  1  0  0  0  0  0  0  0  0  0  0  0 21  1 |  m = police
+  0  0  0  0  0  0  0  0  0  0  0  0  0 22 |  n = road_block

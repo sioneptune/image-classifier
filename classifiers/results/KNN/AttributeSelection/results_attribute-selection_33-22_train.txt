@@ -1,0 +1,720 @@
+InfoGainAttributeEval (Ranker)
+
+Search method: InfoGainAttributeEval 
+Evaluator: Ranker -T -1.7976931348623157E308 -N -1
+
+
+=== Attribute selection 5 fold cross-validation (stratified), seed: 1 ===
+
+average merit      average rank  attribute
+ 1.146 +- 0.001        1   +- 0          4 height_width_ratio
+ 0.963 +- 0.003        2   +- 0         37 zone_9_barycenter_y
+ 0.763 +- 0.002        3.4 +- 0.49       3 area
+ 0.762 +- 0.002        3.6 +- 0.49      21 zone_1_barycenter_y
+ 0.757 +- 0.001        5.2 +- 0.4       28 zone_5_barycenter_x
+ 0.75  +- 0.004        6   +- 0.63      20 zone_1_barycenter_x
+ 0.747 +- 0.006        6.8 +- 0.4       31 zone_6_barycenter_y
+ 0.704 +- 0.001        8   +- 0         40 zone_11_barycenter_x
+ 0.689 +- 0.004        9   +- 0         24 zone_3_barycenter_x
+ 0.664 +- 0.003       10   +- 0         43 zone_12_barycenter_y
+ 0.648 +- 0.003       11.2 +- 0.4       22 zone_2_barycenter_x
+ 0.647 +- 0.002       11.8 +- 0.4       85 zone_4_hu_moments_m1
+ 0.637 +- 0.005       13   +- 0         18 zone_0_barycenter_x
+ 0.627 +- 0.002       14   +- 0         42 zone_12_barycenter_x
+ 0.618 +- 0.005       15.2 +- 0.4       99 zone_6_hu_moments_m1
+ 0.615 +- 0.005       15.8 +- 0.4       30 zone_6_barycenter_x
+ 0.589 +- 0.004       17.6 +- 0.49      49 zone_5_drawing_pixel_rate_on_image
+ 0.587 +- 0.007       18.4 +- 1.96      33 zone_7_barycenter_y
+ 0.582 +- 0.003       19.8 +- 1.47      27 zone_4_barycenter_y
+ 0.58  +- 0.002       20   +- 1.1       48 zone_4_drawing_pixel_rate_on_image
+ 0.58  +- 0.003       20.6 +- 1.62      26 zone_4_barycenter_x
+ 0.578 +- 0.003       21.6 +- 1.2       38 zone_10_barycenter_x
+ 0.578 +- 0.002       22   +- 1.1       55 zone_11_drawing_pixel_rate_on_image
+ 0.567 +- 0.005       24.2 +- 0.4       50 zone_6_drawing_pixel_rate_on_image
+ 0.564 +- 0.003       24.8 +- 0.4       25 zone_3_barycenter_y
+ 0.549 +- 0.006       26.4 +- 0.8      120 zone_9_hu_moments_m1
+ 0.546 +- 0.006       27.2 +- 0.75      39 zone_10_barycenter_y
+ 0.542 +- 0.002       27.4 +- 0.49      92 zone_5_hu_moments_m1
+ 0.536 +- 0.002       29.6 +- 1.2      141 zone_12_hu_moments_m1
+ 0.534 +- 0.002       30.4 +- 1.02     134 zone_11_hu_moments_m1
+ 0.534 +- 0.001       30.6 +- 0.49       2 barycenter_y
+ 0.531 +- 0.003       31.6 +- 1.02      91 zone_4_hu_moments_m7
+ 0.528 +- 0.003       33.2 +- 0.75      51 zone_7_drawing_pixel_rate_on_image
+ 0.526 +- 0.001       33.8 +- 0.75     127 zone_10_hu_moments_m1
+ 0.52  +- 0.006       35.2 +- 0.98      23 zone_2_barycenter_y
+ 0.513 +- 0.003       36.2 +- 0.4       16 peaks_x
+ 0.515 +- 0.002       36.4 +- 0.8       56 zone_12_drawing_pixel_rate_on_image
+ 0.505 +- 0.002       38.2 +- 0.4       90 zone_4_hu_moments_m6
+ 0.502 +- 0.004       39.2 +- 0.98     106 zone_7_hu_moments_m1
+ 0.498 +- 0.002       40.6 +- 0.8       89 zone_4_hu_moments_m5
+ 0.498 +- 0.001       41   +- 0.89     159 zone_11_lines
+ 0.497 +- 0.004       41   +- 1.1       35 zone_8_barycenter_y
+ 0.489 +- 0.004       43.4 +- 0.8       19 zone_0_barycenter_y
+ 0.485 +- 0.002       44.4 +- 0.8       53 zone_9_drawing_pixel_rate_on_image
+ 0.484 +- 0.003       44.6 +- 0.8       57 zone_0_hu_moments_m1
+ 0.477 +- 0.004       45.8 +- 0.98      29 zone_5_barycenter_y
+ 0.473 +- 0.002       47   +- 0.63     175 zone_7_peaks_x
+ 0.469 +- 0.003       48.6 +- 0.8      153 zone_5_lines
+ 0.468 +- 0.003       49   +- 1.1       54 zone_10_drawing_pixel_rate_on_image
+ 0.465 +- 0.004       49.8 +- 1.47     104 zone_6_hu_moments_m6
+ 0.461 +- 0.002       51   +- 0.63      88 zone_4_hu_moments_m4
+ 0.46  +- 0.003       51.6 +- 1.02     147 zone_12_hu_moments_m7
+ 0.453 +- 0.003       53.2 +- 0.75     113 zone_8_hu_moments_m1
+ 0.449 +- 0.003       53.6 +- 0.49     157 zone_9_lines
+ 0.444 +- 0.003       55   +- 0        179 zone_9_peaks_x
+ 0.436 +- 0.001       56   +- 0        171 zone_5_peaks_x
+ 0.432 +- 0.003       58.2 +- 1.17     133 zone_10_hu_moments_m7
+ 0.431 +- 0.003       58.4 +- 1.5      146 zone_12_hu_moments_m6
+ 0.429 +- 0.002       59.2 +- 1.6      105 zone_6_hu_moments_m7
+ 0.428 +- 0.002       59.8 +- 1.17     124 zone_9_hu_moments_m5
+ 0.427 +- 0.003       60.8 +- 2.14     132 zone_10_hu_moments_m6
+ 0.427 +- 0.001       61.2 +- 0.98      71 zone_2_hu_moments_m1
+ 0.421 +- 0.003       63.8 +- 1.72     139 zone_11_hu_moments_m6
+ 0.421 +- 0.004       64.2 +- 1.33     138 zone_11_hu_moments_m5
+ 0.422 +- 0.003       64.2 +- 1.17     154 zone_6_lines
+ 0.417 +- 0.002       65.8 +- 1.17      14 number_of_elements
+ 0.416 +- 0.003       66.4 +- 0.8      145 zone_12_hu_moments_m5
+ 0.408 +- 0.007       68.8 +- 1.17     103 zone_6_hu_moments_m5
+ 0.408 +- 0.004       69.4 +- 1.02     131 zone_10_hu_moments_m5
+ 0.407 +- 0.005       69.4 +- 0.8       44 zone_0_drawing_pixel_rate_on_image
+ 0.402 +- 0.002       70.4 +- 0.8       97 zone_5_hu_moments_m6
+ 0.397 +- 0.003       72   +- 0        160 zone_12_lines
+ 0.391 +- 0.001       74.4 +- 1.36     110 zone_7_hu_moments_m5
+ 0.39  +- 0.004       75.4 +- 2.24     125 zone_9_hu_moments_m6
+ 0.388 +- 0.005       76.2 +- 3.71      64 zone_1_hu_moments_m1
+ 0.388 +- 0.002       76.8 +- 1.94       9 hu_moments_m3
+ 0.387 +- 0.004       77.2 +- 2.32      96 zone_5_hu_moments_m5
+ 0.387 +- 0.003       77.4 +- 2.24     140 zone_11_hu_moments_m7
+ 0.386 +- 0.003       78.4 +- 2.65      98 zone_5_hu_moments_m7
+ 0.385 +- 0.002       78.6 +- 1.5      111 zone_7_hu_moments_m6
+ 0.384 +- 0.002       79.4 +- 1.36     112 zone_7_hu_moments_m7
+ 0.382 +- 0.002       81.4 +- 1.2      155 zone_7_lines
+ 0.379 +- 0.001       83.2 +- 0.4      152 zone_4_lines
+ 0.377 +- 0.002       84   +- 1.26     130 zone_10_hu_moments_m4
+ 0.372 +- 0.003       86   +- 1.67      32 zone_7_barycenter_x
+ 0.372 +- 0.002       86.2 +- 0.75     144 zone_12_hu_moments_m4
+ 0.37  +- 0.003       87   +- 1.41      87 zone_4_hu_moments_m3
+ 0.369 +- 0.004       87.8 +- 1.94      52 zone_8_drawing_pixel_rate_on_image
+ 0.368 +- 0.002       88.2 +- 0.75      41 zone_11_barycenter_y
+ 0.362 +- 0.005       90   +- 1.55      78 zone_3_hu_moments_m1
+ 0.364 +- 0.001       90.4 +- 0.49      86 zone_4_hu_moments_m2
+ 0.353 +- 0.003       92.4 +- 0.8      102 zone_6_hu_moments_m4
+ 0.347 +- 0.002       93.6 +- 0.8      109 zone_7_hu_moments_m4
+ 0.347 +- 0.004       94   +- 1.41     158 zone_10_lines
+ 0.348 +- 0.003       94.2 +- 0.75     126 zone_9_hu_moments_m7
+ 0.34  +- 0.002       96.4 +- 0.49      95 zone_5_hu_moments_m4
+ 0.339 +- 0.003       96.6 +- 1.02     165 zone_2_peaks_x
+ 0.333 +- 0.002       98   +- 0.63       5 drawing_pixel_rate_on_image
+ 0.328 +- 0.002       99.4 +- 1.36     123 zone_9_hu_moments_m4
+ 0.325 +- 0.002      100.2 +- 0.75     137 zone_11_hu_moments_m4
+ 0.325 +- 0.002      100.6 +- 0.8      167 zone_3_peaks_x
+ 0.321 +- 0.003      101.8 +- 0.75     169 zone_4_peaks_x
+ 0.317 +- 0.003      103.2 +- 0.75     148 zone_0_lines
+ 0.317 +- 0.001      103.6 +- 0.49     161 zone_0_peaks_x
+ 0.309 +- 0.003      106.6 +- 1.85     156 zone_8_lines
+ 0.309 +- 0.003      106.8 +- 1.83       1 barycenter_x
+ 0.308 +- 0.002      107   +- 1.1       46 zone_2_drawing_pixel_rate_on_image
+ 0.307 +- 0.002      107.2 +- 1.33      45 zone_1_drawing_pixel_rate_on_image
+ 0.305 +- 0.003      108.6 +- 1.5      100 zone_6_hu_moments_m2
+ 0.305 +- 0.002      108.8 +- 0.98     163 zone_1_peaks_x
+ 0.293 +- 0.003      111.6 +- 0.8      168 zone_3_peaks_y
+ 0.292 +- 0.001      112.6 +- 1.2      185 zone_12_peaks_x
+ 0.29  +- 0.003      113.4 +- 1.85     181 zone_10_peaks_x
+ 0.29  +- 0.002      113.8 +- 1.17     107 zone_7_hu_moments_m2
+ 0.288 +- 0.003      114.2 +- 1.17     173 zone_6_peaks_x
+ 0.286 +- 0.001      115.6 +- 1.02     142 zone_12_hu_moments_m2
+ 0.283 +- 0.003      117.8 +- 1.33      94 zone_5_hu_moments_m3
+ 0.281 +- 0.001      118   +- 0.63     108 zone_7_hu_moments_m3
+ 0.279 +- 0.001      119.2 +- 1.6      118 zone_8_hu_moments_m6
+ 0.278 +- 0.003      120.4 +- 2.42      11 hu_moments_m5
+ 0.276 +- 0.002      121.4 +- 1.2       36 zone_9_barycenter_x
+ 0.276 +- 0.001      121.6 +- 1.36     128 zone_10_hu_moments_m2
+ 0.273 +- 0.004      122.8 +- 1.6       47 zone_3_drawing_pixel_rate_on_image
+ 0.272 +- 0.003      122.8 +- 0.98     121 zone_9_hu_moments_m2
+ 0.267 +- 0.002      126   +- 1.26     177 zone_8_peaks_x
+ 0.265 +- 0.002      126.2 +- 1.6      183 zone_11_peaks_x
+ 0.265 +- 0.003      127.6 +- 2.42     143 zone_12_hu_moments_m3
+ 0.262 +- 0.003      128.8 +- 1.33     117 zone_8_hu_moments_m5
+ 0.262 +- 0.003      129.6 +- 2.06     101 zone_6_hu_moments_m3
+ 0.262 +- 0.002      129.6 +- 1.36     129 zone_10_hu_moments_m3
+ 0.261 +- 0.004      129.8 +- 2.32      93 zone_5_hu_moments_m2
+ 0.261 +- 0.002      130.4 +- 1.36     136 zone_11_hu_moments_m3
+ 0.254 +- 0.003      133.4 +- 1.02      62 zone_0_hu_moments_m6
+ 0.251 +- 0.001      133.8 +- 0.4      135 zone_11_hu_moments_m2
+ 0.248 +- 0.003      135   +- 1.1      122 zone_9_hu_moments_m3
+ 0.245 +- 0.002      135.8 +- 0.75     116 zone_8_hu_moments_m4
+ 0.242 +- 0.001      137.4 +- 0.49      69 zone_1_hu_moments_m6
+ 0.239 +- 0.002      137.8 +- 0.98     149 zone_1_lines
+ 0.235 +- 0.004      139.2 +- 1.17     119 zone_8_hu_moments_m7
+ 0.23  +- 0.005      140.2 +- 1.17      17 peaks_y
+ 0.231 +- 0.002      140.4 +- 0.8       13 hu_moments_m7
+ 0.224 +- 0.002      141.8 +- 0.4       34 zone_8_barycenter_x
+ 0.219 +- 0.001      143.2 +- 0.4      162 zone_0_peaks_y
+ 0.213 +- 0.005      144.2 +- 0.75      12 hu_moments_m6
+ 0.212 +- 0.003      144.6 +- 0.49     172 zone_5_peaks_y
+ 0.203 +- 0.002      146   +- 0          7 hu_moments_m1
+ 0.199 +- 0.002      147.2 +- 0.4      150 zone_2_lines
+ 0.192 +- 0.003      148.4 +- 0.8       70 zone_1_hu_moments_m7
+ 0.192 +- 0.005      148.8 +- 1.17      68 zone_1_hu_moments_m5
+ 0.182 +- 0.002      151   +- 1.1      164 zone_1_peaks_y
+ 0.183 +- 0.003      151   +- 1.26      10 hu_moments_m4
+ 0.18  +- 0.003      151.6 +- 1.36      63 zone_0_hu_moments_m7
+ 0.179 +- 0.002      152.2 +- 1.17     166 zone_2_peaks_y
+ 0.176 +- 0.003      154.4 +- 1.36      76 zone_2_hu_moments_m6
+ 0.174 +- 0.002      155.2 +- 0.75      83 zone_3_hu_moments_m6
+ 0.172 +- 0.002      156.6 +- 1.02     114 zone_8_hu_moments_m2
+ 0.17  +- 0.002      156.6 +- 1.36     170 zone_4_peaks_y
+ 0.167 +- 0.003      158.2 +- 1.94     151 zone_3_lines
+ 0.166 +- 0.003      159.2 +- 1.17      15 lines
+ 0.165 +- 0.003      159.6 +- 1.62      61 zone_0_hu_moments_m5
+ 0.163 +- 0.001      160.4 +- 0.8        6 levels_of_hierarchy
+ 0.16  +- 0.002      162   +- 1.1      115 zone_8_hu_moments_m3
+ 0.156 +- 0.002      163.6 +- 1.2       82 zone_3_hu_moments_m5
+ 0.156 +- 0.002      164   +- 1.1       84 zone_3_hu_moments_m7
+ 0.155 +- 0.003      164   +- 0.63      58 zone_0_hu_moments_m2
+ 0.148 +- 0.003      166.6 +- 0.8       67 zone_1_hu_moments_m4
+ 0.148 +- 0.003      167   +- 0.89      65 zone_1_hu_moments_m2
+ 0.147 +- 0.001      167.4 +- 0.49     184 zone_11_peaks_y
+ 0.143 +- 0.002      169.2 +- 0.4      182 zone_10_peaks_y
+ 0.14  +- 0.002      170   +- 0.63      60 zone_0_hu_moments_m4
+ 0.138 +- 0.001      171   +- 0.63       8 hu_moments_m2
+ 0.134 +- 0.001      172.6 +- 0.8      174 zone_6_peaks_y
+ 0.135 +- 0.001      173.2 +- 0.98      81 zone_3_hu_moments_m4
+ 0.134 +- 0.002      173.6 +- 1.62     176 zone_7_peaks_y
+ 0.131 +- 0.003      175.2 +- 0.98     186 zone_12_peaks_y
+ 0.128 +- 0.004      176.4 +- 1.36      75 zone_2_hu_moments_m5
+ 0.128 +- 0.003      176.6 +- 1.2       66 zone_1_hu_moments_m3
+ 0.124 +- 0.001      177.2 +- 0.75      77 zone_2_hu_moments_m7
+ 0.112 +- 0.002      179.2 +- 0.4       72 zone_2_hu_moments_m2
+ 0.111 +- 0.002      179.8 +- 0.4       74 zone_2_hu_moments_m4
+ 0.097 +- 0.003      181.4 +- 0.8      178 zone_8_peaks_y
+ 0.094 +- 0.002      182.2 +- 0.75      80 zone_3_hu_moments_m3
+ 0.094 +- 0.002      182.4 +- 0.49     180 zone_9_peaks_y
+ 0.088 +- 0.002      184   +- 0         59 zone_0_hu_moments_m3
+ 0.083 +- 0.001      185   +- 0         79 zone_3_hu_moments_m2
+ 0.063 +- 0.002      186   +- 0         73 zone_2_hu_moments_m3
+KNN_CFS-BestFirst : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_CFS-BestFirst : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.BestFirst -D 1 -N 5
+
+=== Summary ===
+
+Correctly Classified Instances       24841               93.0131 %
+Incorrectly Classified Instances      1866                6.9869 %
+Kappa statistic                          0.9248
+Mean absolute error                      0.0188
+Root mean squared error                  0.0907
+Relative absolute error                 14.173  %
+Root relative squared error             35.2069 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,006    0,924      0,958    0,941      0,936    0,995     0,977     accident
+                 0,927    0,006    0,927      0,927    0,927      0,922    0,994     0,968     bomb
+                 0,931    0,005    0,936      0,931    0,934      0,929    0,993     0,971     car
+                 0,900    0,004    0,946      0,900    0,922      0,917    0,993     0,968     casualty
+                 0,959    0,004    0,946      0,959    0,952      0,949    0,995     0,979     electricity
+                 0,906    0,004    0,943      0,906    0,924      0,919    0,987     0,961     fire
+                 0,945    0,007    0,910      0,945    0,927      0,922    0,991     0,967     fire_brigade
+                 0,885    0,007    0,906      0,885    0,895      0,887    0,990     0,949     flood
+                 0,923    0,007    0,912      0,923    0,917      0,911    0,990     0,960     gas
+                 0,975    0,005    0,938      0,975    0,956      0,953    0,998     0,989     injury
+                 0,940    0,006    0,923      0,940    0,932      0,926    0,994     0,969     paramedics
+                 0,937    0,005    0,938      0,937    0,938      0,933    0,996     0,975     person
+                 0,910    0,004    0,943      0,910    0,926      0,921    0,988     0,961     police
+                 0,925    0,005    0,931      0,925    0,928      0,923    0,992     0,966     road_block
+Weighted Avg.    0,930    0,005    0,930      0,930    0,930      0,925    0,993     0,969     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1828   18    5    0    2    5    9    2    8    0    5    0   13   13 |    a = accident
+   25 1777    0    3   54   35    4    0    1    0    2   13    0    2 |    b = bomb
+    9    0 1753    1    0    5    6   51    0   29    9    0    6   14 |    c = car
+    9    4    5 1728   18    3   20   15   35    1    6   73    3    1 |    d = casualty
+    3   32    0    3 1834    1    6    1    6    2    5   20    0    0 |    e = electricity
+   20   56    4    4    1 1733   17    2   24    0    6    3   28   14 |    f = fire
+   20    5    3    2    3    5 1798    6    9    1   21    2   19    9 |    g = fire_brigade
+    6    3   37    2    0    6   17 1669   46   74   12    0    7    7 |    h = flood
+    3    0   10    7    1    9   13   47 1768   13   27    4   11    3 |    i = gas
+    0    0    4    0    0    2    0   37    0 1850    4    0    0    0 |    j = injury
+    2    1    5    1    0    3   31    5   10    0 1795    3    7   46 |    k = paramedics
+    0    5    0   69   25    2    6    0    6    0    7 1790    0    0 |    l = person
+   47   11    7    5    1    6   31    3   23    1   13    0 1736   23 |    m = police
+    7    4   39    2    0   23   17    5    3    1   32    0   11 1782 |    n = road_block
+KNN_CFS-Greedy : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_CFS-Greedy : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.GreedyStepwise -T -1.7976931348623157E308 -N -1 -num-slots 1
+
+=== Summary ===
+
+Correctly Classified Instances       24841               93.0131 %
+Incorrectly Classified Instances      1866                6.9869 %
+Kappa statistic                          0.9248
+Mean absolute error                      0.0188
+Root mean squared error                  0.0907
+Relative absolute error                 14.173  %
+Root relative squared error             35.2069 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,006    0,924      0,958    0,941      0,936    0,995     0,977     accident
+                 0,927    0,006    0,927      0,927    0,927      0,922    0,994     0,968     bomb
+                 0,931    0,005    0,936      0,931    0,934      0,929    0,993     0,971     car
+                 0,900    0,004    0,946      0,900    0,922      0,917    0,993     0,968     casualty
+                 0,959    0,004    0,946      0,959    0,952      0,949    0,995     0,979     electricity
+                 0,906    0,004    0,943      0,906    0,924      0,919    0,987     0,961     fire
+                 0,945    0,007    0,910      0,945    0,927      0,922    0,991     0,967     fire_brigade
+                 0,885    0,007    0,906      0,885    0,895      0,887    0,990     0,949     flood
+                 0,923    0,007    0,912      0,923    0,917      0,911    0,990     0,960     gas
+                 0,975    0,005    0,938      0,975    0,956      0,953    0,998     0,989     injury
+                 0,940    0,006    0,923      0,940    0,932      0,926    0,994     0,969     paramedics
+                 0,937    0,005    0,938      0,937    0,938      0,933    0,996     0,975     person
+                 0,910    0,004    0,943      0,910    0,926      0,921    0,988     0,961     police
+                 0,925    0,005    0,931      0,925    0,928      0,923    0,992     0,966     road_block
+Weighted Avg.    0,930    0,005    0,930      0,930    0,930      0,925    0,993     0,969     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1828   18    5    0    2    5    9    2    8    0    5    0   13   13 |    a = accident
+   25 1777    0    3   54   35    4    0    1    0    2   13    0    2 |    b = bomb
+    9    0 1753    1    0    5    6   51    0   29    9    0    6   14 |    c = car
+    9    4    5 1728   18    3   20   15   35    1    6   73    3    1 |    d = casualty
+    3   32    0    3 1834    1    6    1    6    2    5   20    0    0 |    e = electricity
+   20   56    4    4    1 1733   17    2   24    0    6    3   28   14 |    f = fire
+   20    5    3    2    3    5 1798    6    9    1   21    2   19    9 |    g = fire_brigade
+    6    3   37    2    0    6   17 1669   46   74   12    0    7    7 |    h = flood
+    3    0   10    7    1    9   13   47 1768   13   27    4   11    3 |    i = gas
+    0    0    4    0    0    2    0   37    0 1850    4    0    0    0 |    j = injury
+    2    1    5    1    0    3   31    5   10    0 1795    3    7   46 |    k = paramedics
+    0    5    0   69   25    2    6    0    6    0    7 1790    0    0 |    l = person
+   47   11    7    5    1    6   31    3   23    1   13    0 1736   23 |    m = police
+    7    4   39    2    0   23   17    5    3    1   32    0   11 1782 |    n = road_block
+KNN_Ranker_Auto : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_Ranker_Auto : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.unsupervised.attribute.Remove-V-R4,37,21,3,20,28,31,40,24,43,85,22,18,42,30,99,49,27,26,55,48,33,38,50,25,120,92,39,141,91,2,134,127,51,56,16,23,90,106,159,89,35,19,29,57,53,175,153,104,54,88,147,113,157,179,171,146,105,124,133,71,132,154,138-139,14,145,103,131,44,97,160,64,96,140,110,125,9,112,111,98,155,152,130,32,144,78,41,87,52,86,102,158,126,109,95,165,5,137,167,169,123,161,148,45,156,46,163,1,100,181,168,173,185,107,142,108,94,11,128,47,118,36,121,177,183,101,143,117,129,93,136,62,135,122,116,69,149,17,119,13,34,162,12,172,7,150,68,70,10,164,63,166,76,83,170,114,15,151,61,6,115,82,84,58,65,67,184,182,8,60,174,81,176,186,66,77,75,72,74,80,180,178,59,79,73,187
+
+=== Summary ===
+
+Correctly Classified Instances       22922               85.8277 %
+Incorrectly Classified Instances      3785               14.1723 %
+Kappa statistic                          0.8474
+Mean absolute error                      0.0385
+Root mean squared error                  0.1286
+Relative absolute error                 28.9906 %
+Root relative squared error             49.9234 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,928    0,016    0,813      0,928    0,867      0,858    0,992     0,949     accident
+                 0,922    0,012    0,859      0,922    0,889      0,881    0,989     0,946     bomb
+                 0,898    0,013    0,839      0,898    0,867      0,858    0,984     0,932     car
+                 0,792    0,008    0,881      0,792    0,834      0,823    0,977     0,895     casualty
+                 0,952    0,009    0,886      0,952    0,918      0,912    0,997     0,971     electricity
+                 0,754    0,006    0,902      0,754    0,821      0,812    0,969     0,868     fire
+                 0,895    0,013    0,842      0,895    0,868      0,858    0,983     0,928     fire_brigade
+                 0,833    0,011    0,851      0,833    0,842      0,830    0,977     0,895     flood
+                 0,761    0,010    0,851      0,761    0,803      0,790    0,969     0,855     gas
+                 0,946    0,007    0,917      0,946    0,931      0,926    0,996     0,974     injury
+                 0,809    0,008    0,887      0,809    0,846      0,836    0,978     0,904     paramedics
+                 0,879    0,008    0,889      0,879    0,884      0,875    0,994     0,952     person
+                 0,771    0,009    0,862      0,771    0,814      0,802    0,965     0,864     police
+                 0,879    0,021    0,769      0,879    0,820      0,807    0,976     0,892     road_block
+Weighted Avg.    0,858    0,011    0,860      0,858    0,857      0,848    0,982     0,916     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1770   75    4    2    2    4   13    0    7    0    4    1   13   13 |    a = accident
+   30 1767    0    4   54   34    5    0    0    1    1   14    3    3 |    b = bomb
+   15    1 1691    2    0   21   12   69    3   35   15    0    5   14 |    c = car
+   48   28   13 1521   43    5   29   17   55    2    9  123   13   15 |    d = casualty
+    4   41    0    9 1821    0    4    2    3    3    0   26    0    0 |    e = electricity
+   84   72   24   14    2 1441   42   10   39    2   31   13   63   75 |    f = fire
+   38    8    6    7    4    7 1704   13   14    1   32    2   27   40 |    g = fire_brigade
+    9    2   83   14    0   10   22 1571   34   96    9    0   11   25 |    h = flood
+   32    2   56   51    5   17   34   58 1458   14   48   16   56   69 |    i = gas
+    0    2   24    0    1    1    1   73    0 1794    0    1    0    0 |    j = injury
+   12    2   22    4    2   16   47    6   43    0 1544    4   18  189 |    k = paramedics
+    2   26    0   82  105    0    5    1   10    0    0 1678    1    0 |    l = person
+  108   20   43   12   12   22   78   13   40    3   14    6 1470   66 |    m = police
+   25   12   50    4    5   20   28   14    8    6   34    3   25 1692 |    n = road_block
+InfoGainAttributeEval (Ranker)
+
+Search method: InfoGainAttributeEval 
+Evaluator: Ranker -T -1.7976931348623157E308 -N -1
+
+
+=== Attribute selection 5 fold cross-validation (stratified), seed: 1 ===
+
+average merit      average rank  attribute
+ 1.146 +- 0.001        1   +- 0          4 height_width_ratio
+ 0.963 +- 0.003        2   +- 0         37 zone_9_barycenter_y
+ 0.763 +- 0.002        3.4 +- 0.49       3 area
+ 0.762 +- 0.002        3.6 +- 0.49      21 zone_1_barycenter_y
+ 0.757 +- 0.001        5.2 +- 0.4       28 zone_5_barycenter_x
+ 0.75  +- 0.004        6   +- 0.63      20 zone_1_barycenter_x
+ 0.747 +- 0.006        6.8 +- 0.4       31 zone_6_barycenter_y
+ 0.704 +- 0.001        8   +- 0         40 zone_11_barycenter_x
+ 0.689 +- 0.004        9   +- 0         24 zone_3_barycenter_x
+ 0.664 +- 0.003       10   +- 0         43 zone_12_barycenter_y
+ 0.648 +- 0.003       11.2 +- 0.4       22 zone_2_barycenter_x
+ 0.647 +- 0.002       11.8 +- 0.4       85 zone_4_hu_moments_m1
+ 0.637 +- 0.005       13   +- 0         18 zone_0_barycenter_x
+ 0.627 +- 0.002       14   +- 0         42 zone_12_barycenter_x
+ 0.618 +- 0.005       15.2 +- 0.4       99 zone_6_hu_moments_m1
+ 0.615 +- 0.005       15.8 +- 0.4       30 zone_6_barycenter_x
+ 0.589 +- 0.004       17.6 +- 0.49      49 zone_5_drawing_pixel_rate_on_image
+ 0.587 +- 0.007       18.4 +- 1.96      33 zone_7_barycenter_y
+ 0.582 +- 0.003       19.8 +- 1.47      27 zone_4_barycenter_y
+ 0.58  +- 0.002       20   +- 1.1       48 zone_4_drawing_pixel_rate_on_image
+ 0.58  +- 0.003       20.6 +- 1.62      26 zone_4_barycenter_x
+ 0.578 +- 0.003       21.6 +- 1.2       38 zone_10_barycenter_x
+ 0.578 +- 0.002       22   +- 1.1       55 zone_11_drawing_pixel_rate_on_image
+ 0.567 +- 0.005       24.2 +- 0.4       50 zone_6_drawing_pixel_rate_on_image
+ 0.564 +- 0.003       24.8 +- 0.4       25 zone_3_barycenter_y
+ 0.549 +- 0.006       26.4 +- 0.8      120 zone_9_hu_moments_m1
+ 0.546 +- 0.006       27.2 +- 0.75      39 zone_10_barycenter_y
+ 0.542 +- 0.002       27.4 +- 0.49      92 zone_5_hu_moments_m1
+ 0.536 +- 0.002       29.6 +- 1.2      141 zone_12_hu_moments_m1
+ 0.534 +- 0.002       30.4 +- 1.02     134 zone_11_hu_moments_m1
+ 0.534 +- 0.001       30.6 +- 0.49       2 barycenter_y
+ 0.531 +- 0.003       31.6 +- 1.02      91 zone_4_hu_moments_m7
+ 0.528 +- 0.003       33.2 +- 0.75      51 zone_7_drawing_pixel_rate_on_image
+ 0.526 +- 0.001       33.8 +- 0.75     127 zone_10_hu_moments_m1
+ 0.52  +- 0.006       35.2 +- 0.98      23 zone_2_barycenter_y
+ 0.513 +- 0.003       36.2 +- 0.4       16 peaks_x
+ 0.515 +- 0.002       36.4 +- 0.8       56 zone_12_drawing_pixel_rate_on_image
+ 0.505 +- 0.002       38.2 +- 0.4       90 zone_4_hu_moments_m6
+ 0.502 +- 0.004       39.2 +- 0.98     106 zone_7_hu_moments_m1
+ 0.498 +- 0.002       40.6 +- 0.8       89 zone_4_hu_moments_m5
+ 0.498 +- 0.001       41   +- 0.89     159 zone_11_lines
+ 0.497 +- 0.004       41   +- 1.1       35 zone_8_barycenter_y
+ 0.489 +- 0.004       43.4 +- 0.8       19 zone_0_barycenter_y
+ 0.485 +- 0.002       44.4 +- 0.8       53 zone_9_drawing_pixel_rate_on_image
+ 0.484 +- 0.003       44.6 +- 0.8       57 zone_0_hu_moments_m1
+ 0.477 +- 0.004       45.8 +- 0.98      29 zone_5_barycenter_y
+ 0.473 +- 0.002       47   +- 0.63     175 zone_7_peaks_x
+ 0.469 +- 0.003       48.6 +- 0.8      153 zone_5_lines
+ 0.468 +- 0.003       49   +- 1.1       54 zone_10_drawing_pixel_rate_on_image
+ 0.465 +- 0.004       49.8 +- 1.47     104 zone_6_hu_moments_m6
+ 0.461 +- 0.002       51   +- 0.63      88 zone_4_hu_moments_m4
+ 0.46  +- 0.003       51.6 +- 1.02     147 zone_12_hu_moments_m7
+ 0.453 +- 0.003       53.2 +- 0.75     113 zone_8_hu_moments_m1
+ 0.449 +- 0.003       53.6 +- 0.49     157 zone_9_lines
+ 0.444 +- 0.003       55   +- 0        179 zone_9_peaks_x
+ 0.436 +- 0.001       56   +- 0        171 zone_5_peaks_x
+ 0.432 +- 0.003       58.2 +- 1.17     133 zone_10_hu_moments_m7
+ 0.431 +- 0.003       58.4 +- 1.5      146 zone_12_hu_moments_m6
+ 0.429 +- 0.002       59.2 +- 1.6      105 zone_6_hu_moments_m7
+ 0.428 +- 0.002       59.8 +- 1.17     124 zone_9_hu_moments_m5
+ 0.427 +- 0.003       60.8 +- 2.14     132 zone_10_hu_moments_m6
+ 0.427 +- 0.001       61.2 +- 0.98      71 zone_2_hu_moments_m1
+ 0.421 +- 0.003       63.8 +- 1.72     139 zone_11_hu_moments_m6
+ 0.421 +- 0.004       64.2 +- 1.33     138 zone_11_hu_moments_m5
+ 0.422 +- 0.003       64.2 +- 1.17     154 zone_6_lines
+ 0.417 +- 0.002       65.8 +- 1.17      14 number_of_elements
+ 0.416 +- 0.003       66.4 +- 0.8      145 zone_12_hu_moments_m5
+ 0.408 +- 0.007       68.8 +- 1.17     103 zone_6_hu_moments_m5
+ 0.408 +- 0.004       69.4 +- 1.02     131 zone_10_hu_moments_m5
+ 0.407 +- 0.005       69.4 +- 0.8       44 zone_0_drawing_pixel_rate_on_image
+ 0.402 +- 0.002       70.4 +- 0.8       97 zone_5_hu_moments_m6
+ 0.397 +- 0.003       72   +- 0        160 zone_12_lines
+ 0.391 +- 0.001       74.4 +- 1.36     110 zone_7_hu_moments_m5
+ 0.39  +- 0.004       75.4 +- 2.24     125 zone_9_hu_moments_m6
+ 0.388 +- 0.005       76.2 +- 3.71      64 zone_1_hu_moments_m1
+ 0.388 +- 0.002       76.8 +- 1.94       9 hu_moments_m3
+ 0.387 +- 0.004       77.2 +- 2.32      96 zone_5_hu_moments_m5
+ 0.387 +- 0.003       77.4 +- 2.24     140 zone_11_hu_moments_m7
+ 0.386 +- 0.003       78.4 +- 2.65      98 zone_5_hu_moments_m7
+ 0.385 +- 0.002       78.6 +- 1.5      111 zone_7_hu_moments_m6
+ 0.384 +- 0.002       79.4 +- 1.36     112 zone_7_hu_moments_m7
+ 0.382 +- 0.002       81.4 +- 1.2      155 zone_7_lines
+ 0.379 +- 0.001       83.2 +- 0.4      152 zone_4_lines
+ 0.377 +- 0.002       84   +- 1.26     130 zone_10_hu_moments_m4
+ 0.372 +- 0.003       86   +- 1.67      32 zone_7_barycenter_x
+ 0.372 +- 0.002       86.2 +- 0.75     144 zone_12_hu_moments_m4
+ 0.37  +- 0.003       87   +- 1.41      87 zone_4_hu_moments_m3
+ 0.369 +- 0.004       87.8 +- 1.94      52 zone_8_drawing_pixel_rate_on_image
+ 0.368 +- 0.002       88.2 +- 0.75      41 zone_11_barycenter_y
+ 0.362 +- 0.005       90   +- 1.55      78 zone_3_hu_moments_m1
+ 0.364 +- 0.001       90.4 +- 0.49      86 zone_4_hu_moments_m2
+ 0.353 +- 0.003       92.4 +- 0.8      102 zone_6_hu_moments_m4
+ 0.347 +- 0.002       93.6 +- 0.8      109 zone_7_hu_moments_m4
+ 0.347 +- 0.004       94   +- 1.41     158 zone_10_lines
+ 0.348 +- 0.003       94.2 +- 0.75     126 zone_9_hu_moments_m7
+ 0.34  +- 0.002       96.4 +- 0.49      95 zone_5_hu_moments_m4
+ 0.339 +- 0.003       96.6 +- 1.02     165 zone_2_peaks_x
+ 0.333 +- 0.002       98   +- 0.63       5 drawing_pixel_rate_on_image
+ 0.328 +- 0.002       99.4 +- 1.36     123 zone_9_hu_moments_m4
+ 0.325 +- 0.002      100.2 +- 0.75     137 zone_11_hu_moments_m4
+ 0.325 +- 0.002      100.6 +- 0.8      167 zone_3_peaks_x
+ 0.321 +- 0.003      101.8 +- 0.75     169 zone_4_peaks_x
+ 0.317 +- 0.003      103.2 +- 0.75     148 zone_0_lines
+ 0.317 +- 0.001      103.6 +- 0.49     161 zone_0_peaks_x
+ 0.309 +- 0.003      106.6 +- 1.85     156 zone_8_lines
+ 0.309 +- 0.003      106.8 +- 1.83       1 barycenter_x
+ 0.308 +- 0.002      107   +- 1.1       46 zone_2_drawing_pixel_rate_on_image
+ 0.307 +- 0.002      107.2 +- 1.33      45 zone_1_drawing_pixel_rate_on_image
+ 0.305 +- 0.003      108.6 +- 1.5      100 zone_6_hu_moments_m2
+ 0.305 +- 0.002      108.8 +- 0.98     163 zone_1_peaks_x
+ 0.293 +- 0.003      111.6 +- 0.8      168 zone_3_peaks_y
+ 0.292 +- 0.001      112.6 +- 1.2      185 zone_12_peaks_x
+ 0.29  +- 0.003      113.4 +- 1.85     181 zone_10_peaks_x
+ 0.29  +- 0.002      113.8 +- 1.17     107 zone_7_hu_moments_m2
+ 0.288 +- 0.003      114.2 +- 1.17     173 zone_6_peaks_x
+ 0.286 +- 0.001      115.6 +- 1.02     142 zone_12_hu_moments_m2
+ 0.283 +- 0.003      117.8 +- 1.33      94 zone_5_hu_moments_m3
+ 0.281 +- 0.001      118   +- 0.63     108 zone_7_hu_moments_m3
+ 0.279 +- 0.001      119.2 +- 1.6      118 zone_8_hu_moments_m6
+ 0.278 +- 0.003      120.4 +- 2.42      11 hu_moments_m5
+ 0.276 +- 0.002      121.4 +- 1.2       36 zone_9_barycenter_x
+ 0.276 +- 0.001      121.6 +- 1.36     128 zone_10_hu_moments_m2
+ 0.273 +- 0.004      122.8 +- 1.6       47 zone_3_drawing_pixel_rate_on_image
+ 0.272 +- 0.003      122.8 +- 0.98     121 zone_9_hu_moments_m2
+ 0.267 +- 0.002      126   +- 1.26     177 zone_8_peaks_x
+ 0.265 +- 0.002      126.2 +- 1.6      183 zone_11_peaks_x
+ 0.265 +- 0.003      127.6 +- 2.42     143 zone_12_hu_moments_m3
+ 0.262 +- 0.003      128.8 +- 1.33     117 zone_8_hu_moments_m5
+ 0.262 +- 0.003      129.6 +- 2.06     101 zone_6_hu_moments_m3
+ 0.262 +- 0.002      129.6 +- 1.36     129 zone_10_hu_moments_m3
+ 0.261 +- 0.004      129.8 +- 2.32      93 zone_5_hu_moments_m2
+ 0.261 +- 0.002      130.4 +- 1.36     136 zone_11_hu_moments_m3
+ 0.254 +- 0.003      133.4 +- 1.02      62 zone_0_hu_moments_m6
+ 0.251 +- 0.001      133.8 +- 0.4      135 zone_11_hu_moments_m2
+ 0.248 +- 0.003      135   +- 1.1      122 zone_9_hu_moments_m3
+ 0.245 +- 0.002      135.8 +- 0.75     116 zone_8_hu_moments_m4
+ 0.242 +- 0.001      137.4 +- 0.49      69 zone_1_hu_moments_m6
+ 0.239 +- 0.002      137.8 +- 0.98     149 zone_1_lines
+ 0.235 +- 0.004      139.2 +- 1.17     119 zone_8_hu_moments_m7
+ 0.23  +- 0.005      140.2 +- 1.17      17 peaks_y
+ 0.231 +- 0.002      140.4 +- 0.8       13 hu_moments_m7
+ 0.224 +- 0.002      141.8 +- 0.4       34 zone_8_barycenter_x
+ 0.219 +- 0.001      143.2 +- 0.4      162 zone_0_peaks_y
+ 0.213 +- 0.005      144.2 +- 0.75      12 hu_moments_m6
+ 0.212 +- 0.003      144.6 +- 0.49     172 zone_5_peaks_y
+ 0.203 +- 0.002      146   +- 0          7 hu_moments_m1
+ 0.199 +- 0.002      147.2 +- 0.4      150 zone_2_lines
+ 0.192 +- 0.003      148.4 +- 0.8       70 zone_1_hu_moments_m7
+ 0.192 +- 0.005      148.8 +- 1.17      68 zone_1_hu_moments_m5
+ 0.182 +- 0.002      151   +- 1.1      164 zone_1_peaks_y
+ 0.183 +- 0.003      151   +- 1.26      10 hu_moments_m4
+ 0.18  +- 0.003      151.6 +- 1.36      63 zone_0_hu_moments_m7
+ 0.179 +- 0.002      152.2 +- 1.17     166 zone_2_peaks_y
+ 0.176 +- 0.003      154.4 +- 1.36      76 zone_2_hu_moments_m6
+ 0.174 +- 0.002      155.2 +- 0.75      83 zone_3_hu_moments_m6
+ 0.172 +- 0.002      156.6 +- 1.02     114 zone_8_hu_moments_m2
+ 0.17  +- 0.002      156.6 +- 1.36     170 zone_4_peaks_y
+ 0.167 +- 0.003      158.2 +- 1.94     151 zone_3_lines
+ 0.166 +- 0.003      159.2 +- 1.17      15 lines
+ 0.165 +- 0.003      159.6 +- 1.62      61 zone_0_hu_moments_m5
+ 0.163 +- 0.001      160.4 +- 0.8        6 levels_of_hierarchy
+ 0.16  +- 0.002      162   +- 1.1      115 zone_8_hu_moments_m3
+ 0.156 +- 0.002      163.6 +- 1.2       82 zone_3_hu_moments_m5
+ 0.156 +- 0.002      164   +- 1.1       84 zone_3_hu_moments_m7
+ 0.155 +- 0.003      164   +- 0.63      58 zone_0_hu_moments_m2
+ 0.148 +- 0.003      166.6 +- 0.8       67 zone_1_hu_moments_m4
+ 0.148 +- 0.003      167   +- 0.89      65 zone_1_hu_moments_m2
+ 0.147 +- 0.001      167.4 +- 0.49     184 zone_11_peaks_y
+ 0.143 +- 0.002      169.2 +- 0.4      182 zone_10_peaks_y
+ 0.14  +- 0.002      170   +- 0.63      60 zone_0_hu_moments_m4
+ 0.138 +- 0.001      171   +- 0.63       8 hu_moments_m2
+ 0.134 +- 0.001      172.6 +- 0.8      174 zone_6_peaks_y
+ 0.135 +- 0.001      173.2 +- 0.98      81 zone_3_hu_moments_m4
+ 0.134 +- 0.002      173.6 +- 1.62     176 zone_7_peaks_y
+ 0.131 +- 0.003      175.2 +- 0.98     186 zone_12_peaks_y
+ 0.128 +- 0.004      176.4 +- 1.36      75 zone_2_hu_moments_m5
+ 0.128 +- 0.003      176.6 +- 1.2       66 zone_1_hu_moments_m3
+ 0.124 +- 0.001      177.2 +- 0.75      77 zone_2_hu_moments_m7
+ 0.112 +- 0.002      179.2 +- 0.4       72 zone_2_hu_moments_m2
+ 0.111 +- 0.002      179.8 +- 0.4       74 zone_2_hu_moments_m4
+ 0.097 +- 0.003      181.4 +- 0.8      178 zone_8_peaks_y
+ 0.094 +- 0.002      182.2 +- 0.75      80 zone_3_hu_moments_m3
+ 0.094 +- 0.002      182.4 +- 0.49     180 zone_9_peaks_y
+ 0.088 +- 0.002      184   +- 0         59 zone_0_hu_moments_m3
+ 0.083 +- 0.001      185   +- 0         79 zone_3_hu_moments_m2
+ 0.063 +- 0.002      186   +- 0         73 zone_2_hu_moments_m3
+KNN_CFS-Greedy : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_CFS-Greedy : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.GreedyStepwise -T -1.7976931348623157E308 -N -1 -num-slots 1
+
+=== Summary ===
+
+Correctly Classified Instances       24841               93.0131 %
+Incorrectly Classified Instances      1866                6.9869 %
+Kappa statistic                          0.9248
+Mean absolute error                      0.0188
+Root mean squared error                  0.0907
+Relative absolute error                 14.173  %
+Root relative squared error             35.2069 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,006    0,924      0,958    0,941      0,936    0,995     0,977     accident
+                 0,927    0,006    0,927      0,927    0,927      0,922    0,994     0,968     bomb
+                 0,931    0,005    0,936      0,931    0,934      0,929    0,993     0,971     car
+                 0,900    0,004    0,946      0,900    0,922      0,917    0,993     0,968     casualty
+                 0,959    0,004    0,946      0,959    0,952      0,949    0,995     0,979     electricity
+                 0,906    0,004    0,943      0,906    0,924      0,919    0,987     0,961     fire
+                 0,945    0,007    0,910      0,945    0,927      0,922    0,991     0,967     fire_brigade
+                 0,885    0,007    0,906      0,885    0,895      0,887    0,990     0,949     flood
+                 0,923    0,007    0,912      0,923    0,917      0,911    0,990     0,960     gas
+                 0,975    0,005    0,938      0,975    0,956      0,953    0,998     0,989     injury
+                 0,940    0,006    0,923      0,940    0,932      0,926    0,994     0,969     paramedics
+                 0,937    0,005    0,938      0,937    0,938      0,933    0,996     0,975     person
+                 0,910    0,004    0,943      0,910    0,926      0,921    0,988     0,961     police
+                 0,925    0,005    0,931      0,925    0,928      0,923    0,992     0,966     road_block
+Weighted Avg.    0,930    0,005    0,930      0,930    0,930      0,925    0,993     0,969     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1828   18    5    0    2    5    9    2    8    0    5    0   13   13 |    a = accident
+   25 1777    0    3   54   35    4    0    1    0    2   13    0    2 |    b = bomb
+    9    0 1753    1    0    5    6   51    0   29    9    0    6   14 |    c = car
+    9    4    5 1728   18    3   20   15   35    1    6   73    3    1 |    d = casualty
+    3   32    0    3 1834    1    6    1    6    2    5   20    0    0 |    e = electricity
+   20   56    4    4    1 1733   17    2   24    0    6    3   28   14 |    f = fire
+   20    5    3    2    3    5 1798    6    9    1   21    2   19    9 |    g = fire_brigade
+    6    3   37    2    0    6   17 1669   46   74   12    0    7    7 |    h = flood
+    3    0   10    7    1    9   13   47 1768   13   27    4   11    3 |    i = gas
+    0    0    4    0    0    2    0   37    0 1850    4    0    0    0 |    j = injury
+    2    1    5    1    0    3   31    5   10    0 1795    3    7   46 |    k = paramedics
+    0    5    0   69   25    2    6    0    6    0    7 1790    0    0 |    l = person
+   47   11    7    5    1    6   31    3   23    1   13    0 1736   23 |    m = police
+    7    4   39    2    0   23   17    5    3    1   32    0   11 1782 |    n = road_block
+KNN_CFS-BestFirst : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_CFS-BestFirst : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.BestFirst -D 1 -N 5
+
+=== Summary ===
+
+Correctly Classified Instances       24841               93.0131 %
+Incorrectly Classified Instances      1866                6.9869 %
+Kappa statistic                          0.9248
+Mean absolute error                      0.0188
+Root mean squared error                  0.0907
+Relative absolute error                 14.173  %
+Root relative squared error             35.2069 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,958    0,006    0,924      0,958    0,941      0,936    0,995     0,977     accident
+                 0,927    0,006    0,927      0,927    0,927      0,922    0,994     0,968     bomb
+                 0,931    0,005    0,936      0,931    0,934      0,929    0,993     0,971     car
+                 0,900    0,004    0,946      0,900    0,922      0,917    0,993     0,968     casualty
+                 0,959    0,004    0,946      0,959    0,952      0,949    0,995     0,979     electricity
+                 0,906    0,004    0,943      0,906    0,924      0,919    0,987     0,961     fire
+                 0,945    0,007    0,910      0,945    0,927      0,922    0,991     0,967     fire_brigade
+                 0,885    0,007    0,906      0,885    0,895      0,887    0,990     0,949     flood
+                 0,923    0,007    0,912      0,923    0,917      0,911    0,990     0,960     gas
+                 0,975    0,005    0,938      0,975    0,956      0,953    0,998     0,989     injury
+                 0,940    0,006    0,923      0,940    0,932      0,926    0,994     0,969     paramedics
+                 0,937    0,005    0,938      0,937    0,938      0,933    0,996     0,975     person
+                 0,910    0,004    0,943      0,910    0,926      0,921    0,988     0,961     police
+                 0,925    0,005    0,931      0,925    0,928      0,923    0,992     0,966     road_block
+Weighted Avg.    0,930    0,005    0,930      0,930    0,930      0,925    0,993     0,969     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1828   18    5    0    2    5    9    2    8    0    5    0   13   13 |    a = accident
+   25 1777    0    3   54   35    4    0    1    0    2   13    0    2 |    b = bomb
+    9    0 1753    1    0    5    6   51    0   29    9    0    6   14 |    c = car
+    9    4    5 1728   18    3   20   15   35    1    6   73    3    1 |    d = casualty
+    3   32    0    3 1834    1    6    1    6    2    5   20    0    0 |    e = electricity
+   20   56    4    4    1 1733   17    2   24    0    6    3   28   14 |    f = fire
+   20    5    3    2    3    5 1798    6    9    1   21    2   19    9 |    g = fire_brigade
+    6    3   37    2    0    6   17 1669   46   74   12    0    7    7 |    h = flood
+    3    0   10    7    1    9   13   47 1768   13   27    4   11    3 |    i = gas
+    0    0    4    0    0    2    0   37    0 1850    4    0    0    0 |    j = injury
+    2    1    5    1    0    3   31    5   10    0 1795    3    7   46 |    k = paramedics
+    0    5    0   69   25    2    6    0    6    0    7 1790    0    0 |    l = person
+   47   11    7    5    1    6   31    3   23    1   13    0 1736   23 |    m = police
+    7    4   39    2    0   23   17    5    3    1   32    0   11 1782 |    n = road_block
+KNN_Ranker_Auto : IBk
+
+=== Evaluation result ===
+
+Scheme: KNN_Ranker_Auto : IBk
+Options: -K 10 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: EXTRACTED_IMAGES-weka.filters.unsupervised.attribute.Remove-V-R4,37,3,21,28,31,20,40,24,43,22,85,18,42,99,30,49,48,33,26-27,55,38,50,25,120,92,39,141,134,2,51,91,127,23,16,56,90,35,89,106,159,57,53,19,29,175,153,104,54,88,113,147,157,179,171,133,105,146,71,139,124,132,138,154,145,14,44,103,97,131,160,64,98,9,110,96,140,125,111-112,155,152,130,87,52,144,32,41,86,78,102,126,109,165,158,95,5,123,167,137,148,169,161,156,1,46,45,100,163,168,185,107,173,142,181,94,108,118,36,121,128,47,11,177,93,117,101,183,129,136,143,122,135,62,116,69,149,119,17,13,34,162,172,12,7,150,68,70,10,164,166,76,63,170,83,114,151,61,15,6,84,115,58,82,67,184,65,182,60,8,81,174,176,186,77,75,66,72,74,178,180,80,59,79,73,187
+
+=== Summary ===
+
+Correctly Classified Instances       22922               85.8277 %
+Incorrectly Classified Instances      3785               14.1723 %
+Kappa statistic                          0.8474
+Mean absolute error                      0.0385
+Root mean squared error                  0.1286
+Relative absolute error                 28.9906 %
+Root relative squared error             49.9234 %
+Total Number of Instances            26707     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,928    0,016    0,813      0,928    0,867      0,858    0,992     0,949     accident
+                 0,922    0,012    0,859      0,922    0,889      0,881    0,989     0,946     bomb
+                 0,898    0,013    0,839      0,898    0,867      0,858    0,984     0,932     car
+                 0,792    0,008    0,881      0,792    0,834      0,823    0,977     0,895     casualty
+                 0,952    0,009    0,886      0,952    0,918      0,912    0,997     0,971     electricity
+                 0,754    0,006    0,902      0,754    0,821      0,812    0,969     0,868     fire
+                 0,895    0,013    0,842      0,895    0,868      0,858    0,983     0,928     fire_brigade
+                 0,833    0,011    0,851      0,833    0,842      0,830    0,977     0,895     flood
+                 0,761    0,010    0,851      0,761    0,803      0,790    0,969     0,855     gas
+                 0,946    0,007    0,917      0,946    0,931      0,926    0,996     0,974     injury
+                 0,809    0,008    0,887      0,809    0,846      0,836    0,978     0,904     paramedics
+                 0,879    0,008    0,889      0,879    0,884      0,875    0,994     0,952     person
+                 0,771    0,009    0,862      0,771    0,814      0,802    0,965     0,864     police
+                 0,879    0,021    0,769      0,879    0,820      0,807    0,976     0,892     road_block
+Weighted Avg.    0,858    0,011    0,860      0,858    0,857      0,848    0,982     0,916     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n   <-- classified as
+ 1770   75    4    2    2    4   13    0    7    0    4    1   13   13 |    a = accident
+   30 1767    0    4   54   34    5    0    0    1    1   14    3    3 |    b = bomb
+   15    1 1691    2    0   21   12   69    3   35   15    0    5   14 |    c = car
+   48   28   13 1521   43    5   29   17   55    2    9  123   13   15 |    d = casualty
+    4   41    0    9 1821    0    4    2    3    3    0   26    0    0 |    e = electricity
+   84   72   24   14    2 1441   42   10   39    2   31   13   63   75 |    f = fire
+   38    8    6    7    4    7 1704   13   14    1   32    2   27   40 |    g = fire_brigade
+    9    2   83   14    0   10   22 1571   34   96    9    0   11   25 |    h = flood
+   32    2   56   51    5   17   34   58 1458   14   48   16   56   69 |    i = gas
+    0    2   24    0    1    1    1   73    0 1794    0    1    0    0 |    j = injury
+   12    2   22    4    2   16   47    6   43    0 1544    4   18  189 |    k = paramedics
+    2   26    0   82  105    0    5    1   10    0    0 1678    1    0 |    l = person
+  108   20   43   12   12   22   78   13   40    3   14    6 1470   66 |    m = police
+   25   12   50    4    5   20   28   14    8    6   34    3   25 1692 |    n = road_block

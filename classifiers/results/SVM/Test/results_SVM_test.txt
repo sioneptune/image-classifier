@@ -1,0 +1,159 @@
+=== Evaluation result ===
+
+Scheme: LibSVM3 : LibSVM
+Options: -S 0 -K 2 -D 3 -G 0.01 -R 0.0 -N 0.5 -M 40.0 -C 100.0 -E 0.001 -P 0.1 -model /home/theotime/Documents/TIV/image-classifier/classifiers -seed 1
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         314               96.0245 %
+Incorrectly Classified Instances        13                3.9755 %
+Kappa statistic                          0.9572
+Mean absolute error                      0.0057
+Root mean squared error                  0.0754
+Relative absolute error                  4.2813 %
+Root relative squared error             29.2618 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.960      1.000    0.980      0.978    0.998     0.960     accident
+                 0.960    0.017    0.828      0.960    0.889      0.882    0.972     0.798     bomb
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     car
+                 0.880    0.003    0.957      0.880    0.917      0.911    0.938     0.851     casualty
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     electricity
+                 0.760    0.003    0.950      0.760    0.844      0.839    0.878     0.740     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.917    0.000    1.000      0.917    0.957      0.954    0.958     0.923     flood
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     gas
+                 1.000    0.003    0.955      1.000    0.977      0.975    0.998     0.955     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    0.998     0.958     paramedics
+                 1.000    0.010    0.880      1.000    0.936      0.933    0.995     0.880     person
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     police
+                 0.955    0.000    1.000      0.955    0.977      0.975    0.977     0.958     road_block
+Weighted Avg.    0.960    0.003    0.963      0.960    0.960      0.958    0.979     0.928     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 24  0  0  0  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 22  0  0  0  0  0  0  0  3  0  0 |  d = casualty
+  0  0  0  0 25  0  0  0  0  0  0  0  0  0 |  e = electricity
+  1  5  0  0  0 19  0  0  0  0  0  0  0  0 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  0  1  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 18  0  0  0  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  1  0  0 21 |  n = road_block
+=== Evaluation result ===
+
+Scheme: LibSVM
+Options: -S 0 -K 2 -D 3 -G 1.0E-4 -R 0.0 -N 0.5 -M 40.0 -C 10000.0 -E 0.001 -P 0.1 -model /home/theotime/Documents/TIV/image-classifier/classifiers -seed 1
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         312               95.4128 %
+Incorrectly Classified Instances        15                4.5872 %
+Kappa statistic                          0.9506
+Mean absolute error                      0.0066
+Root mean squared error                  0.081 
+Relative absolute error                  4.94   %
+Root relative squared error             31.4322 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.960      1.000    0.980      0.978    0.998     0.960     accident
+                 0.960    0.017    0.828      0.960    0.889      0.882    0.972     0.798     bomb
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     car
+                 0.840    0.003    0.955      0.840    0.894      0.888    0.918     0.814     casualty
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     electricity
+                 0.760    0.003    0.950      0.760    0.844      0.839    0.878     0.740     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.917    0.000    1.000      0.917    0.957      0.954    0.958     0.923     flood
+                 0.944    0.000    1.000      0.944    0.971      0.970    0.972     0.948     gas
+                 1.000    0.003    0.955      1.000    0.977      0.975    0.998     0.955     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    0.998     0.958     paramedics
+                 1.000    0.016    0.815      1.000    0.898      0.895    0.992     0.815     person
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     police
+                 0.955    0.000    1.000      0.955    0.977      0.975    0.977     0.958     road_block
+Weighted Avg.    0.954    0.004    0.958      0.954    0.954      0.952    0.975     0.918     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 24  0  0  0  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 21  0  0  0  0  0  0  0  4  0  0 |  d = casualty
+  0  0  0  0 25  0  0  0  0  0  0  0  0  0 |  e = electricity
+  1  5  0  0  0 19  0  0  0  0  0  0  0  0 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  0  1  0  0  0 22  0  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 17  0  0  1  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  1  0  0 21 |  n = road_block
+=== Evaluation result ===
+
+Scheme: LibSVM2 : LibSVM
+Options: -S 0 -K 2 -D 3 -G 3.981072E-4 -R 0.0 -N 0.5 -M 40.0 -C 6309.573 -E 0.001 -P 0.1 -model /home/theotime/Documents/TIV/image-classifier/classifiers -seed 1
+Relation: EXTRACTED_IMAGES
+
+=== Summary ===
+
+Correctly Classified Instances         311               95.107  %
+Incorrectly Classified Instances        16                4.893  %
+Kappa statistic                          0.9473
+Mean absolute error                      0.007 
+Root mean squared error                  0.0836
+Relative absolute error                  5.2693 %
+Root relative squared error             32.4631 %
+Total Number of Instances              327     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.960      1.000    0.980      0.978    0.998     0.960     accident
+                 0.960    0.017    0.828      0.960    0.889      0.882    0.972     0.798     bomb
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     car
+                 0.840    0.000    1.000      0.840    0.913      0.911    0.920     0.852     casualty
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     electricity
+                 0.760    0.003    0.950      0.760    0.844      0.839    0.878     0.740     fire
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     fire_brigade
+                 0.875    0.000    1.000      0.875    0.933      0.931    0.938     0.884     flood
+                 0.944    0.006    0.895      0.944    0.919      0.914    0.969     0.848     gas
+                 1.000    0.003    0.955      1.000    0.977      0.975    0.998     0.955     injury
+                 1.000    0.003    0.958      1.000    0.979      0.977    0.998     0.958     paramedics
+                 1.000    0.016    0.815      1.000    0.898      0.895    0.992     0.815     person
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     police
+                 0.955    0.000    1.000      0.955    0.977      0.975    0.977     0.958     road_block
+Weighted Avg.    0.951    0.004    0.956      0.951    0.951      0.949    0.974     0.912     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n   <-- classified as
+ 24  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = accident
+  0 24  0  0  0  1  0  0  0  0  0  0  0  0 |  b = bomb
+  0  0 25  0  0  0  0  0  0  0  0  0  0  0 |  c = car
+  0  0  0 21  0  0  0  0  0  0  0  4  0  0 |  d = casualty
+  0  0  0  0 25  0  0  0  0  0  0  0  0  0 |  e = electricity
+  1  5  0  0  0 19  0  0  0  0  0  0  0  0 |  f = fire
+  0  0  0  0  0  0 25  0  0  0  0  0  0  0 |  g = fire_brigade
+  0  0  0  0  0  0  0 21  2  1  0  0  0  0 |  h = flood
+  0  0  0  0  0  0  0  0 17  0  0  1  0  0 |  i = gas
+  0  0  0  0  0  0  0  0  0 21  0  0  0  0 |  j = injury
+  0  0  0  0  0  0  0  0  0  0 23  0  0  0 |  k = paramedics
+  0  0  0  0  0  0  0  0  0  0  0 22  0  0 |  l = person
+  0  0  0  0  0  0  0  0  0  0  0  0 23  0 |  m = police
+  0  0  0  0  0  0  0  0  0  0  1  0  0 21 |  n = road_block

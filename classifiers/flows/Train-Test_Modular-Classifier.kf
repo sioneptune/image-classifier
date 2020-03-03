@@ -1,0 +1,343 @@
+{
+	"flow_name" : "Train-Test_Modular-Classifier",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer2"
+				]
+			},
+			"coordinates" : "935,113"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer2"
+			},
+			"connections" : {
+				"text" : [
+					"TextSaver"
+				]
+			},
+			"coordinates" : "1074,113"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "/mnt/data/INSA/4INFO/TIV/image-classifier/data/arff/Train/train_all_features_Zoning_2x2_3x3.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader_Train"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner_Train"
+				]
+			},
+			"coordinates" : "78,105"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "/mnt/data/INSA/4INFO/TIV/image-classifier/data/arff/Test/test_all_features_Zoning_2x2_3x3.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader_Test"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner_Test"
+				]
+			},
+			"coordinates" : "78,276"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TestSetMaker",
+			"properties" : {
+				"name" : "TestSetMaker"
+			},
+			"connections" : {
+				"testSet" : [
+					"AttrSelec_CFS-Greedy"
+				]
+			},
+			"coordinates" : "424,274"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"AttrSelec_CFS-Greedy"
+				]
+			},
+			"coordinates" : "420,104"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "class",
+				"name" : "ClassAssigner_Train"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TrainingSetMaker"
+				]
+			},
+			"coordinates" : "246,104"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "/last",
+				"name" : "ClassAssigner_Test"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TestSetMaker"
+				]
+			},
+			"coordinates" : "246,275"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "final_train_fold",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/models"
+			},
+			"connections" : {
+			},
+			"coordinates" : "963,548"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextSaver",
+			"properties" : {
+				"append" : true,
+				"file" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/results_final-classifier_test",
+				"name" : "TextSaver",
+				"writeTitleString" : false
+			},
+			"connections" : {
+			},
+			"coordinates" : "1227,111"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.attribute.AttributeSelection",
+					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 1\" -S \"weka.attributeSelection.GreedyStepwise -T -1.7976931348623157E308 -N -1 -num-slots 1\""
+				},
+				"name" : "AttrSelec_CFS-Greedy"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"LibSVM22"
+				],
+				"testSet" : [
+					"LibSVM22"
+				]
+			},
+			"coordinates" : "587,193"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "class",
+				"name" : "ClassAssigner_Train2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"AttrSelec_CFS-Greedy2"
+				]
+			},
+			"coordinates" : "256,495"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.functions.LibSVM",
+					"options" : "-S 0 -K 2 -D 3 -G 1.0 -R 0.0 -N 0.5 -M 40.0 -C 10.0 -E 0.001 -P 0.1 -model /mnt/data/INSA/4INFO/TIV/WEKA/weka-3-8-4 -seed 1"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "LibSVM2",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator22",
+					"SerializedModelSaver"
+				]
+			},
+			"coordinates" : "782,495"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.attribute.AttributeSelection",
+					"options" : "-E \"weka.attributeSelection.CfsSubsetEval -P 1 -E 1\" -S \"weka.attributeSelection.GreedyStepwise -T -1.7976931348623157E308 -N -1 -num-slots 1\""
+				},
+				"name" : "AttrSelec_CFS-Greedy2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker"
+				]
+			},
+			"coordinates" : "421,495"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker",
+				"numFolds" : "5",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"LibSVM2"
+				],
+				"testSet" : [
+					"LibSVM2"
+				]
+			},
+			"coordinates" : "584,495"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"collectPredictionsForVisAndAUC" : true,
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator22",
+				"outputConfusionMatrix" : true,
+				"outputEntropyMetrics" : false,
+				"outputPerClassStats" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer22"
+				]
+			},
+			"coordinates" : "951,436"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer22"
+			},
+			"connections" : {
+				"text" : [
+					"TextSaver2"
+				]
+			},
+			"coordinates" : "1090,436"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextSaver",
+			"properties" : {
+				"append" : true,
+				"file" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/results/results_final-classifier_train",
+				"name" : "TextSaver2",
+				"writeTitleString" : false
+			},
+			"connections" : {
+			},
+			"coordinates" : "1243,434"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"properties" : {
+				"filenamePrefix" : "final_test",
+				"includeRelationNameInFilename" : false,
+				"incrementalSaveSchedule" : 0,
+				"name" : "SerializedModelSaver2",
+				"outputDirectory" : "/mnt/data/INSA/4INFO/TIV/image-classifier/classifiers/models"
+			},
+			"connections" : {
+			},
+			"coordinates" : "938,244"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "Modular flow used to test one classifier on train dataset (with KFolds) and on test dataset at the same time.\nCan add or not an AttributeSelection. You can replace the SVM with a MLP or a KNN for instance."
+			},
+			"connections" : {
+			},
+			"coordinates" : "405,28"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "/mnt/data/INSA/4INFO/TIV/Arffitecture Fonctionelle/train_all_features_Zoning_2x2_3x3.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader_Train_Fold"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner_Train2"
+				]
+			},
+			"coordinates" : "85,495"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.functions.LibSVM",
+					"options" : "-S 0 -K 2 -D 3 -G 1.0 -R 0.0 -N 0.5 -M 40.0 -C 10.0 -E 0.001 -P 0.1 -model /mnt/data/INSA/4INFO/TIV/WEKA/weka-3-8-4 -seed 1"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "LibSVM22",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2",
+					"SerializedModelSaver2"
+				]
+			},
+			"coordinates" : "772,193"
+		}
+	]
+}
