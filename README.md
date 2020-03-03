@@ -153,7 +153,7 @@ The theoritical icons are 'Car' but 'Paramedics' was matched instead. Since it r
 
 ### Image pre-processing
 For the feature extraction, two images are computed from every original image:
-* the image cropped to the bouding box (called the "bounding box" image)
+* the image cropped to the bounding box (called the "bounding box" image)
 * the normalized image
 
 In order to get the bounding box, we must modify the original image because some images have stains which come from the scan. We get the average ink color and whiten all the pixels which are not similar to this color. Then, the drawing is dilated to close the holes. Thanks to this process, the computed bounding box is more accurate. 
