@@ -156,14 +156,14 @@ For the feature extraction, two images are computed from every original image:
 * the image cropped to the bouding box (called the "bounding box" image)
 * the normalized image
 
-In order to get the bounding box, we must modify the original image because some images have stains which come from the scan. We get the drawing average color and whiten all the pixels which are not similar to this color. Then, the drawing is dilated to close the holes. Thanks to this processing, the computed bounding box is more precised. 
-The "bounding box" image is used for the image normalization.
+In order to get the bounding box, we must modify the original image because some images have stains which come from the scan. We get the average ink color and whiten all the pixels which are not similar to this color. Then, the drawing is dilated to close the holes. Thanks to this process, the computed bounding box is more accurate. 
+The "bounding box" image is used to normalize the image.
 
-The normalized images all have the exact same dimensions. It is very useful to compare features between images. 
-To normalize each image, we enlarged the biggest dimension of their "bounding box" image to the normalized image frame and we centered it with its other dimension.
+The normalized images all have the exact same dimensions of 180 by 180 pixels. This makes it possible to directly compare features between images. 
+To normalize each image, we scaled the image along its largest axis until it reached the desired dimension, and centered the image along the smaller axis.
 
 ### API implementation
-We have decided to implement an API in order to simplify the ARFF file generation.
+We have decided to implement an API to request certain features in order to simplify the generation of the ARFF files.
 From the main, it is possible to generate an ARFF file by calling the `exportARFF` method and by giving it the list of features that we want. 
 
 The method `exportARFF` iterates over the image list and the feature list to get each feature by calling the appropriate method. 
@@ -174,12 +174,12 @@ Theses classes simplify the ARFF file writing when we have got all the features 
 * Barycenter
 * Convex hull area
 * Bounding box 'height / width' ratio
-* Hu's moments
-* Hierarchy levels maximum of the drawing elements
+* Hu moments
+* Maximum hierarchy levels of the drawing elements
 * Number of straight lines
-* Number of peaks of the drawing histograms from the X and Y axes
-* Bounding box percentage of black pixels (pixels which belongs to the drawing)
-* Zoning: it is possible to apply zoning for the following features: barycenter, Hu's moments, number of lines, number of peaks, pixel rate
+* Number of peaks of the pixel histograms, along both the X and Y axes
+* Percentage of black pixels within the bounding box (pixels which belongs to the drawing)
+* Zoning: zoning applies certain features on certain parts of the image, referred to as zones. It is possible to apply zoning for the following features: barycenter, Hu moments, number of lines, number of peaks, pixel rate
 
 ## Developped classifiers 
 ### ARFF generation
@@ -198,7 +198,7 @@ Combining the feature selection and the zoning schemes, we have 6 possible confi
 * sf\_33_22: selected features with regular 3x3 and regular 2x2 zoning
 * sf\_232: selected features with 3x3 ("2-3-2" proportions) zoning
 
-Finally, the results with the selected features weren't not better than with all the features so we decided to use the attribute selection box (evaluator: CFS subset eval, search method: greedy stepwise) instead. The attributes selected by the box are almost equivalent to the ones we previously chose. The attribute selection box can select features applied to a precise zone, which we couldn't do because of our current API implementation. The box globally selected these features:
+In the end, the results we got with a manual selection of features weren't any better than with all the features so we decided to use the attribute selection box (evaluator: CFS subset eval, search method: greedy stepwise) instead. The attributes selected by the box are almost equivalent to the ones we previously chose. The attribute selection box can select features applied to a precise zone, which we couldn't do because of our current API implementation. The box globally selected these features:
 * Barycenter
 * Convex hull area
 * "Height/width" ratio
@@ -236,10 +236,10 @@ SVM classifiers were optimised through GridSearch and tested with every ARFF con
 **Best result on the train dataset**: cost=10, gamma=1, configuration=af\_33_22, accuracy=96,72% (with or without attribute selection)
 **Best result on the test dataset**: cost=10, gamma=1, configuration=af\_33_22, accuracy=96,33% (without attribute selection)
 
-Better results were found with GridSearch but they didn't give the same results when we tried them after. There were:
+Better results were obtained during the GridSearch process, but couldn't be replicated using a standalone SVM with the same parameters. These were:
 
-**Best result on the train dataset**: cost=10^1,1, gamma=10^-0,05, configuration=af\_33_22, accuracy=98,23% (with or without attribute selection)
-**Best result on the test dataset**: cost=10^1,1, gamma=10^-0,05, configuration=af\_33_22, accuracy=97,88% (without attribute selection)
+**Best result on the train dataset**: cost=10^(1,1), gamma=10^(-0,05), configuration=af\_33_22, accuracy=98,23% (with or without attribute selection)
+**Best result on the test dataset**: cost=10^(1,1), gamma=10^(-0,05), configuration=af\_33_22, accuracy=97,88% (without attribute selection)
 
 
 ### Conclusion
@@ -248,7 +248,7 @@ The best models are:
 * SVM cost=10, gamma=1
 with the configuration: all features, zoning 3x3 and 2x2
 
-These classifiers wrongly classify some *fire* images and mixe up *casualty* and *person* images. Those are some improvement axes we can focus on if we want a better classifier.
+These classifiers wrongly classify some *fire* images and mixe up *casualty* and *person* images. Improving our classifier will probably entail searching for the cause of those mixups, and adapting our features and models accordingly.
 
 
 
