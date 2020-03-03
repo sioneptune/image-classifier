@@ -213,7 +213,7 @@ In the end, the results we got with a manual selection of features weren't any b
 	* Hu's moments
 	* Number of lines
 
-### Results using KNN classifiers
+### Results for KNN classifiers
 Every ARFF configuration combined with KNN, K from K=1 to K=13, was tested.
 
 **Best result on the train dataset**: K=10, configuration=af\_33_22, accuracy=93.01% (with attribute selection)
@@ -248,7 +248,7 @@ The best models are:
 * SVM cost=10, gamma=1
 with the configuration: all features, zoning 3x3 and 2x2
 
-These classifiers wrongly classify some *fire* images and mixe up *casualty* and *person* images. Improving our classifier will probably entail searching for the cause of those mixups, and adapting our features and models accordingly.
+These classifiers wrongly classify some *fire* images and mix up *casualty* and *person* images. Improving our classifier will probably entail searching for the cause of those mixups, and adapting our features and models accordingly.
 
 
 
