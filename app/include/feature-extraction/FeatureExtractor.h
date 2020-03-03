@@ -68,7 +68,7 @@ private:
      * @param decoupY is a vector containing the cutting proportion along the Y axis
      * @return a vector of the cut sub-images
      */
-    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY);
+    vector<Mat> zones(Mat &image, vector<int> decoupX, vector<int> decoupY) const;
 
     /**
      * All the following methods are based on the same principle. From an image, they compute a set of features (may be 1) and return it.
@@ -86,7 +86,7 @@ private:
     vector<Feature *> HuMoments(const Mat& normImage, const string prefix = "") const;
     // Computes the hierarchy levels maximum of the drawing elements
     Feature* levelsOfHierarchy(const Mat& image, const string prefix = "") const;
-    // Computes the drawing number of lines
+    // Computes the drawing number of straight lines
     Feature * lines(const Mat &normImage, const int threshNum, const string prefix = "") const;
     // Computes the drawing number of distinct elements
     Feature* numberOfElements(const Mat &image) const;

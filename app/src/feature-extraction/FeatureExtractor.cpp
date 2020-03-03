@@ -174,7 +174,7 @@ Mat FeatureExtractor::normalization(const Mat &bbImage, const int size) const {
     return normalized;
 }
 
-vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int> decoupY) {
+vector<Mat> FeatureExtractor::zones(Mat &image, vector<int> decoupX, vector<int> decoupY) const{
     vector<Mat> zones(decoupX.size() * decoupY.size());
 
     int sizeX = image.cols;
